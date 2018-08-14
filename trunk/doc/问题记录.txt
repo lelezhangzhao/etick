@@ -17,6 +17,11 @@
 
 user
 
+latestthirtytrade 最近30天交易（在登录时更新）
+
+
+
+
 etiforbuy 挂单买入
 etiforsale 挂单卖出
 buyeti 买入积分记录
@@ -27,6 +32,9 @@ antiwavefootmatchinfo
 antiwavefootlead 带单
 antiwavefootwelfare 福利单
 antiwavefootbanker 庄家单
+
+antiwaveleadinfo 带单信息,成功率，收益率..
+lolleadinfo
 
 lolmatch
 lolmatchinfo
@@ -63,6 +71,8 @@ gameantitenhundred
 gameantitenthousand
 
 arbitration 仲裁
+
+lottery 抽奖
 
 sign
 
