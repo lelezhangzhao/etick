@@ -12,3 +12,64 @@
 打款锁定后，与买方沟通后，两小时不打款，卖方可以提出仲裁，取消该锁定，并处罚买方100积分给卖方作为补偿
 
 买方打款后，与卖方沟通后，两小时不确定，买方可以提出仲裁，强制确认该交易，并处罚卖方100积分给买方作为补偿
+
+
+
+user
+
+etiforbuy 挂单买入
+etiforsale 挂单卖出
+buyeti 买入积分记录
+saleeti 卖出积分记录
+
+antiwavefootmatch
+antiwavefootmatchinfo
+antiwavefootlead 带单
+antiwavefootwelfare 福利单
+antiwavefootbanker 庄家单
+
+lolmatch
+lolmatchinfo
+antiwavefootlead
+antiwavefootwelfare
+antiwavefootbander
+
+intergral 积分记录
+
+payformatchinfo 下注记录
+
+bankersystem 庄家系统
+
+teamprofit 团队人数对应奖励
+
+leader 领导人
+
+gamelastone 人生赢家
+
+gametwoten 幸运玩家 2 10
+gamethreeten
+gametenten
+
+gametwohundred 幸运玩家 2 100
+gamethreetenhundred
+gametentenhundred
+
+gametwothousand 幸运玩家 2 1000
+gamethreetenthousand
+gametententhousand
+
+gameantitenten 反幸运玩家 10 10
+gameantitenhundred
+gameantitenthousand
+
+arbitration 仲裁
+
+sign
+
+ip
+
+
+
+
+
+
