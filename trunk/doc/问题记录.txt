@@ -16,67 +16,70 @@
 
 
 user
-
+creditrecord 信用分记录
 latestthirtytrade 最近30天交易（在登录时更新）
 
 
 
 
-etiforbuy 挂单买入
-etiforsale 挂单卖出
-buyeti 买入积分记录
-saleeti 卖出积分记录
+entrustmentbuying 挂单买入
+entrustmentsaling 挂单卖出
+directbuying 直接买入积分记录
+directsaling 直接卖出积分记录
 
-antiwavefootmatch
-antiwavefootmatchinfo
-antiwavefootlead 带单
-antiwavefootwelfare 福利单
-antiwavefootbanker 庄家单
+matchtype 赛区
+matchteam 比赛队
 
-antiwaveleadinfo 带单信息,成功率，收益率..
-lolleadinfo
+
+antiwavefootballmatch
+antiwavefootballcompetitionguessing 赛事竞猜
+antiwavefootballleadcompetitionguessing 带单
+antiwavefootballwelfarecompetitionguessing 福利单
+antiwavefootballbanker 庄家单
+antiwavefootballbankercompetitionguessing 庄家单竞猜
+antiwavefootballleadinfo 带单信息,成功率，收益率..
+
 
 lolmatch
-lolmatchinfo
-antiwavefootlead
-antiwavefootwelfare
-antiwavefootbander
+lolcompetitionguessing
+lolleadcompetitionguessing
+lolwelfarecompetitionguessing
+lolbanker
+lolbankercompetitionguessing
+lolleadinfo
 
-intergral 积分记录
+etirecord 积分记录
+etitrade 积分交易记录(没有实现，和挂单买入/卖出、直接买入/卖出重复)
 
-payformatchinfo 下注记录
+bettingrecord 下注记录
 
-bankersystem 庄家系统
+bankersystem 庄家系统(没有实现，目 前功能 在庄家 单中已包括)
 
 teamprofit 团队人数对应奖励
 
 leader 领导人
 
-gamelastone 人生赢家
+thelastone 人生赢家获奖记录
+gamethelastone 人生赢家
 
-gametwoten 幸运玩家 2 10
-gamethreeten
-gametenten
+
+
+
 
 gametwohundred 幸运玩家 2 100
-gamethreetenhundred
-gametentenhundred
 
-gametwothousand 幸运玩家 2 1000
-gamethreetenthousand
-gametententhousand
 
-gameantitenten 反幸运玩家 10 10
-gameantitenhundred
-gameantitenthousand
+
+gameantitenhundred 反幸运玩家 10 100
+
 
 arbitration 仲裁
 
-lottery 抽奖
+lottery 抽奖(没有实现)
 
-sign
+signrecord(没有实现)
 
-ip
+ip(没有实现)
 
 
 
