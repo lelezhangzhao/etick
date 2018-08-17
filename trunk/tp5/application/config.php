@@ -136,10 +136,19 @@ return [
         'taglib_begin' => '{',
         // 标签库标签结束标记
         'taglib_end'   => '}',
+
     ],
 
     // 视图输出字符串内容替换
-    'view_replace_str'       => [],
+    'view_replace_str'       => [
+        '__CSS__' => '/tp5/public/static/css',
+        '__JS__' => '/tp5/public/static/js',
+        '__IMAGE__' => '/tp5/public/static/image',
+        '__LAYUI__' => '/tp5/public/static/layui',
+        '__LAYER__' => '/tp5/public/static/layer',
+        '__QRCODE__' => '/tp5/public/static/qrcodejs',
+        '__DTREE__' => '/tp5/public/static/dtree',
+    ],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
     'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
@@ -236,4 +245,13 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+
+    //验证码
+    'captcha' =>[
+        'imageH' => 55,
+        'length' => 4,
+        'fontSize' => 30,
+        'reset' => true,
+    ],
+
 ];

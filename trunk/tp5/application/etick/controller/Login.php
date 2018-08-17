@@ -5,6 +5,6 @@ use think\Controller;
 
 class Login extends Controller{
 	public function Login(){
-		echo phpinfo();
+		return $this->fetch('login');
 	}
 }
