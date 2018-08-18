@@ -1,0 +1,2951 @@
+version: 1
+creator: xdebug 2.2.5
+cmd: D:\composer\composer.phar
+part: 1
+positions: line
+
+events: Time
+
+fl=php:internal
+fn=php::extension_loaded
+14 0
+
+fl=php:internal
+fn=php::Phar::mapPhar
+23 0
+
+fl=php:internal
+fn=php::setlocale
+7 0
+
+fl=php:internal
+fn=php::file_exists
+15 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/autoload_real.php
+fn=require_once::phar://D:/composer/composer.phar/vendor/composer/autoload_real.php
+1 0
+
+fl=php:internal
+fn=php::spl_autoload_register
+22 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=require::phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+1 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/autoload_real.php
+fn=ComposerAutoloaderInitComposerPhar1525427099::loadClassLoader
+9 999
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=require::phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+calls=1 0 0
+12 0
+
+fl=php:internal
+fn=php::spl_autoload_call
+23 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/autoload_real.php
+cfn=ComposerAutoloaderInitComposerPhar1525427099::loadClassLoader
+calls=1 0 0
+0 999
+
+fl=php:internal
+fn=php::spl_autoload_unregister
+24 0
+
+fl=php:internal
+fn=php::defined
+26 0
+
+fl=php:internal
+fn=php::function_exists
+26 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/autoload_static.php
+fn=require_once::phar://D:/composer/composer.phar/vendor/composer/autoload_static.php
+1 0
+
+fl=php:internal
+fn=php::Closure::bind
+112 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/autoload_static.php
+fn=Composer\Autoload\ComposerStaticInitComposerPhar1525427099::getInitializer
+106 0
+cfl=php:internal
+cfn=php::Closure::bind
+calls=1 0 0
+112 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/autoload_static.php
+fn=Composer\Autoload\ClassLoader::Composer\Autoload\{closure}
+108 0
+
+fl=php:internal
+fn=php::call_user_func:{phar://D:/composer/composer.phar/vendor/composer/autoload_real.php:30}
+30 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/autoload_static.php
+cfn=Composer\Autoload\ClassLoader::Composer\Autoload\{closure}
+calls=1 0 0
+30 0
+
+fl=php:internal
+fn=php::spl_autoload_register
+302 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->register
+300 0
+cfl=php:internal
+cfn=php::spl_autoload_register
+calls=1 0 0
+302 0
+
+fl=php:internal
+fn=php::function_exists
+14 0
+
+fl=php:internal
+fn=php::define
+15 0
+
+fl=php:internal
+fn=php::define
+16 0
+
+fl=php:internal
+fn=php::define
+17 0
+
+fl=php:internal
+fn=php::function_exists
+54 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/polyfill-mbstring/bootstrap.php
+fn=require::phar://D:/composer/composer.phar/vendor/symfony/polyfill-mbstring/bootstrap.php
+1 0
+cfl=php:internal
+cfn=php::function_exists
+calls=1 0 0
+14 0
+cfl=php:internal
+cfn=php::define
+calls=1 0 0
+15 0
+cfl=php:internal
+cfn=php::define
+calls=1 0 0
+16 0
+cfl=php:internal
+cfn=php::define
+calls=1 0 0
+17 0
+cfl=php:internal
+cfn=php::function_exists
+calls=1 0 0
+54 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/autoload_real.php
+fn=composerRequireComposerPhar1525427099
+63 999
+cfl=phar://D:/composer/composer.phar/vendor/symfony/polyfill-mbstring/bootstrap.php
+cfn=require::phar://D:/composer/composer.phar/vendor/symfony/polyfill-mbstring/bootstrap.php
+calls=1 0 0
+66 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/autoload_real.php
+fn=ComposerAutoloaderInitComposerPhar1525427099::getLoader
+16 0
+cfl=php:internal
+cfn=php::spl_autoload_register
+calls=1 0 0
+22 0
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+23 999
+cfl=php:internal
+cfn=php::spl_autoload_unregister
+calls=1 0 0
+24 0
+cfl=php:internal
+cfn=php::defined
+calls=1 0 0
+26 0
+cfl=php:internal
+cfn=php::function_exists
+calls=1 0 0
+26 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/autoload_static.php
+cfn=require_once::phar://D:/composer/composer.phar/vendor/composer/autoload_static.php
+calls=1 0 0
+28 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/autoload_static.php
+cfn=Composer\Autoload\ComposerStaticInitComposerPhar1525427099::getInitializer
+calls=1 0 0
+30 0
+cfl=php:internal
+cfn=php::call_user_func:{phar://D:/composer/composer.phar/vendor/composer/autoload_real.php:30}
+calls=1 0 0
+30 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->register
+calls=1 0 0
+48 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/autoload_real.php
+cfn=composerRequireComposerPhar1525427099
+calls=1 0 0
+56 999
+
+fl=phar://D:/composer/composer.phar/vendor/autoload.php
+fn=include::phar://D:/composer/composer.phar/vendor/autoload.php
+1 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/autoload_real.php
+cfn=require_once::phar://D:/composer/composer.phar/vendor/composer/autoload_real.php
+calls=1 0 0
+5 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/autoload_real.php
+cfn=ComposerAutoloaderInitComposerPhar1525427099::getLoader
+calls=1 0 0
+7 1999
+
+fl=phar://D:/composer/composer.phar/src/bootstrap.php
+fn=includeIfExists
+13 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+15 0
+cfl=phar://D:/composer/composer.phar/vendor/autoload.php
+cfn=include::phar://D:/composer/composer.phar/vendor/autoload.php
+calls=1 0 0
+15 1999
+
+fl=phar://D:/composer/composer.phar/src/bootstrap.php
+fn=require::phar://D:/composer/composer.phar/src/bootstrap.php
+1 0
+cfl=phar://D:/composer/composer.phar/src/bootstrap.php
+cfn=includeIfExists
+calls=1 0 0
+18 1999
+
+fl=php:internal
+fn=php::error_reporting
+14 0
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/Factory.php
+fn=include::phar://D:/composer/composer.phar/src/Composer/Factory.php
+1 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 1000
+cfl=phar://D:/composer/composer.phar/src/Composer/Factory.php
+cfn=include::phar://D:/composer/composer.phar/src/Composer/Factory.php
+calls=1 0 0
+444 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 1000
+
+fl=php:internal
+fn=php::spl_autoload_call
+17 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 1000
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 999
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 999
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 999
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleInterface.php
+fn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleInterface.php
+1 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleInterface.php
+cfn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleInterface.php
+calls=1 0 0
+444 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 999
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 0
+
+fl=php:internal
+fn=php::spl_autoload_call
+22 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 999
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+1 0
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+22 999
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+calls=1 0 0
+444 999
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 999
+
+fl=php:internal
+fn=php::spl_autoload_call
+228 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 999
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+84 0
+
+fl=php:internal
+fn=php::count
+72 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+64 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+calls=1 0 0
+67 0
+cfl=php:internal
+cfn=php::count
+calls=1 0 0
+72 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+84 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setBackground
+110 0
+
+fl=php:internal
+fn=php::count
+72 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+64 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+calls=1 0 0
+67 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setBackground
+calls=1 0 0
+70 0
+cfl=php:internal
+cfn=php::count
+calls=1 0 0
+72 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/Factory.php
+fn=Composer\Factory::createAdditionalStyles
+225 0
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+228 999
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+calls=1 0 0
+228 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+calls=1 0 0
+229 0
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 999
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 999
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterInterface.php
+fn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterInterface.php
+1 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterInterface.php
+cfn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterInterface.php
+calls=1 0 0
+444 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 999
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 0
+
+fl=php:internal
+fn=php::spl_autoload_call
+22 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 999
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+1 0
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+22 999
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+calls=1 0 0
+444 999
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 999
+
+fl=php:internal
+fn=php::spl_autoload_call
+241 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 999
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+84 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setBackground
+110 0
+
+fl=php:internal
+fn=php::count
+72 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+64 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+calls=1 0 0
+67 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setBackground
+calls=1 0 0
+70 0
+cfl=php:internal
+cfn=php::count
+calls=1 0 0
+72 0
+
+fl=php:internal
+fn=php::strtolower
+105 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+103 0
+cfl=php:internal
+cfn=php::strtolower
+calls=1 0 0
+105 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+84 0
+
+fl=php:internal
+fn=php::count
+72 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+64 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+calls=1 0 0
+67 0
+cfl=php:internal
+cfn=php::count
+calls=1 0 0
+72 0
+
+fl=php:internal
+fn=php::strtolower
+105 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+103 0
+cfl=php:internal
+cfn=php::strtolower
+calls=1 0 0
+105 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+84 0
+
+fl=php:internal
+fn=php::count
+72 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+64 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+calls=1 0 0
+67 0
+cfl=php:internal
+cfn=php::count
+calls=1 0 0
+72 0
+
+fl=php:internal
+fn=php::strtolower
+105 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+103 0
+cfl=php:internal
+cfn=php::strtolower
+calls=1 0 0
+105 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+84 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setBackground
+110 0
+
+fl=php:internal
+fn=php::count
+72 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+64 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setForeground
+calls=1 0 0
+67 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->setBackground
+calls=1 0 0
+70 0
+cfl=php:internal
+cfn=php::count
+calls=1 0 0
+72 0
+
+fl=php:internal
+fn=php::strtolower
+105 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+103 0
+cfl=php:internal
+cfn=php::strtolower
+calls=1 0 0
+105 0
+
+fl=php:internal
+fn=php::strtolower
+105 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+103 0
+cfl=php:internal
+cfn=php::strtolower
+calls=1 0 0
+105 0
+
+fl=php:internal
+fn=php::strtolower
+105 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+103 0
+cfl=php:internal
+cfn=php::strtolower
+calls=1 0 0
+105 0
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleStack.php
+fn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleStack.php
+1 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 1000
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleStack.php
+cfn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleStack.php
+calls=1 0 0
+444 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 1000
+
+fl=php:internal
+fn=php::spl_autoload_call
+81 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 1000
+
+fl=php:internal
+fn=php::count
+72 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+64 0
+cfl=php:internal
+cfn=php::count
+calls=1 0 0
+72 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleStack.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyleStack->reset
+37 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleStack.php
+fn=Symfony\Component\Console\Formatter\OutputFormatterStyleStack->__construct
+28 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+calls=1 0 0
+30 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleStack.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyleStack->reset
+calls=1 0 0
+31 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->__construct
+68 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+calls=1 0 0
+72 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+calls=1 0 0
+72 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+calls=1 0 0
+73 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+calls=1 0 0
+73 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+calls=1 0 0
+74 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+calls=1 0 0
+74 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyle.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyle->__construct
+calls=1 0 0
+75 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+calls=1 0 0
+75 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+calls=1 0 0
+78 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->setStyle
+calls=1 0 0
+78 0
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+81 1000
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatterStyleStack.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatterStyleStack->__construct
+calls=1 0 0
+81 0
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 999
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/OutputInterface.php
+fn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Output/OutputInterface.php
+1 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/OutputInterface.php
+cfn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Output/OutputInterface.php
+calls=1 0 0
+444 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 0
+
+fl=php:internal
+fn=php::spl_autoload_call
+31 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+fn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+1 0
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+31 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+cfn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+calls=1 0 0
+444 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 999
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 0
+
+fl=php:internal
+fn=php::spl_autoload_call
+32 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 999
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+fn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+1 0
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+32 999
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+cfn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+calls=1 0 0
+444 999
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 999
+
+fl=php:internal
+fn=php::spl_autoload_call
+29 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 999
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutputInterface.php
+fn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutputInterface.php
+1 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutputInterface.php
+cfn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutputInterface.php
+calls=1 0 0
+444 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 0
+
+fl=php:internal
+fn=php::spl_autoload_call
+30 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+fn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+1 0
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+29 999
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+30 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+cfn=include::phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+calls=1 0 0
+444 999
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 999
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 999
+
+fl=php:internal
+fn=php::spl_autoload_call
+243 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 1999
+
+fl=php:internal
+fn=php::function_exists
+124 0
+
+fl=php:internal
+fn=php::php_uname
+124 0
+
+fl=php:internal
+fn=php::getenv
+125 0
+
+fl=php:internal
+fn=php::implode
+129 0
+
+fl=php:internal
+fn=php::stripos
+129 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+fn=Symfony\Component\Console\Output\ConsoleOutput->isRunningOS400
+121 0
+cfl=php:internal
+cfn=php::function_exists
+calls=1 0 0
+124 0
+cfl=php:internal
+cfn=php::php_uname
+calls=1 0 0
+124 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+125 0
+cfl=php:internal
+cfn=php::implode
+calls=1 0 0
+129 0
+cfl=php:internal
+cfn=php::stripos
+calls=1 0 0
+129 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+fn=Symfony\Component\Console\Output\ConsoleOutput->hasStdoutSupport
+99 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+cfn=Symfony\Component\Console\Output\ConsoleOutput->isRunningOS400
+calls=1 0 0
+101 0
+
+fl=php:internal
+fn=php::fopen
+139 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+fn=Symfony\Component\Console\Output\ConsoleOutput->openOutputStream
+135 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+cfn=Symfony\Component\Console\Output\ConsoleOutput->hasStdoutSupport
+calls=1 0 0
+137 0
+cfl=php:internal
+cfn=php::fopen
+calls=1 0 0
+139 0
+
+fl=php:internal
+fn=php::is_resource
+45 0
+
+fl=php:internal
+fn=php::get_resource_type
+45 0
+
+fl=php:internal
+fn=php::function_exists
+95 0
+
+fl=php:internal
+fn=php::getenv
+97 0
+
+fl=php:internal
+fn=php::getenv
+98 0
+
+fl=php:internal
+fn=php::getenv
+99 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+fn=Symfony\Component\Console\Output\StreamOutput->hasColorSupport
+91 0
+cfl=php:internal
+cfn=php::function_exists
+calls=1 0 0
+95 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+97 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+98 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+99 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->setDecorated
+87 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+fn=Symfony\Component\Console\Output\Output->__construct
+40 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->setDecorated
+calls=1 0 0
+44 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+fn=Symfony\Component\Console\Output\StreamOutput->__construct
+43 0
+cfl=php:internal
+cfn=php::is_resource
+calls=1 0 0
+45 0
+cfl=php:internal
+cfn=php::get_resource_type
+calls=1 0 0
+45 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+cfn=Symfony\Component\Console\Output\StreamOutput->hasColorSupport
+calls=1 0 0
+52 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+cfn=Symfony\Component\Console\Output\Output->__construct
+calls=1 0 0
+55 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->isDecorated
+95 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+fn=Symfony\Component\Console\Output\Output->isDecorated
+74 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->isDecorated
+calls=1 0 0
+76 0
+
+fl=php:internal
+fn=php::function_exists
+124 0
+
+fl=php:internal
+fn=php::php_uname
+124 0
+
+fl=php:internal
+fn=php::getenv
+125 0
+
+fl=php:internal
+fn=php::implode
+129 0
+
+fl=php:internal
+fn=php::stripos
+129 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+fn=Symfony\Component\Console\Output\ConsoleOutput->isRunningOS400
+121 0
+cfl=php:internal
+cfn=php::function_exists
+calls=1 0 0
+124 0
+cfl=php:internal
+cfn=php::php_uname
+calls=1 0 0
+124 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+125 0
+cfl=php:internal
+cfn=php::implode
+calls=1 0 0
+129 0
+cfl=php:internal
+cfn=php::stripos
+calls=1 0 0
+129 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+fn=Symfony\Component\Console\Output\ConsoleOutput->hasStderrSupport
+110 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+cfn=Symfony\Component\Console\Output\ConsoleOutput->isRunningOS400
+calls=1 0 0
+112 0
+
+fl=php:internal
+fn=php::fopen
+149 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+fn=Symfony\Component\Console\Output\ConsoleOutput->openErrorStream
+145 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+cfn=Symfony\Component\Console\Output\ConsoleOutput->hasStderrSupport
+calls=1 0 0
+147 0
+cfl=php:internal
+cfn=php::fopen
+calls=1 0 0
+149 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+fn=Symfony\Component\Console\Output\Output->getFormatter
+58 0
+
+fl=php:internal
+fn=php::is_resource
+45 0
+
+fl=php:internal
+fn=php::get_resource_type
+45 0
+
+fl=php:internal
+fn=php::function_exists
+95 0
+
+fl=php:internal
+fn=php::getenv
+97 0
+
+fl=php:internal
+fn=php::getenv
+98 0
+
+fl=php:internal
+fn=php::getenv
+99 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+fn=Symfony\Component\Console\Output\StreamOutput->hasColorSupport
+91 0
+cfl=php:internal
+cfn=php::function_exists
+calls=1 0 0
+95 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+97 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+98 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+99 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->setDecorated
+87 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+fn=Symfony\Component\Console\Output\Output->__construct
+40 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->setDecorated
+calls=1 0 0
+44 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+fn=Symfony\Component\Console\Output\StreamOutput->__construct
+43 999
+cfl=php:internal
+cfn=php::is_resource
+calls=1 0 0
+45 0
+cfl=php:internal
+cfn=php::get_resource_type
+calls=1 0 0
+45 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+cfn=Symfony\Component\Console\Output\StreamOutput->hasColorSupport
+calls=1 0 0
+52 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+cfn=Symfony\Component\Console\Output\Output->__construct
+calls=1 0 0
+55 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->setDecorated
+87 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+fn=Symfony\Component\Console\Output\Output->setDecorated
+66 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->setDecorated
+calls=1 0 0
+68 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->setDecorated
+87 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+fn=Symfony\Component\Console\Output\Output->setDecorated
+66 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->setDecorated
+calls=1 0 0
+68 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+fn=Symfony\Component\Console\Output\ConsoleOutput->setDecorated
+53 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+cfn=Symfony\Component\Console\Output\Output->setDecorated
+calls=1 0 0
+55 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+cfn=Symfony\Component\Console\Output\Output->setDecorated
+calls=1 0 0
+56 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+fn=Symfony\Component\Console\Output\ConsoleOutput->__construct
+38 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+cfn=Symfony\Component\Console\Output\ConsoleOutput->openOutputStream
+calls=1 0 0
+40 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+cfn=Symfony\Component\Console\Output\StreamOutput->__construct
+calls=1 0 0
+40 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+cfn=Symfony\Component\Console\Output\Output->isDecorated
+calls=1 0 0
+42 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+cfn=Symfony\Component\Console\Output\ConsoleOutput->openErrorStream
+calls=1 0 0
+43 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+cfn=Symfony\Component\Console\Output\Output->getFormatter
+calls=1 0 0
+43 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/StreamOutput.php
+cfn=Symfony\Component\Console\Output\StreamOutput->__construct
+calls=1 0 0
+43 999
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+cfn=Symfony\Component\Console\Output\ConsoleOutput->setDecorated
+calls=1 0 0
+46 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/Factory.php
+fn=Composer\Factory::createOutput
+238 0
+cfl=phar://D:/composer/composer.phar/src/Composer/Factory.php
+cfn=Composer\Factory::createAdditionalStyles
+calls=1 0 0
+240 999
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+241 999
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->__construct
+calls=1 0 0
+241 1000
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+243 1999
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/ConsoleOutput.php
+cfn=Symfony\Component\Console\Output\ConsoleOutput->__construct
+calls=1 0 0
+243 999
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=include::phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+1 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=include::phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+calls=1 0 0
+444 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 0
+
+fl=php:internal
+fn=php::spl_autoload_call
+19 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 0
+
+fl=php:internal
+fn=php::extension_loaded
+39 0
+
+fl=php:internal
+fn=php::getenv
+40 0
+
+fl=php:internal
+fn=php::ReflectionExtension->__construct
+43 0
+
+fl=php:internal
+fn=php::ReflectionExtension->getVersion
+44 0
+
+fl=php:internal
+fn=php::strval
+44 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->__construct
+36 0
+cfl=php:internal
+cfn=php::extension_loaded
+calls=1 0 0
+39 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+40 0
+cfl=php:internal
+cfn=php::ReflectionExtension->__construct
+calls=1 0 0
+43 0
+cfl=php:internal
+cfn=php::ReflectionExtension->getVersion
+calls=1 0 0
+44 0
+cfl=php:internal
+cfn=php::strval
+calls=1 0 0
+44 0
+
+fl=php:internal
+fn=php::getenv
+63 0
+
+fl=php:internal
+fn=php::strval
+63 0
+
+fl=php:internal
+fn=php::explode
+63 0
+
+fl=php:internal
+fn=php::defined
+119 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->needsRestart
+117 0
+cfl=php:internal
+cfn=php::defined
+calls=1 0 0
+119 0
+
+fl=php:internal
+fn=php::strtr
+373 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::strrpos
+378 0
+
+fl=php:internal
+fn=php::substr
+379 0
+
+fl=php:internal
+fn=php::substr
+382 0
+
+fl=php:internal
+fn=php::file_exists
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFileWithExtension
+370 0
+cfl=php:internal
+cfn=php::strtr
+calls=1 0 0
+373 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::strrpos
+calls=1 0 0
+378 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+379 0
+cfl=php:internal
+cfn=php::substr
+calls=1 0 0
+382 0
+cfl=php:internal
+cfn=php::file_exists
+calls=1 0 0
+384 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->findFile
+335 1000
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFileWithExtension
+calls=1 0 0
+351 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/Util/IniHelper.php
+fn=include::phar://D:/composer/composer.phar/src/Composer/Util/IniHelper.php
+1 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\includeFile
+442 0
+cfl=phar://D:/composer/composer.phar/src/Composer/Util/IniHelper.php
+cfn=include::phar://D:/composer/composer.phar/src/Composer/Util/IniHelper.php
+calls=1 0 0
+444 0
+
+fl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+fn=Composer\Autoload\ClassLoader->loadClass
+319 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->findFile
+calls=1 0 0
+321 1000
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\includeFile
+calls=1 0 0
+322 0
+
+fl=php:internal
+fn=php::spl_autoload_call
+139 0
+cfl=phar://D:/composer/composer.phar/vendor/composer/ClassLoader.php
+cfn=Composer\Autoload\ClassLoader->loadClass
+calls=1 0 0
+0 1000
+
+fl=php:internal
+fn=php::getenv
+36 0
+
+fl=php:internal
+fn=php::php_ini_loaded_file
+42 0
+
+fl=php:internal
+fn=php::strval
+42 0
+
+fl=php:internal
+fn=php::php_ini_scanned_files
+44 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/Util/IniHelper.php
+fn=Composer\Util\IniHelper::getAll
+34 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+36 0
+cfl=php:internal
+cfn=php::php_ini_loaded_file
+calls=1 0 0
+42 0
+cfl=php:internal
+cfn=php::strval
+calls=1 0 0
+42 0
+cfl=php:internal
+cfn=php::php_ini_scanned_files
+calls=1 0 0
+44 0
+
+fl=php:internal
+fn=php::count
+140 0
+
+fl=php:internal
+fn=php::sys_get_temp_dir
+160 0
+
+fl=php:internal
+fn=php::tempnam
+160 3000
+
+fl=php:internal
+fn=php::file_get_contents
+173 0
+
+fl=php:internal
+fn=php::preg_replace
+173 0
+
+fl=php:internal
+fn=php::ini_get
+177 0
+
+fl=php:internal
+fn=php::ini_get
+178 0
+
+fl=php:internal
+fn=php::ini_get
+179 0
+
+fl=php:internal
+fn=php::defined
+181 0
+
+fl=php:internal
+fn=php::file_put_contents
+186 2001
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->writeTmpIni
+158 999
+cfl=php:internal
+cfn=php::sys_get_temp_dir
+calls=1 0 0
+160 0
+cfl=php:internal
+cfn=php::tempnam
+calls=1 0 0
+160 3000
+cfl=php:internal
+cfn=php::file_get_contents
+calls=1 0 0
+173 0
+cfl=php:internal
+cfn=php::preg_replace
+calls=1 0 0
+173 0
+cfl=php:internal
+cfn=php::ini_get
+calls=1 0 0
+177 0
+cfl=php:internal
+cfn=php::ini_get
+calls=1 0 0
+178 0
+cfl=php:internal
+cfn=php::ini_get
+calls=1 0 0
+179 0
+cfl=php:internal
+cfn=php::defined
+calls=1 0 0
+181 0
+cfl=php:internal
+cfn=php::file_put_contents
+calls=1 0 0
+186 2001
+
+fl=php:internal
+fn=php::implode
+218 0
+
+fl=php:internal
+fn=php::putenv
+218 0
+
+fl=php:internal
+fn=php::putenv
+223 0
+
+fl=php:internal
+fn=php::implode
+235 0
+
+fl=php:internal
+fn=php::putenv
+235 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->setEnvironment
+210 0
+cfl=php:internal
+cfn=php::implode
+calls=1 0 0
+218 0
+cfl=php:internal
+cfn=php::putenv
+calls=1 0 0
+218 0
+cfl=php:internal
+cfn=php::putenv
+calls=1 0 0
+223 0
+cfl=php:internal
+cfn=php::implode
+calls=1 0 0
+235 0
+cfl=php:internal
+cfn=php::putenv
+calls=1 0 0
+235 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->prepareRestart
+136 0
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+139 1000
+cfl=phar://D:/composer/composer.phar/src/Composer/Util/IniHelper.php
+cfn=Composer\Util\IniHelper::getAll
+calls=1 0 0
+139 0
+cfl=php:internal
+cfn=php::count
+calls=1 0 0
+140 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->writeTmpIni
+calls=1 0 0
+142 6000
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->setEnvironment
+calls=1 0 0
+143 0
+
+fl=php:internal
+fn=php::in_array
+250 0
+
+fl=php:internal
+fn=php::in_array
+250 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+fn=Symfony\Component\Console\Formatter\OutputFormatter->isDecorated
+95 0
+
+fl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+fn=Symfony\Component\Console\Output\Output->isDecorated
+74 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Formatter/OutputFormatter.php
+cfn=Symfony\Component\Console\Formatter\OutputFormatter->isDecorated
+calls=1 0 0
+76 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->getScriptArgs
+248 0
+cfl=php:internal
+cfn=php::in_array
+calls=1 0 0
+250 0
+cfl=php:internal
+cfn=php::in_array
+calls=1 0 0
+250 0
+cfl=phar://D:/composer/composer.phar/vendor/symfony/console/Output/Output.php
+cfn=Symfony\Component\Console\Output\Output->isDecorated
+calls=1 0 0
+254 0
+
+fl=php:internal
+fn=php::array_merge
+197 0
+
+fl=php:internal
+fn=php::defined
+275 0
+
+fl=php:internal
+fn=php::strpbrk
+279 0
+
+fl=php:internal
+fn=php::preg_replace
+280 0
+
+fl=php:internal
+fn=php::preg_match
+283 0
+
+fl=php:internal
+fn=php::strpbrk
+286 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->escape
+273 0
+cfl=php:internal
+cfn=php::defined
+calls=1 0 0
+275 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+279 0
+cfl=php:internal
+cfn=php::preg_replace
+calls=1 0 0
+280 0
+cfl=php:internal
+cfn=php::preg_match
+calls=1 0 0
+283 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+286 0
+
+fl=php:internal
+fn=php::defined
+275 0
+
+fl=php:internal
+fn=php::strpbrk
+279 0
+
+fl=php:internal
+fn=php::preg_replace
+280 0
+
+fl=php:internal
+fn=php::preg_match
+283 0
+
+fl=php:internal
+fn=php::strpbrk
+286 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->escape
+273 0
+cfl=php:internal
+cfn=php::defined
+calls=1 0 0
+275 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+279 0
+cfl=php:internal
+cfn=php::preg_replace
+calls=1 0 0
+280 0
+cfl=php:internal
+cfn=php::preg_match
+calls=1 0 0
+283 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+286 0
+
+fl=php:internal
+fn=php::defined
+275 0
+
+fl=php:internal
+fn=php::strpbrk
+279 0
+
+fl=php:internal
+fn=php::preg_replace
+280 0
+
+fl=php:internal
+fn=php::preg_match
+283 0
+
+fl=php:internal
+fn=php::strpbrk
+286 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->escape
+273 0
+cfl=php:internal
+cfn=php::defined
+calls=1 0 0
+275 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+279 0
+cfl=php:internal
+cfn=php::preg_replace
+calls=1 0 0
+280 0
+cfl=php:internal
+cfn=php::preg_match
+calls=1 0 0
+283 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+286 0
+
+fl=php:internal
+fn=php::defined
+275 0
+
+fl=php:internal
+fn=php::strpbrk
+279 0
+
+fl=php:internal
+fn=php::preg_replace
+280 0
+
+fl=php:internal
+fn=php::preg_match
+283 0
+
+fl=php:internal
+fn=php::strpbrk
+286 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->escape
+273 0
+cfl=php:internal
+cfn=php::defined
+calls=1 0 0
+275 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+279 0
+cfl=php:internal
+cfn=php::preg_replace
+calls=1 0 0
+280 0
+cfl=php:internal
+cfn=php::preg_match
+calls=1 0 0
+283 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+286 0
+
+fl=php:internal
+fn=php::defined
+275 0
+
+fl=php:internal
+fn=php::strpbrk
+279 0
+
+fl=php:internal
+fn=php::preg_replace
+280 0
+
+fl=php:internal
+fn=php::preg_match
+283 0
+
+fl=php:internal
+fn=php::strpbrk
+286 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->escape
+273 0
+cfl=php:internal
+cfn=php::defined
+calls=1 0 0
+275 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+279 0
+cfl=php:internal
+cfn=php::preg_replace
+calls=1 0 0
+280 0
+cfl=php:internal
+cfn=php::preg_match
+calls=1 0 0
+283 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+286 0
+
+fl=php:internal
+fn=php::defined
+275 0
+
+fl=php:internal
+fn=php::strpbrk
+279 0
+
+fl=php:internal
+fn=php::preg_replace
+280 0
+
+fl=php:internal
+fn=php::preg_match
+283 0
+
+fl=php:internal
+fn=php::strpbrk
+286 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->escape
+273 0
+cfl=php:internal
+cfn=php::defined
+calls=1 0 0
+275 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+279 0
+cfl=php:internal
+cfn=php::preg_replace
+calls=1 0 0
+280 0
+cfl=php:internal
+cfn=php::preg_match
+calls=1 0 0
+283 0
+cfl=php:internal
+cfn=php::strpbrk
+calls=1 0 0
+286 0
+
+fl=php:internal
+fn=php::array_map
+199 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->escape
+calls=1 0 0
+199 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->escape
+calls=1 0 0
+199 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->escape
+calls=1 0 0
+199 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->escape
+calls=1 0 0
+199 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->escape
+calls=1 0 0
+199 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->escape
+calls=1 0 0
+199 0
+
+fl=php:internal
+fn=php::implode
+199 0
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->getCommand
+194 999
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->getScriptArgs
+calls=1 0 0
+197 0
+cfl=php:internal
+cfn=php::array_merge
+calls=1 0 0
+197 0
+cfl=php:internal
+cfn=php::array_map
+calls=1 0 0
+199 0
+cfl=php:internal
+cfn=php::implode
+calls=1 0 0
+199 0
+
+fl=php:internal
+fn=php::passthru
+101 534698583
+
+fl=php:internal
+fn=php::unlink
+104 1999
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->restart
+99 0
+cfl=php:internal
+cfn=php::passthru
+calls=1 0 0
+101 534698583
+cfl=php:internal
+cfn=php::unlink
+calls=1 0 0
+104 1999
+
+fl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+fn=Composer\XdebugHandler->check
+61 0
+cfl=php:internal
+cfn=php::getenv
+calls=1 0 0
+63 0
+cfl=php:internal
+cfn=php::strval
+calls=1 0 0
+63 0
+cfl=php:internal
+cfn=php::explode
+calls=1 0 0
+63 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->needsRestart
+calls=1 0 0
+65 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->prepareRestart
+calls=1 0 0
+66 7001
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->getCommand
+calls=1 0 0
+67 999
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->restart
+calls=1 0 0
+68 534700582
+
+fl=phar://D:/composer/composer.phar/bin/composer
+fn=require::phar://D:/composer/composer.phar/bin/composer
+1 0
+cfl=php:internal
+cfn=php::setlocale
+calls=1 0 0
+7 0
+cfl=phar://D:/composer/composer.phar/src/bootstrap.php
+cfn=require::phar://D:/composer/composer.phar/src/bootstrap.php
+calls=1 0 0
+8 1999
+cfl=php:internal
+cfn=php::error_reporting
+calls=1 0 0
+14 0
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+17 1000
+cfl=phar://D:/composer/composer.phar/src/Composer/Factory.php
+cfn=Composer\Factory::createOutput
+calls=1 0 0
+17 5999
+cfl=php:internal
+cfn=php::spl_autoload_call
+calls=1 0 0
+19 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->__construct
+calls=1 0 0
+19 0
+cfl=phar://D:/composer/composer.phar/src/Composer/XdebugHandler.php
+cfn=Composer\XdebugHandler->check
+calls=1 0 0
+20 534708584
+
+fl=D:\composer\composer.phar
+fn={main}
+
+summary: 534718584
+
+1 1000
+cfl=php:internal
+cfn=php::extension_loaded
+calls=1 0 0
+14 0
+cfl=php:internal
+cfn=php::Phar::mapPhar
+calls=1 0 0
+23 0
+cfl=phar://D:/composer/composer.phar/bin/composer
+cfn=require::phar://D:/composer/composer.phar/bin/composer
+calls=1 0 0
+24 534717583
+

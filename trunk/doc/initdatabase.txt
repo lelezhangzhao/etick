@@ -1,0 +1,25 @@
+
+
+insert into etick_football_match_type(caption, zonelogo)
+values
+("中超", "c:\logo");
+
+insert into etick_football_match_team(caption, teamlogo)
+values
+("大连", "c:\logo"),
+("广州", "c:\logo");
+
+insert into etick_antiwave_football_match(caption, footballmatchtypeid, footballmatchteamhostid, footballmatchteamguestid, status, statusinfo, matchtime, displaytime, disappeartime)
+values
+("中超", 1, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00"),
+("中超", 1, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00"),
+("中超", 1, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00"),
+("中超", 1, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00");
+
+insert into etick_antiwave_football_competition_guessing(caption, antiwavefootballmatchid, type, typeinfo, score, theodds, status, statusinfo, totaleti, frozeneti, remaineti)
+values
+("大连：广州", 1, 0, "全场", "1:1", 0.05, 0, "未结算", 100000, 20000, 80000),
+("大连：广州", 1, 1, "上半场", "1:1", 0.05, 0, "未结算", 100000, 20000, 80000),
+("大连：广州", 1, 2, "上半场", "1:1", 0.05, 0, "未结算", 100000, 20000, 80000),
+("大连", 1, 3, "角球", "14", 0.05, 0, "未结算", 100000, 20000, 80000),
+("广州", 1, 0, "角球", "1:1", 0.05, 0, "未结算", 100000, 20000, 80000);

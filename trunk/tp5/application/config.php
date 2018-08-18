@@ -148,6 +148,7 @@ return [
         '__LAYER__' => '/tp5/public/static/layer',
         '__QRCODE__' => '/tp5/public/static/qrcodejs',
         '__DTREE__' => '/tp5/public/static/dtree',
+        '__MD5__' => '/tp5/public/static/md5',
     ],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',

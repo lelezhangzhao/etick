@@ -1,0 +1,29 @@
+{layout name="layout" $title="忘记密码" /}
+<div class="container">
+    <form action="javascript:;" class="form-horizontal">
+        <div class="form-group">
+            <input type="text" class="form-control" id="forgetpassword_username" placeholder="用户名" />
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="forgetpassword_tel" placeholder="手机号" />
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-default" id="forgetpassword_gettelidentify">获取验证码</button>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="forgetpassword_telidentify" placeholder="手机验证码" />
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="forgetpassword_newpassword" placeholder="新密码" />
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="forgetpassword_captcha" placeholder="图片验证码" />
+        </div>
+        <div class="form-group">
+            <img id="forgetpassword_captcha_img" src="{:captcha_src()}" onclick="this.src='/tp5/public/index.php/captcha?id='+Math.random()" style="cursor: pointer;position:relative;left:0%;" /><br />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default" id="forgetpassword_fixpassword" >确认</button>
+        </div>
+    </form>
+</div>
