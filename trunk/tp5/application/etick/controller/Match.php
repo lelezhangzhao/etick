@@ -29,7 +29,7 @@ class Match extends Controller{
         return $this->fetch('antiwavefootballmatch');
     }
 
-    public function GetAntiFootballMatchList(){
+    public function GetAntiwaveFootballMatchList(){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
@@ -48,7 +48,7 @@ class Match extends Controller{
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($antiFootballMatchList));
     }
 
-    public function GetAntiFootballMatchCompetitionGuessing(Request $request){
+    public function GetAntiWaveFootballMatchCompetitionGuessing(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
@@ -78,7 +78,7 @@ class Match extends Controller{
 
     }
 
-    public function GetLeadMatchListAntiFootball(Request $request){
+    public function GetAntiwaveFootballMatchListLeadCompetitionGuessing(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
@@ -110,7 +110,7 @@ class Match extends Controller{
 
     }
 
-    public function GetWelfareMatchListAntiFootball(Request $request){
+    public function GetAntiwaveFootballMatchListWelfareCompetitionGuessing(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
@@ -140,7 +140,27 @@ class Match extends Controller{
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($antiwavefootballwelfarecompetitionguessing));
     }
 
-    public function GetNormalMatchListLOL(Request $request){
+    public function GetLOLMatchList(){
+        $userstatus = UserStatusApi::TestUserLoginAndStatus();
+        if(true !== $userstatus){
+            return $userstatus;
+        }
+
+        //获取可显示比赛
+        $lolMatchList = LOLMatchModel::where('status', 0)
+            ->whereTime('displaytime', '<=', date('Y-m-d H:i:s'))
+            ->whereTime('disappeartime', '>=', date('Y-m-d H:i:s'))
+            ->select();
+
+        if(count($lolMatchList) === 0){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_NOMATCHMATCH');
+        }
+
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($lolMatchList));
+
+    }
+
+    public function GetLOLMatchListCompetitionGuessing(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
@@ -170,7 +190,7 @@ class Match extends Controller{
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($lolcompetitionguessing));
     }
 
-    public function GetLeadMatchListLOL(Request $request){
+    public function GetLOLMatchListLeadCompetitionGuessing(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
@@ -200,7 +220,7 @@ class Match extends Controller{
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($lolleadcompetitionguessing));
     }
 
-    public function GetWelfareMatchListLOL(Request $request){
+    public function GetLOLMatchListWelfareCompetitionGuessing(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;

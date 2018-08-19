@@ -230,7 +230,7 @@ $(function(){
     $.GetAntiwaveFootballMatch = function(){
         $.ajax({
             type:"get",
-            url:"/tp5/public/index.php/etick/match/getantifootballmatchlist",
+            url:"/tp5/public/index.php/etick/match/getantiwavefootballmatchlist",
             async:true,
             dataType:"json",
             success:function(data){
@@ -238,16 +238,10 @@ $(function(){
                 switch(data.code){
                     case 'ERROR_STATUS_SUCCESS':
                         var matchobject = JSON.parse(data.jsoncontent);
-                        var html;
+                        var html = "";
                         for(var i = 0; i < matchobject.length; ++i){
                             var match = matchobject[i];
-                            html += "<div class='container antiwavefootballmatchsubcontainer' id='antiwavefootballmatchid" +
-                                    match.id +
-                                "' onclick='match()'>" +
-                                "<button type='button' class='btn btn-default antiwavefootballmatchsubcontainer'>" +
-                                    match.caption+
-                                "</button>" +
-                                "</div>";
+                            html += $.AddAntiwaveFootballMatch(match);
                         }
                         $("#antiwavefootballmatchcontainer").html(html);
 
@@ -262,13 +256,21 @@ $(function(){
         });
     };
 
-    $("button").click(function(){
-        // alert(123);
-        var id = this.id;
-    });
+    $.AddAntiwaveFootballMatch = function(match){
+        var html =
+            "<div class='container antiwavefootballmatchsubcontainer' id='antiwavefootballmatchid" +
+            match.id +
+            "' onclick='match()'>" +
+            "<button type='button' class='btn btn-default antiwavefootballmatchsubcontainer' onclick='GetAntiwaveFootbalMatchCompetitionGuessing(" +
+                match.id +
+        ")'>" +
+            match.caption+
+            "</button>" +
+            "</div>";
+        return html;
+    }
+
+
 });
 
-function match(){
-    alert(1);
-}
 
