@@ -3,7 +3,7 @@ namespace app\etick\model;
 
 use think\Model;
 
-class LOLBanker extends Model
+class LolBanker extends Model
 {
 
 }

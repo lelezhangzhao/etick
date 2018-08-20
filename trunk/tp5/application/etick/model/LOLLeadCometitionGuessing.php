@@ -3,7 +3,7 @@ namespace app\etick\model;
 
 use think\Model;
 
-class LOLLeadCometitionGuessing extends Model
+class LolLeadCometitionGuessing extends Model
 {
 
 }

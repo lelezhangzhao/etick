@@ -2,6 +2,7 @@
 
 namespace app\etick\controller;
 
+use app\etick\api\Database;
 use app\etick\api\UserStatus;
 use app\etick\model\AntiwaveFootballMatch;
 use app\etick\model\AntiwaveFootballWelfareCompetitionGuessing;
@@ -13,13 +14,13 @@ use think\Validate;
 
 use app\etick\model\User as UserModel;
 use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
-use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessing;
-use app\etick\model\AntiwaveFootballLeadCompetitionGuessing as AntiwaveFootballLeadCompetitionGuessing;
-use app\etick\model\AntiwaveFootballBankerCompetitionGuessing as AntiwaveFootballBankerCompetitionGuessing;
-use app\etick\model\LOLMatch as LOLMatchModel;
-use app\etick\model\LOLCompetitionGuessing as LOLCompetitionGuessingModel;
-use app\etick\model\LOLLeadCometitionGuessing as LOLLeadCompetitionGuessingModel;
-use app\etick\model\LOLBankerCompetitionGuessing as LOLBankerComptitionGuessingModel;
+use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
+use app\etick\model\AntiwaveFootballLeadCompetitionGuessing as AntiwaveFootballLeadCompetitionGuessingModel;
+use app\etick\model\AntiwaveFootballBankerCompetitionGuessing as AntiwaveFootballBankerCompetitionGuessingModel;
+use app\etick\model\LolMatch as LolMatchModel;
+use app\etick\model\LolCompetitionGuessing as LolCompetitionGuessingModel;
+use app\etick\model\LolLeadCometitionGuessing as LolLeadCompetitionGuessingModel;
+use app\etick\model\LolBankerCompetitionGuessing as LolBankerComptitionGuessingModel;
 use app\etick\model\BettingRecord as BettingRecordModel;
 
 use app\etick\api\Status as StatusApi;
@@ -28,7 +29,7 @@ use app\etick\api\Times as TimesApi;
 use app\etick\api\UserStatus as UserStatusApi;
 use app\etick\api\Util as UtilApi;
 
-class CompetitionGuessing extends Controller{
+class AntiwaveFootballCompetitionGuessing extends Controller{
     public function BettingCompetitionGuessing(Request $request){
         //用户状态
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
@@ -38,8 +39,8 @@ class CompetitionGuessing extends Controller{
 
         //获取参数
         $matchid = $request->param('matchid');
-        $guessingtype = $request->param('competitionguessingtype');
-        $guessingid = $request->param('competitionguessingid');
+        $guessingtype = $request->param('guessingtype');
+        $guessingid = $request->param('guessingid');
         $eti = $request->param('eti');
         $userid = Session::get('userid');
 
@@ -61,16 +62,16 @@ class CompetitionGuessing extends Controller{
 
         switch($guessingtype){
             case 0:
-                $guessing = AntiwaveFootballCompetitionGuessing::get($guessingid);
+                $guessing = AntiwaveFootballCompetitionGuessingModel::get($guessingid);
                 break;
             case 1:
-                $guessing = AntiwaveFootballLeadCompetitionGuessing::get($guessingid);
+                $guessing = AntiwaveFootballLeadCompetitionGuessingModel::get($guessingid);
                 break;
             case 2:
-                $guessing = AntiwaveFootballWelfareCompetitionGuessing::get($guessingid);
+                $guessing = AntiwaveFootballWelfareCompetitionGuessingModel::get($guessingid);
                 break;
             case 3:
-                $guessing = AntiwaveFootballBankerCompetitionGuessing::get($guessingid);
+                $guessing = AntiwaveFootballBankerCompetitionGuessingModel::get($guessingid);
                 break;
             default:
                 return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
@@ -93,9 +94,9 @@ class CompetitionGuessing extends Controller{
         }
 
         //用户余额够
-        if($user->eti < $eti){
-            return StatusApi::ReturnErrorStatus('ERROR_STATUS_ETIISNOTENOUGH');
-        }
+//        if($user->eti < $eti){
+//            return StatusApi::ReturnErrorStatus('ERROR_STATUS_ETIISNOTENOUGH');
+//        }
 
 
         //暂不使用事务
@@ -109,7 +110,8 @@ class CompetitionGuessing extends Controller{
         $user->allowField(true)->save();
 
         //插入bettingrecord
-
+        DatabaseApi::AddBettingRecord($userid, 0, 0, $matchid, $guessingid, $eti, 0);
+        return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '下注成功');
 
     }
 }

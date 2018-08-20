@@ -3,7 +3,7 @@ namespace app\etick\model;
 
 use think\Model;
 
-class LOLMatchType extends Model
+class LolMatchType extends Model
 {
 
 }

@@ -225,7 +225,6 @@ $(function(){
 });
 
 
-
 //match
 function GetAntiwaveFootballMatchCompetitionGuessing(matchid){
     $.ajax({
@@ -259,10 +258,34 @@ function GetAntiwaveFootballMatchCompetitionGuessing(matchid){
             $.ShowMsg(msg);
         }
     });
-};
+}
 
-function BettingCompetitionGuessing(matchid, type, guessingid){
-
+function BettingCompetitionGuessing(matchid, guessingtype, guessingid){
+    $.ajax({
+        type:"get",
+        url:"/tp5/public/index.php/etick/antiwave_football_competition_guessing/bettingcompetitionguessing",
+        async:true,
+        dataType:"json",
+        data:{
+            matchid:matchid,
+            guessingtype:guessingtype,
+            guessingid:guessingid,
+            eti:100
+        },
+        success:function(data){
+            data = JSON.parse(data);
+            switch(data.code){
+                case 'ERROR_STATUS_SUCCESS':
+                    $.ShowMsg(data.msg);
+                    break;
+                default:
+                    break;
+            }
+        },
+        error:function(hd, msg){
+            $.ShowMsg(msg);
+        }
+    });
 }
 
 $(function(){
@@ -337,7 +360,7 @@ $(function(){
                 "<a class='' href='#' onclick='BettingCompetitionGuessing(" + competitionGuessing.antiwavefootballmatchid + ", 0, " + competitionGuessing.id + ")'>" +
                     "<div class='container'>" +
                         "<span>" + competitionGuessing.caption + "</span>" +
-                        "<span>赔率：" + competitionGuessing.score * 100 + "%</span>" +
+                        "<span>赔率：" + competitionGuessing.theodds * 100 + "%</span>" +
                         "<span>剩余额度：" + competitionGuessing.remaineti + "</span>" +
                     "</div>" +
                 "</a>" +
