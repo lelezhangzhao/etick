@@ -32,4 +32,8 @@ class Database{
         return true;
     }
 
+    static public function AddBettingRecord($userid, $etickmatchtype, $guessingtype, $matchid, $guessingid, $eti, $etistatus){
+
+    }
+
 }

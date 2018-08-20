@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/8/19 0:40:10                            */
+/* Created on:     2018/8/20 14:25:13                           */
 /*==============================================================*/
 
 
@@ -95,7 +95,7 @@ create table etick_advice
    proofthree           varchar(128),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_advice comment '建议';
@@ -117,7 +117,7 @@ create table etick_antiwave_football_banker
    profiteti            float(12,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_antiwave_football_banker comment '庄家单';
@@ -130,6 +130,7 @@ create table etick_antiwave_football_banker_competition_guessing
    id                   int not null auto_increment,
    caption              varchar(30),
    antiwavefootballbankerid int,
+   antiwavefootballmatchtype int comment '比赛类型，为3=》开庄单',
    type                 int comment '竞猜类型：
             0 全场
             1 半场
@@ -147,7 +148,7 @@ create table etick_antiwave_football_banker_competition_guessing
    remaineti            float(12,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_antiwave_football_banker_competition_guessing comment '庄家单竞猜';
@@ -159,6 +160,8 @@ create table etick_antiwave_football_competition_guessing
 (
    id                   int not null auto_increment,
    antiwavefootballmatchid int,
+   antiwavefootballmatchtype int comment '反波胆赛事类型
+            0 正常赛事',
    caption              varchar(30),
    type                 int comment '竞猜类型：
             0 全场
@@ -180,7 +183,7 @@ create table etick_antiwave_football_competition_guessing
    remaineti            float(12,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_antiwave_football_competition_guessing comment '赛事竞猜';
@@ -193,6 +196,11 @@ create table etick_antiwave_football_lead_competition_guessing
    id                   int not null auto_increment,
    userid               int,
    caption              varchar(30),
+   type                 int comment '竞猜类型：
+            0 全场
+            1 半场
+            2 角球',
+   typeinfo             varchar(30),
    antiwavefootballmatchid int,
    antiwavefootballcompetitionguessingidlist varchar(1024),
    etiperpart           float(12,2) comment '一份方案所需eti',
@@ -208,9 +216,10 @@ create table etick_antiwave_football_lead_competition_guessing
             未中奖为负
             中奖为正 ',
    profitetitotal       float(12,2) comment '带单 人分得总收益',
+   antiwavefootballmatchtype int comment '赛事类型，永远为1=>带单赛事',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_antiwave_football_lead_competition_guessing comment '带单，只有赢利单，才能与下注人分成
@@ -233,7 +242,7 @@ create table etick_antiwave_football_lead_info
    followpersoncount    int comment '总跟单人次',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_antiwave_football_lead_info comment '带单信息
@@ -249,6 +258,12 @@ create table etick_antiwave_football_match
    footballmatchteamhostid int,
    footballmatchteamguestid int,
    caption              varchar(30),
+   types                int comment '反波胆赛事类型
+            0 正常
+            1 带单
+            2 福利
+            3 开庄',
+   typesinfo            varchar(30),
    status               int comment '比赛状态：
             0 未开赛
             1 已开赛
@@ -266,7 +281,7 @@ create table etick_antiwave_football_match
    balancetime          timestamp,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_antiwave_football_match comment '反波胆比赛';
@@ -279,6 +294,7 @@ create table etick_antiwave_football_welfare_competition_guessing
    id                   int not null auto_increment,
    caption              varchar(30),
    antiwavefootballmatchid int,
+   antiwavefootballmatchtype int comment '比赛类型，为2=》福利局',
    type                 int comment '竞猜类型：
             0 全场
             1 半场
@@ -297,7 +313,7 @@ create table etick_antiwave_football_welfare_competition_guessing
    remaineti            float(12,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_antiwave_football_welfare_competition_guessing comment '福利单';
@@ -328,7 +344,7 @@ create table etick_arbitration
    adminarbitrated      bool,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_arbitration comment '仲裁';
@@ -381,7 +397,7 @@ create table etick_betting_record
    etistatusinfo        varchar(30),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_betting_record comment '下注记录';
@@ -403,7 +419,7 @@ create table etick_credit_record
    credit               float(5,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_credit_record comment '信用分记录';
@@ -439,7 +455,7 @@ create table etick_direct_buying
    creditdescription    varchar(30) comment '一方撤销时，该字段记录扣除信用分相关信息',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_direct_buying comment '直接买入记录';
@@ -476,7 +492,7 @@ create table etick_direct_saling
    creditdescription    varchar(30) comment '一方撤销时，该字段记录扣除信用分相关信息',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_direct_saling comment '直接卖出积分记录';
@@ -505,7 +521,7 @@ create table etick_entrustment_buying
    endtime              timestamp,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_entrustment_buying comment '委托买入';
@@ -534,7 +550,7 @@ create table etick_entrustment_saling
    endtime              timestamp,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_entrustment_saling comment '委托卖出';
@@ -568,7 +584,7 @@ create table etick_eti_record
    profittime           timestamp,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_eti_record comment 'eti记录';
@@ -583,7 +599,7 @@ create table etick_football_match_team
    teamlogo             varchar(100) comment '队标，是个路径',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_football_match_team comment '比赛队';
@@ -598,7 +614,7 @@ create table etick_football_match_type
    zonelogo             varchar(100) comment '赛区logo，是个路径',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_football_match_type comment '比赛类型（亚超，世界杯）';
@@ -618,7 +634,7 @@ create table etick_latest_thirty_trade
             ',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_latest_thirty_trade comment '最近30天交易，每天第一次登录时更新（删除30天以外记录）
@@ -634,7 +650,7 @@ create table etick_leader
    reuniontimes         int comment '蝉联次数',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_leader comment '领导人';
@@ -656,7 +672,7 @@ create table etick_lol_banker
    profiteti            float(12,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_lol_banker comment 'lol庄家单';
@@ -668,6 +684,7 @@ create table etick_lol_banker_competition_guessing
 (
    id                   int not null auto_increment,
    caption              varchar(30),
+   lolmatchtype         int comment '3 开庄赛事',
    lolmatchid           int,
    type                 int comment '竞猜类型：
             0 输赢竞猜
@@ -692,7 +709,7 @@ create table etick_lol_banker_competition_guessing
    remaineti            float(12,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_lol_banker_competition_guessing comment 'lol庄家单竞猜';
@@ -704,6 +721,7 @@ create table etick_lol_competition_guessing
 (
    id                   int not null auto_increment,
    caption              varchar(30),
+   lolmatchtype         int comment '0 正常赛事',
    lolmatchid           int,
    type                 int comment '竞猜类型：
             0 输赢竞猜
@@ -730,7 +748,7 @@ create table etick_lol_competition_guessing
    remaineti            float(12,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_lol_competition_guessing comment 'lol竞猜';
@@ -742,6 +760,7 @@ create table etick_lol_lead_competition_guessing
 (
    id                   int not null auto_increment,
    caption              varchar(30),
+   lolmatchtype         int comment '1 带单赛事',
    userid               int,
    lolmatchid           int,
    lolmatchcompetitionguessingidlist varchar(1024),
@@ -757,7 +776,7 @@ create table etick_lol_lead_competition_guessing
    profitetitotal       float(12,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_lol_lead_competition_guessing comment 'lol带单';
@@ -777,7 +796,7 @@ create table etick_lol_lead_info
    followpersoncount    int,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_lol_lead_info comment 'lol带单 人信息';
@@ -789,6 +808,12 @@ create table etick_lol_match
 (
    id                   int not null auto_increment,
    caption              varchar(30),
+   types                int comment '竞猜类型
+            0 正常
+            1 带单
+            2 福利
+            3 开庄',
+   typesinfo            varchar(30),
    matchtypeid          int,
    matchteamhostid      int,
    matchteamguestid     int,
@@ -807,7 +832,7 @@ create table etick_lol_match
    balancetime          timestamp,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_lol_match comment 'lol比赛';
@@ -822,7 +847,7 @@ create table etick_lol_match_team
    teamlogo             varchar(100) comment '队标，是个路径',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_lol_match_team comment '比赛队';
@@ -837,7 +862,7 @@ create table etick_lol_match_type
    zonelogo             varchar(100) comment '赛区logo，是个路径',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_lol_match_type comment '比赛类型（lpl,lck,msi..）';
@@ -849,6 +874,7 @@ create table etick_lol_welfare_competition_guessing
 (
    id                   int not null auto_increment,
    caption              varchar(30),
+   lolmatchtype         int comment '2 福利赛事',
    lolmatchid           int,
    type                 int comment '竞猜类型：
             0 输赢竞猜
@@ -874,7 +900,7 @@ create table etick_lol_welfare_competition_guessing
    remaineti            float(12,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_lol_welfare_competition_guessing comment 'lol福利单';
@@ -889,7 +915,7 @@ create table etick_team_profit
    profitrate           float(12,2),
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_team_profit comment '团队人数对应奖励';
@@ -905,7 +931,7 @@ create table etick_tel_identify
    secondtime           timestamp,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_tel_identify comment '获取手机验证码，同一IP每240秒只能获取两个手机验证码';
@@ -920,7 +946,7 @@ create table etick_the_anti_fortune
    chipintime           timestamp,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_the_anti_fortune comment '反幸运玩家
@@ -937,7 +963,7 @@ create table etick_the_fortune
    chipintime           timestamp,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_the_fortune comment '幸运玩家
@@ -954,7 +980,7 @@ create table etick_the_last_one
    chipintime           timestamp,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_the_last_one comment '游戏人生赢家';
@@ -971,7 +997,7 @@ create table etick_the_last_one_record
    balancetime          timestamp,
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 
 alter table etick_the_last_one_record comment '人生赢家获奖记录';
@@ -1018,6 +1044,6 @@ create table etick_user
    invoke               varchar(100) comment '预留接口',
    primary key (id)
 )
-engine = InnoDB
+type = InnoDB
 auto_increment = 0;
 

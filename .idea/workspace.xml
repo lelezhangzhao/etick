@@ -2,177 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="904b672e-d366-4f02-94f6-ed9b79b335c2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/view/register/register.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/config.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Login.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Login.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/doc/crebas.sql" afterPath="$PROJECT_DIR$/trunk/doc/crebas.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/doc/etick.pdb" afterPath="$PROJECT_DIR$/trunk/doc/etick.pdb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/doc/etick.pdm" afterPath="$PROJECT_DIR$/trunk/doc/etick.pdm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/doc/initdatabase.txt" afterPath="$PROJECT_DIR$/trunk/doc/initdatabase.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/api/UserStatus.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/api/UserStatus.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Register.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Register.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/validate/User.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/validate/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/view/login/login.html" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/view/login/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/.gitignore" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/.travis.yml" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/.travis.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/CONTRIBUTING.md" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/CONTRIBUTING.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/LICENSE.txt" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/LICENSE.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/README.md" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/base.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/base.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/codecov.yml" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/codecov.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/composer.json" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/console.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/console.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/convention.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/convention.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/helper.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/helper.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/lang/zh-cn.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/lang/zh-cn.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/App.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/App.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Build.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Build.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Cache.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Cache.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Collection.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Collection.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Config.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Console.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Console.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Controller.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Cookie.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Cookie.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Db.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Db.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Debug.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Debug.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Env.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Env.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Error.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Error.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Exception.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Exception.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/File.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/File.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Hook.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Hook.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Lang.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Lang.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Loader.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Loader.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Log.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Log.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Model.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Model.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Paginator.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Paginator.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Process.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Process.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Request.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Request.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Response.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Response.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Route.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Route.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Session.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Session.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Template.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Template.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Url.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Url.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Validate.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Validate.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/View.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/View.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/Driver.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/Driver.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/File.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/File.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Lite.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Lite.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Memcache.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Memcache.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Memcached.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Memcached.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Redis.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Redis.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Sqlite.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Sqlite.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Wincache.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Wincache.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Xcache.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/cache/driver/Xcache.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/config/driver/Ini.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/config/driver/Ini.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/config/driver/Json.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/config/driver/Json.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/config/driver/Xml.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/config/driver/Xml.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/Command.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/Command.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/Input.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/Input.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/LICENSE" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/Output.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/Output.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/bin/README.md" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/bin/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/Build.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/Build.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/Clear.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/Clear.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/Help.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/Help.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/Lists.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/Lists.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/Make.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/Make.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/make/Controller.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/make/Controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/make/Model.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/make/Model.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/make/stubs/controller.plain.stub" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/make/stubs/controller.plain.stub" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/make/stubs/controller.stub" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/make/stubs/controller.stub" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/make/stubs/model.stub" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/make/stubs/model.stub" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/optimize/Autoload.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/optimize/Autoload.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/optimize/Config.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/optimize/Config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/optimize/Route.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/optimize/Route.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/optimize/Schema.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/command/optimize/Schema.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/input/Argument.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/input/Argument.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/input/Definition.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/input/Definition.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/input/Option.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/input/Option.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/Ask.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/Ask.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/Descriptor.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/Descriptor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/Formatter.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/Formatter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/Question.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/Question.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/descriptor/Console.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/descriptor/Console.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/driver/Buffer.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/driver/Buffer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/driver/Console.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/driver/Console.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/driver/Nothing.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/driver/Nothing.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/formatter/Stack.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/formatter/Stack.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/formatter/Style.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/formatter/Style.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/question/Choice.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/question/Choice.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/question/Confirmation.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/console/output/question/Confirmation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/controller/Rest.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/controller/Rest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/controller/Yar.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/controller/Yar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/Builder.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/Builder.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/Connection.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/Connection.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/Expression.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/Expression.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/Query.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/Query.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/builder/Mysql.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/builder/Mysql.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/builder/Pgsql.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/builder/Pgsql.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/builder/Sqlite.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/builder/Sqlite.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/builder/Sqlsrv.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/builder/Sqlsrv.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/connector/Mysql.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/connector/Mysql.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/connector/Pgsql.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/connector/Pgsql.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/connector/Sqlite.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/connector/Sqlite.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/connector/Sqlsrv.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/connector/Sqlsrv.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/connector/pgsql.sql" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/connector/pgsql.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/exception/BindParamException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/exception/BindParamException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/exception/DataNotFoundException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/exception/DataNotFoundException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/exception/ModelNotFoundException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/db/exception/ModelNotFoundException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/debug/Console.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/debug/Console.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/debug/Html.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/debug/Html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/ClassNotFoundException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/ClassNotFoundException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/DbException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/DbException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/ErrorException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/ErrorException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/Handle.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/Handle.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/HttpException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/HttpException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/HttpResponseException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/HttpResponseException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/PDOException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/PDOException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/RouteNotFoundException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/RouteNotFoundException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/TemplateNotFoundException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/TemplateNotFoundException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/ThrowableError.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/ThrowableError.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/ValidateException.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/exception/ValidateException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/log/driver/File.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/log/driver/File.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/log/driver/Socket.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/log/driver/Socket.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/log/driver/Test.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/log/driver/Test.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/Collection.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/Collection.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/Merge.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/Merge.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/Pivot.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/Pivot.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/Relation.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/Relation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/BelongsTo.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/BelongsTo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/BelongsToMany.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/BelongsToMany.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/HasMany.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/HasMany.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/HasManyThrough.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/HasManyThrough.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/HasOne.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/HasOne.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/MorphMany.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/MorphMany.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/MorphOne.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/MorphOne.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/MorphTo.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/MorphTo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/OneToOne.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/model/relation/OneToOne.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/paginator/driver/Bootstrap.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/paginator/driver/Bootstrap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/Builder.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/Builder.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/Utils.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/Utils.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/exception/Failed.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/exception/Failed.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/exception/Timeout.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/exception/Timeout.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/pipes/Pipes.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/pipes/Pipes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/pipes/Unix.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/pipes/Unix.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/pipes/Windows.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/process/pipes/Windows.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/response/Json.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/response/Json.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/response/Jsonp.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/response/Jsonp.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/response/Redirect.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/response/Redirect.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/response/View.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/response/View.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/response/Xml.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/response/Xml.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/session/driver/Memcache.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/session/driver/Memcache.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/session/driver/Memcached.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/session/driver/Memcached.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/session/driver/Redis.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/session/driver/Redis.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/template/TagLib.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/template/TagLib.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/template/driver/File.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/template/driver/File.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/template/taglib/Cx.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/template/taglib/Cx.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/view/driver/Php.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/view/driver/Php.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/view/driver/Think.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/view/driver/Think.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/traits/controller/Jump.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/traits/controller/Jump.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/traits/model/SoftDelete.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/traits/model/SoftDelete.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/traits/think/Instance.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/library/traits/think/Instance.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/phpunit.xml" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/phpunit.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/start.php" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/start.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/tpl/default_index.tpl" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/tpl/default_index.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/tpl/dispatch_jump.tpl" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/tpl/dispatch_jump.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/tpl/page_trace.tpl" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/tpl/page_trace.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/thinkphp/tpl/think_exception.tpl" afterPath="$PROJECT_DIR$/trunk/tp5/thinkphp/tpl/think_exception.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/view/match/antiwavefootballmatch.html" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/view/match/antiwavefootballmatch.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/public/static/js/action.js" afterPath="$PROJECT_DIR$/trunk/tp5/public/static/js/action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/public/static/js/etick.js" afterPath="$PROJECT_DIR$/trunk/tp5/public/static/js/etick.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -184,14 +26,22 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Register.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Register.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Register.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-              <folding>
-                <element signature="e#39#60#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="-513">
+              <caret line="30" column="53" lean-forward="true" selection-start-line="30" selection-start-column="53" selection-end-line="30" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Login.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-927">
+              <caret line="7" column="37" lean-forward="false" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -199,18 +49,8 @@
       <file leaf-file-name="Validate.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Validate.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="1079" column="40" lean-forward="false" selection-start-line="1079" selection-start-column="35" selection-end-line="1079" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/App.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="459" column="84" lean-forward="true" selection-start-line="459" selection-start-column="84" selection-end-line="459" selection-end-column="84" />
+            <state relative-caret-position="279">
+              <caret line="1188" column="23" lean-forward="false" selection-start-line="1188" selection-start-column="23" selection-end-line="1188" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -219,8 +59,40 @@
       <file leaf-file-name="action.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/action.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="44" column="48" lean-forward="false" selection-start-line="44" selection-start-column="48" selection-end-line="44" selection-end-column="48" />
+            <state relative-caret-position="270">
+              <caret line="263" column="61" lean-forward="false" selection-start-line="263" selection-start-column="61" selection-end-line="263" selection-end-column="61" />
+              <folding>
+                <marker date="1534748283555" expanded="true" signature="9049:9070" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Match.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2079">
+              <caret line="93" column="59" lean-forward="true" selection-start-line="93" selection-start-column="59" selection-end-line="93" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AntiwaveFootballCompetitionGuessing.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/AntiwaveFootballCompetitionGuessing.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="110" column="25" lean-forward="true" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserStatus.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/UserStatus.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="666">
+              <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -229,58 +101,28 @@
       <file leaf-file-name="Status.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="6" column="31" lean-forward="false" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="31" />
+            <state relative-caret-position="531">
+              <caret line="41" column="51" lean-forward="false" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/register/index.html">
+      <file leaf-file-name="Database.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+            <state relative-caret-position="857">
+              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html">
+      <file leaf-file-name="command.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/command.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="3" column="26" lean-forward="true" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layout.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/layout.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/config.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="133" column="30" lean-forward="true" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/config.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -304,9 +146,20 @@
       <find>template</find>
       <find>length</find>
       <find>IsPoneAvailable</find>
+      <find>gettel</find>
+      <find>ERROR_STATUS_PARAMERROR</find>
+      <find>antiwavefootballmatchcompetitionguessing</find>
+      <find>&lt;div class='panel panel-default' id='antiwavefootballmatchid1' onclick='GetAntiwaveFootbalMatchCompetitionGuessing(1)'&gt;&lt;div class='panel-heading' &gt;&lt;div class='panel-title' &gt;&lt;div class='row' style='background-color:#ccc'&gt;&lt;a data-toggle='collapse' data-parent='#antiwavefootballmatchcontainer' href='antiwavefootballmatchcompetitionguessingcollapse1'&gt;&lt;div class='col-xs-12 col-sm-12 col-md-12' &gt;&lt;p&gt;中超&lt;/p&gt;&lt;/div&gt;&lt;div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' &gt;&lt;p&gt;1&lt;/p&gt;&lt;/div&gt;&lt;div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' &gt;&lt;p&gt;VS&lt;/p&gt;&lt;/div&gt;&lt;div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' &gt;&lt;p&gt;2&lt;/p&gt;&lt;/div&gt;&lt;div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' &gt;&lt;p&gt;2018-08-30 14:00:00&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div id='antiwavefootballmatchcompetitionguessingcollapse1' class='panel-collapse collapse'&gt;&lt;div id='antiwavefootballmatchcompetitionguessingcontainer1' class='panel-body'&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;br /&gt;&lt;div class='panel panel-default' id='antiwavefootballmatchid2' onclick='GetAntiwaveFootbalMatchCompetitionGuessing(2)'&gt;&lt;div class='panel-heading' &gt;&lt;div class='panel-title' &gt;&lt;div class='row' style='background-color:#ccc'&gt;&lt;a data-toggle='collapse' data-parent='#antiwavefootballmatchcontainer' href='antiwavefootballmatchcompetitionguessingcollapse2'&gt;&lt;div class='col-xs-12 col-sm-12 col-md-12' &gt;&lt;p&gt;中超&lt;/p&gt;&lt;/div&gt;&lt;div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' &gt;&lt;p&gt;1&lt;/p&gt;&lt;/div&gt;&lt;div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' &gt;&lt;p&gt;VS&lt;/p&gt;&lt;/div&gt;&lt;div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' &gt;&lt;p&gt;2&lt;/p&gt;&lt;/div&gt;&lt;div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' &gt;&lt;p&gt;2018-08-30 14:00:00&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div id='antiwavefootballmatchcompetitionguessingcollapse2' class='panel-collapse collapse'&gt;&lt;div id='antiwavefootballmatchcompetitionguessingcontainer2' class='panel-body'&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;br /&gt;</find>
+      <find>antiwavefootballmatchcontainer</find>
+      <find>GetAntiwaveFootballMatchCompetitionGuessing</find>
+      <find>getantiwavefootballmatchcompetitionguessing</find>
+      <find>antiwavefootballmatchcompetitionguessingcollapse</find>
+      <find>ERROR_STATUS_HACKER</find>
+      <find>strtotime(TimesApi::GetSystemTime())</find>
     </findStrings>
     <replaceStrings>
       <replace />
+      <replace>TimesApi::GetSystemTime()</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -327,19 +180,33 @@
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/footer.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/register/register.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/validate/User.php" />
-        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/config.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/layout.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/config.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/register/index.html" />
-        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/action.js" />
+        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/etick.js" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Register.php" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/match/antiwavefootballmatch.html" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/active/active.html" />
+        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/action.js" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/api/UserStatus.php" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/CompetitionGuessing.php" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/AntiwaveFootballCompetitionGuessing.php" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php" />
       </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>true</other-services-enabled>
+  </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
@@ -356,10 +223,29 @@
   </component>
   <component name="PhpXdebugProxy" ide_key="phpStrom" host="localetick.xyz" port="80" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="136" />
-    <option name="y" value="261" />
-    <option name="width" value="1710" />
+    <option name="x" value="-217" />
+    <option name="y" value="137" />
+    <option name="width" value="2305" />
     <option name="height" value="1324" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Spelling</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>SpellCheckingInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -379,8 +265,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -661,6 +545,40 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="active" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etick" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etick" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trunk" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tp5" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etick" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="validate" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -741,12 +659,16 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../amp/php-5.6.35-Win32-VC11-x64" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.postfix.templates" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="JavaScriptPreferStrict" value="false" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -831,7 +753,7 @@
       <recursive>false</recursive>
       <method />
     </configuration>
-    <configuration default="false" name="etick" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" server_name="localetick.xyz" start_url="/tp5/public/index.php/etick/register/index">
+    <configuration default="false" name="etick" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" server_name="localetick.xyz" start_url="/tp5/public/index.php/etick/match/index">
       <method />
     </configuration>
     <list size="1">
@@ -850,25 +772,27 @@
       <updated>1534383506867</updated>
       <workItem from="1534383508190" duration="6241000" />
       <workItem from="1534469822712" duration="16074000" />
+      <workItem from="1534730623286" duration="167000" />
+      <workItem from="1534730856204" duration="18087000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22315000" />
+    <option name="totallyTimeSpent" value="40569000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="136" y="261" width="1710" height="1324" extended-state="0" />
+    <frame x="-217" y="137" width="2305" height="1324" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23376623" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2324159" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2900575" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -897,123 +821,44 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="13" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/controller/Index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#39#60#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="15" lean-forward="false" selection-start-line="7" selection-start-column="15" selection-end-line="7" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/view/index/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="86" lean-forward="false" selection-start-line="6" selection-start-column="86" selection-end-line="6" selection-end-column="86" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/validate/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/validate/index.php" />
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/view/index.html" />
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/model/index.php" />
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/view/index/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="86" lean-forward="false" selection-start-line="6" selection-start-column="86" selection-end-line="6" selection-end-column="86" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Controller.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4806">
-          <caret line="187" column="23" lean-forward="false" selection-start-line="187" selection-start-column="23" selection-end-line="187" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/validate/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/controller/Index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="12" column="23" lean-forward="false" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-          <folding>
-            <element signature="e#39#60#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/footer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/register/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="14" column="14" lean-forward="true" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Captcha.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="28" lean-forward="false" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/validate/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" column="56" lean-forward="false" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/login/login.html">
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
-          <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+          <caret line="3" column="26" lean-forward="false" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php">
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3375">
+          <caret line="133" column="30" lean-forward="false" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/etick.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" column="35" lean-forward="false" selection-start-line="1" selection-start-column="35" selection-end-line="1" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Register.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1021,18 +866,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Login.php">
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Validate.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="37" lean-forward="false" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+        <state relative-caret-position="29133">
+          <caret line="1079" column="40" lean-forward="false" selection-start-line="1079" selection-start-column="35" selection-end-line="1079" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/config.php">
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/App.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="12096">
+          <caret line="459" column="84" lean-forward="true" selection-start-line="459" selection-start-column="84" selection-end-line="459" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1188">
+          <caret line="44" column="48" lean-forward="false" selection-start-line="44" selection-start-column="48" selection-end-line="44" selection-end-column="48" />
+          <folding>
+            <marker date="1534748283555" expanded="true" signature="9049:9070" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" column="31" lean-forward="false" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/register/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -1055,8 +926,136 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/application/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
+        <state relative-caret-position="3375">
           <caret line="133" column="30" lean-forward="true" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/controller/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#39#60#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="15" lean-forward="false" selection-start-line="7" selection-start-column="15" selection-end-line="7" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/view/index/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" column="86" lean-forward="false" selection-start-line="6" selection-start-column="86" selection-end-line="6" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/validate/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/validate/index.php" />
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/view/index.html" />
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/model/index.php" />
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/view/index/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" column="86" lean-forward="false" selection-start-line="6" selection-start-column="86" selection-end-line="6" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4806">
+          <caret line="187" column="23" lean-forward="false" selection-start-line="187" selection-start-column="23" selection-end-line="187" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/validate/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/index/controller/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="23" lean-forward="false" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+          <folding>
+            <element signature="e#39#60#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/footer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/register/register.html" />
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Captcha.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="28" lean-forward="false" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/validate/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="9" column="56" lean-forward="false" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/login/login.html" />
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="26" lean-forward="false" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3375">
+          <caret line="133" column="30" lean-forward="false" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -1065,57 +1064,136 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
           <caret line="1" column="1948" lean-forward="false" selection-start-line="1" selection-start-column="1948" selection-end-line="1" selection-end-column="1948" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/register/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
-          <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+          <caret line="12" column="32" lean-forward="false" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Validate.php">
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/etick.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="1079" column="40" lean-forward="false" selection-start-line="1079" selection-start-column="35" selection-end-line="1079" selection-end-column="40" />
+        <state relative-caret-position="270">
+          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/match/antiwavefootballmatch.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/active/active.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/App.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="459" column="84" lean-forward="true" selection-start-line="459" selection-start-column="84" selection-end-line="459" selection-end-column="84" />
+        <state relative-caret-position="747">
+          <caret line="457" column="0" lean-forward="false" selection-start-line="457" selection-start-column="0" selection-end-line="457" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/action.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="44" column="48" lean-forward="false" selection-start-line="44" selection-start-column="48" selection-end-line="44" selection-end-column="48" />
+        <state relative-caret-position="270">
+          <caret line="263" column="61" lean-forward="false" selection-start-line="263" selection-start-column="61" selection-end-line="263" selection-end-column="61" />
+          <folding>
+            <marker date="1534748283555" expanded="true" signature="9049:9070" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Register.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-513">
+          <caret line="30" column="53" lean-forward="true" selection-start-line="30" selection-start-column="53" selection-end-line="30" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-927">
+          <caret line="7" column="37" lean-forward="false" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Validate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="1188" column="23" lean-forward="false" selection-start-line="1188" selection-start-column="23" selection-end-line="1188" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/command.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/UserStatus.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/CompetitionGuessing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-792">
+          <caret line="64" column="82" lean-forward="true" selection-start-line="64" selection-start-column="82" selection-end-line="64" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2079">
+          <caret line="93" column="59" lean-forward="true" selection-start-line="93" selection-start-column="59" selection-end-line="93" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/AntiwaveFootballCompetitionGuessing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="110" column="25" lean-forward="true" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="31" lean-forward="false" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="31" />
+        <state relative-caret-position="531">
+          <caret line="41" column="51" lean-forward="false" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Register.php">
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding>
-            <element signature="e#39#60#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="857">
+          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

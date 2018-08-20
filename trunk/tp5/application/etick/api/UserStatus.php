@@ -30,11 +30,19 @@ class UserStatus{
         }
         $user = UserModel::get(Session::get('userid'));
         if(1 !== $user->role){
-            $user->status = 1;
-            $user->statusinfo = '非法访问IsUserAdmin';
-            $user->allowField(true)->save();
-            return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
+            return self::FrozenUser('非法访问IsUserAdmin');
         }
         return true;
+    }
+
+    static public function FrozenUser($msg){
+        if(false === self::IsUserLogin()){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_NOTLOGIN');
+        }
+        $user = UserModel::get(Session::get('userid'));
+        $user->status = 1;
+        $user->statusinfo = $msg;
+        $user->allowField(true)->save();
+        return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
     }
 }

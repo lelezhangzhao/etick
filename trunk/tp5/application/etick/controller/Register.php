@@ -71,7 +71,7 @@ class Register extends Controller{
         //如果没有直接退出
         //如果有比较两次是否相同,然后删除
         if(false === Session::has('register_tel')){
-            return StatusApi::ReturnErrorStatus('ERROR_STATUS_GETTELIDENTIFYFIRST');
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_PARAMERROR');
         }else if(Session::get('register_tel') !== $tel){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_TELDIFFERENT');
         }

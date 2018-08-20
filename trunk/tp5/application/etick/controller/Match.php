@@ -62,7 +62,7 @@ class Match extends Controller{
 
         //当前match是否可竞猜
         $match = AntiwaveFootballMatchModel::get($matchid);
-        $systemTimestamp = strtotime(TimesApi::GetSystemTime());
+        $systemTimestamp = TimesApi::GetSystemTime();
         if($match->displaytime > $systemTimestamp || $match->disappeartime < $systemTimestamp){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
@@ -92,7 +92,7 @@ class Match extends Controller{
 
         //当前match是否可竞猜
         $match = AntiwaveFootballMatchModel::get($matchid);
-        $systemTimestamp = strtotime(TimesApi::GetSystemTime());
+        $systemTimestamp = TimesApi::GetSystemTime();
         if($match->displaytime > $systemTimestamp || $match->disappeartime < $systemTimestamp){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
@@ -124,7 +124,7 @@ class Match extends Controller{
 
         //当前match是否可竞猜
         $match = AntiwaveFootballMatchModel::get($matchid);
-        $systemTimestamp = strtotime(TimesApi::GetSystemTime());
+        $systemTimestamp = TimesApi::GetSystemTime();
         if($match->displaytime > $systemTimestamp || $match->disappeartime < $systemTimestamp){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
@@ -174,7 +174,7 @@ class Match extends Controller{
 
         //当前match是否可竞猜
         $match = LOLMatchModel::get($matchid);
-        $systemTimestamp = strtotime(TimesApi::GetSystemTime());
+        $systemTimestamp = TimesApi::GetSystemTime();
         if($match->displaytime > $systemTimestamp || $match->disappeartime < $systemTimestamp){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
@@ -204,7 +204,7 @@ class Match extends Controller{
 
         //当前match是否可竞猜
         $match = LOLMatchModel::get($matchid);
-        $systemTimestamp = strtotime(TimesApi::GetSystemTime());
+        $systemTimestamp = TimesApi::GetSystemTime();
         if($match->displaytime > $systemTimestamp || $match->disappeartime < $systemTimestamp){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
@@ -234,7 +234,7 @@ class Match extends Controller{
 
         //当前match是否可竞猜
         $match = LOLMatchModel::get($matchid);
-        $systemTimestamp = strtotime(TimesApi::GetSystemTime());
+        $systemTimestamp = TimesApi::GetSystemTime();
         if($match->displaytime > $systemTimestamp || $match->disappeartime < $systemTimestamp){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }

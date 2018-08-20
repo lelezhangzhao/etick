@@ -225,7 +225,46 @@ $(function(){
 });
 
 
+
 //match
+function GetAntiwaveFootballMatchCompetitionGuessing(matchid){
+    $.ajax({
+        type:"get",
+        url:"/tp5/public/index.php/etick/match/getantiwavefootballmatchcompetitionguessing",
+        async:true,
+        dataType:"json",
+        data:{
+            matchid:matchid
+        },
+        success:function(data){
+            data = JSON.parse(data);
+            switch(data.code){
+                case 'ERROR_STATUS_SUCCESS':
+                    var matchobject = JSON.parse(data.jsoncontent);
+                    var html = "";
+                    for(var i = 0; i < matchobject.length; ++i){
+                        var match = matchobject[i];
+                        html += $.AddAntiwaveFootballMatchCompetitionGuessing(match);
+                    }
+                    $("#antiwavefootballmatchcompetitionguessingcollapse" + matchid).html(html);
+                    break;
+                case 'ERROR_STATUS_MATCHCANTCOMPETITION':
+                    $.ShowMsg(data.msg);
+                    break;
+                default:
+                    break;
+            }
+        },
+        error:function(hd, msg){
+            $.ShowMsg(msg);
+        }
+    });
+};
+
+function BettingCompetitionGuessing(matchid, type, guessingid){
+
+}
+
 $(function(){
     $.GetAntiwaveFootballMatch = function(){
         $.ajax({
@@ -256,20 +295,56 @@ $(function(){
         });
     };
 
+    //添加反波胆赛事
     $.AddAntiwaveFootballMatch = function(match){
         var html =
-            "<div class='container antiwavefootballmatchsubcontainer' id='antiwavefootballmatchid" +
-            match.id +
-            "' onclick='match()'>" +
-            "<button type='button' class='btn btn-default antiwavefootballmatchsubcontainer' onclick='GetAntiwaveFootbalMatchCompetitionGuessing(" +
-                match.id +
-        ")'>" +
-            match.caption+
-            "</button>" +
-            "</div>";
+            "<div class='panel panel-default' id='antiwavefootballmatchid" + match.id + "' onclick='GetAntiwaveFootballMatchCompetitionGuessing(" + match.id + ")'>" +
+                "<div class='panel-heading' >" +
+                    "<div class='panel-title' >" +
+                        "<div class='row' style='background-color:#ccc'>" +
+                            "<a data-toggle='collapse' data-parent='#antiwavefootballmatchcontainer' href='#antiwavefootballmatchcompetitionguessingcollapse" + match.id + "'>" +
+                                "<div class='col-xs-12 col-sm-12 col-md-12' >" +
+                                    "<p>" + match.caption + "</p>" +
+                                "</div>" +
+                                "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' >" +
+                                    "<p>" + match.footballmatchteamhostid + "</p>" +
+                                "</div>" +
+                                "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' >" +
+                                    "<p>VS</p>" +
+                                "</div>" +
+                                "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' >" +
+                                    "<p>" + match.footballmatchteamguestid + "</p>" +
+                                "</div>" +
+                                "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
+                                    "<p>" + match.matchtime + "</p>" +
+                                "</div>" +
+                            "</a>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+                "<div id='antiwavefootballmatchcompetitionguessingcollapse" + match.id + "' class='panel-collapse collapse'>" +
+                    // "<div id='antiwavefootballmatchcompetitionguessingcontainer" + match.id + "' class='panel-body'>" +
+                    // "</div>" +
+                "</div>" +
+            "</div>" +
+            "<br />";
         return html;
-    }
+    };
+    //添加反波胆下注赛事
+    $.AddAntiwaveFootballMatchCompetitionGuessing = function(competitionGuessing){
+        var html =
+            "<div class='panel-body' id='antiwavefootballmatchcompetitionguessing" + competitionGuessing.id + "'>" +
+                "<a class='' href='#' onclick='BettingCompetitionGuessing(" + competitionGuessing.antiwavefootballmatchid + ", 0, " + competitionGuessing.id + ")'>" +
+                    "<div class='container'>" +
+                        "<span>" + competitionGuessing.caption + "</span>" +
+                        "<span>赔率：" + competitionGuessing.score * 100 + "%</span>" +
+                        "<span>剩余额度：" + competitionGuessing.remaineti + "</span>" +
+                    "</div>" +
+                "</a>" +
+            "</div><br />";
 
+        return html;
+    };
 
 });
 
