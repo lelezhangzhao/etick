@@ -50,7 +50,7 @@ class Database{
         $bettingrecord->guessingid = $guessingid;
         $bettingrecord->bettingeti = $eti;
         $bettingrecord->status = 0;
-        $bettingrecord->statusinfo = '未结算';
+        $bettingrecord->statusinfo = '未开赛';
         $bettingrecord->profit = 0;
         $bettingrecord->bettingtime = $systemtime;
         $bettingrecord->etistatue = $etistatus;
