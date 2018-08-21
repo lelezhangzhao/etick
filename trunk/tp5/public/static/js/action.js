@@ -376,3 +376,29 @@ $(function(){
 });
 
 
+//matchrecord
+$(function(){
+    $.GetMatchRecord = function(){
+        $.ajax({
+            type:"get",
+            url:"/tp5/public/index.php/etick/match_record/getmatchrecord",
+            async:true,
+            dataType:"json",
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        var matchobject = JSON.parse(data.jsoncontent);
+                        break;
+                    default:
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
+    }
+});
+
+
