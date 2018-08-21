@@ -69,7 +69,7 @@ class Match extends Controller{
 
         //获取对应matchid的竞猜
         $antiwavefootballcompetitionguessing =
-            AntiwaveFootballCompetitionGuessingModel::where('antiwavefootballmatchid', $matchid)->select();
+            AntiwaveFootballCompetitionGuessingModel::where('matchid', $matchid)->select();
         if(count($antiwavefootballcompetitionguessing) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
@@ -100,7 +100,7 @@ class Match extends Controller{
 
 
         //获取对应matchid的竞猜
-        $antiwavefootballleadcompetitionguessing = AntiwaveFootballLeadCompetitionGuessingModel::where('antiwavefootballmatchid', $matchid)->select();
+        $antiwavefootballleadcompetitionguessing = AntiwaveFootballLeadCompetitionGuessingModel::where('matchid', $matchid)->select();
         if(count($antiwavefootballleadcompetitionguessing) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
@@ -132,7 +132,7 @@ class Match extends Controller{
 
 
         //获取对应matchid的竞猜
-        $antiwavefootballwelfarecompetitionguessing = AntiwaveFootballWelfareCompetitionGuessingModel::where('antiwavefootballmatchid', $matchid)->select();
+        $antiwavefootballwelfarecompetitionguessing = AntiwaveFootballWelfareCompetitionGuessingModel::where('matchid', $matchid)->select();
         if(count($antiwavefootballwelfarecompetitionguessing) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
@@ -182,7 +182,7 @@ class Match extends Controller{
 
 
         //获取对应matchid的竞猜
-        $lolcompetitionguessing = LOLCompetitionGuessingModel::where('lolmatchid', $matchid)->select();
+        $lolcompetitionguessing = LOLCompetitionGuessingModel::where('matchid', $matchid)->select();
         if(count($lolcompetitionguessing) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
@@ -212,7 +212,7 @@ class Match extends Controller{
 
 
         //获取对应matchid的竞猜
-        $lolleadcompetitionguessing = LOLLeadCompetitionGuessingModel::where('lolmatchid', $matchid)->select();
+        $lolleadcompetitionguessing = LOLLeadCompetitionGuessingModel::where('matchid', $matchid)->select();
         if(count($lolleadcompetitionguessing) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
@@ -242,7 +242,7 @@ class Match extends Controller{
 
 
         //获取对应matchid的竞猜
-        $lolwelfarecompetitionguessing = LOLWelfareCompetitionGuessingModel::where('lolmatchid', $matchid)->select();
+        $lolwelfarecompetitionguessing = LOLWelfareCompetitionGuessingModel::where('matchid', $matchid)->select();
         if(count($lolwelfarecompetitionguessing) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }

@@ -260,7 +260,13 @@ function GetAntiwaveFootballMatchCompetitionGuessing(matchid){
     });
 }
 
-function BettingCompetitionGuessing(matchid, guessingtype, guessingid){
+function BettingCompetitionGuessing(matchid, guessingid){
+    //弹出下注框
+    var eti = prompt("下注ETI：", ""); //将输入的内容赋给变量 name ，
+    //这里需要注意的是，prompt有两个参数，前面是提示的话，后面是当对话框出来后，在对话框里的默认值
+    if (!eti){
+        return false;
+    }
     $.ajax({
         type:"get",
         url:"/tp5/public/index.php/etick/antiwave_football_competition_guessing/bettingcompetitionguessing",
@@ -268,9 +274,8 @@ function BettingCompetitionGuessing(matchid, guessingtype, guessingid){
         dataType:"json",
         data:{
             matchid:matchid,
-            guessingtype:guessingtype,
             guessingid:guessingid,
-            eti:100
+            eti:eti
         },
         success:function(data){
             data = JSON.parse(data);
@@ -279,6 +284,7 @@ function BettingCompetitionGuessing(matchid, guessingtype, guessingid){
                     $.ShowMsg(data.msg);
                     break;
                 default:
+                    $.ShowMsg(data.msg);
                     break;
             }
         },
@@ -330,13 +336,13 @@ $(function(){
                                     "<p>" + match.caption + "</p>" +
                                 "</div>" +
                                 "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' >" +
-                                    "<p>" + match.footballmatchteamhostid + "</p>" +
+                                    "<p>" + match.matchteamhostid + "</p>" +
                                 "</div>" +
                                 "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' >" +
                                     "<p>VS</p>" +
                                 "</div>" +
                                 "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' >" +
-                                    "<p>" + match.footballmatchteamguestid + "</p>" +
+                                    "<p>" + match.matchteamguestid + "</p>" +
                                 "</div>" +
                                 "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
                                     "<p>" + match.matchtime + "</p>" +
@@ -346,8 +352,6 @@ $(function(){
                     "</div>" +
                 "</div>" +
                 "<div id='antiwavefootballmatchcompetitionguessingcollapse" + match.id + "' class='panel-collapse collapse'>" +
-                    // "<div id='antiwavefootballmatchcompetitionguessingcontainer" + match.id + "' class='panel-body'>" +
-                    // "</div>" +
                 "</div>" +
             "</div>" +
             "<br />";
@@ -356,8 +360,8 @@ $(function(){
     //添加反波胆下注赛事
     $.AddAntiwaveFootballMatchCompetitionGuessing = function(competitionGuessing){
         var html =
-            "<div class='panel-body' id='antiwavefootballmatchcompetitionguessing" + competitionGuessing.id + "'>" +
-                "<a class='' href='#' onclick='BettingCompetitionGuessing(" + competitionGuessing.antiwavefootballmatchid + ", 0, " + competitionGuessing.id + ")'>" +
+            "<div class='panel-body' id='antiwavefootballmatchcompetitionguessing" + competitionGuessing.id + "' onclick='BettingCompetitionGuessing(" + competitionGuessing.matchid + ", " + competitionGuessing.id + ")'>" +
+                "<a class='' href='#' >" +
                     "<div class='container'>" +
                         "<span>" + competitionGuessing.caption + "</span>" +
                         "<span>赔率：" + competitionGuessing.theodds * 100 + "%</span>" +

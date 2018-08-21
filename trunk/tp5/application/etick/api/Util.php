@@ -15,4 +15,8 @@ class Util{
     static public function HasCaptcha(){
         return false;
     }
+
+    static public function RegisterSendEti(){
+        return true;
+    }
 }

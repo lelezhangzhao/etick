@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/8/20 14:25:13                           */
+/* Created on:     2018/8/21 9:22:32                            */
 /*==============================================================*/
 
 
@@ -107,7 +107,7 @@ create table etick_antiwave_football_banker
 (
    id                   int not null auto_increment,
    userid               int,
-   antiwavefootballmatchid int,
+   matchid              int,
    status               int comment '×¯¼Òµ¥×´Ì¬
             0 Î´¿ªÈü
             1 Ó¯Àû
@@ -129,8 +129,9 @@ create table etick_antiwave_football_banker_competition_guessing
 (
    id                   int not null auto_increment,
    caption              varchar(30),
-   antiwavefootballbankerid int,
-   antiwavefootballmatchtype int comment '±ÈÈüÀàĞÍ£¬Îª3=¡·¿ª×¯µ¥',
+   bankerid             int,
+   guessingtype         int comment '±ÈÈüÀàĞÍ£¬Îª3=¡·¿ª×¯µ¥',
+   guessingtypeinfo     varchar(30),
    type                 int comment '¾º²ÂÀàĞÍ£º
             0 È«³¡
             1 °ë³¡
@@ -159,9 +160,10 @@ alter table etick_antiwave_football_banker_competition_guessing comment '×¯¼Òµ¥¾
 create table etick_antiwave_football_competition_guessing
 (
    id                   int not null auto_increment,
-   antiwavefootballmatchid int,
-   antiwavefootballmatchtype int comment '·´²¨µ¨ÈüÊÂÀàĞÍ
+   matchid              int,
+   guessingtype         int comment '·´²¨µ¨ÈüÊÂÀàĞÍ
             0 Õı³£ÈüÊÂ',
+   guessingtypeinfo     varchar(30),
    caption              varchar(30),
    type                 int comment '¾º²ÂÀàĞÍ£º
             0 È«³¡
@@ -201,8 +203,10 @@ create table etick_antiwave_football_lead_competition_guessing
             1 °ë³¡
             2 ½ÇÇò',
    typeinfo             varchar(30),
-   antiwavefootballmatchid int,
-   antiwavefootballcompetitionguessingidlist varchar(1024),
+   guessingtype         int comment 'ÈüÊÂÀàĞÍ£¬ÓÀÔ¶Îª1=>´øµ¥ÈüÊÂ',
+   guessingtypeinfo     varchar(30),
+   matchid              int,
+   guessingidlist       varchar(1024),
    etiperpart           float(12,2) comment 'Ò»·İ·½°¸ËùĞèeti',
    count                int comment 'ÏÂ×¢´Ë·½°¸·İÊı',
    status               int comment '·½°¸×´Ì¬
@@ -216,7 +220,6 @@ create table etick_antiwave_football_lead_competition_guessing
             Î´ÖĞ½±Îª¸º
             ÖĞ½±ÎªÕı ',
    profitetitotal       float(12,2) comment '´øµ¥ ÈË·ÖµÃ×ÜÊÕÒæ',
-   antiwavefootballmatchtype int comment 'ÈüÊÂÀàĞÍ£¬ÓÀÔ¶Îª1=>´øµ¥ÈüÊÂ',
    primary key (id)
 )
 type = InnoDB
@@ -254,16 +257,15 @@ alter table etick_antiwave_football_lead_info comment '´øµ¥ĞÅÏ¢
 create table etick_antiwave_football_match
 (
    id                   int not null auto_increment,
-   footballmatchtypeid  int,
-   footballmatchteamhostid int,
-   footballmatchteamguestid int,
+   matchteamhostid      int,
+   matchteamguestid     int,
    caption              varchar(30),
-   types                int comment '·´²¨µ¨ÈüÊÂÀàĞÍ
+   guessingtypes        int comment '·´²¨µ¨ÈüÊÂÀàĞÍ
             0 Õı³£
             1 ´øµ¥
             2 ¸£Àû
             3 ¿ª×¯',
-   typesinfo            varchar(30),
+   guessingtypesinfo    varchar(30),
    status               int comment '±ÈÈü×´Ì¬£º
             0 Î´¿ªÈü
             1 ÒÑ¿ªÈü
@@ -279,6 +281,7 @@ create table etick_antiwave_football_match
    displaytime          timestamp comment 'ÏÔÊ¾¸øÓÃ»§Ê±¼ä',
    disappeartime        timestamp comment 'ÓÃ»§½çÃæ£¬ÏûÊ§Ê±¼ä',
    balancetime          timestamp,
+   etickmatchtype       int comment '0 ·´²¨µ¨',
    primary key (id)
 )
 type = InnoDB
@@ -293,8 +296,9 @@ create table etick_antiwave_football_welfare_competition_guessing
 (
    id                   int not null auto_increment,
    caption              varchar(30),
-   antiwavefootballmatchid int,
-   antiwavefootballmatchtype int comment '±ÈÈüÀàĞÍ£¬Îª2=¡·¸£Àû¾Ö',
+   matchid              int,
+   guessingtype         int comment '±ÈÈüÀàĞÍ£¬Îª2=¡·¸£Àû¾Ö',
+   guessingtypeinfo     varchar(30),
    type                 int comment '¾º²ÂÀàĞÍ£º
             0 È«³¡
             1 °ë³¡
@@ -356,28 +360,20 @@ create table etick_betting_record
 (
    id                   int not null auto_increment,
    userid               int,
-   ordernumber          varchar(10) comment '¶©µ¥ºÅ',
-   type                 int comment 'ÏÂ×¢ÀàĞÍ
-            10 ×ãÇò·´²¨µ¨
-            11 ×ãÇò·´²¨µ¨Õı³£¾º²Â
-            12 ×ãÇò·´²¨µ¨´øµ¥¾º²Â
-            13 ×ãÇò·´²¨µ¨¸£Àû¾º²Â
-            14 ×ãÇò·´²¨µ¨×¯¼Ò¾º²Â
+   ordernumber          varchar(17) comment '¶©µ¥ºÅ',
+   etickmatchtype       int comment 'Æ½Ì¨±ÈÈü ÀàĞÍ
             
-            20 ×ãÇòÕı²¨µ¨
-            21 ×ãÇòÕı²¨µ¨Õı³£¾º²Â
-            22 ×ãÇòÕı²¨µ¨´øµ¥¾º²Â
-            23 ×ãÇòÕı²¨µ¨¸£Àû¾º²Â
-            24 ×ãÇòÕı²¨µ¨×¯¼Ò¾º²Â
-            
-            30 lol
-            31 Õı³£¾º²Â
-            32 ´øµ¥¾º²Â
-            33 ¸£Àû¾º²Â
-            34 ×¯¼Ò¾º²Â
-            ',
-   typeinfo             varchar(30),
-   competitionguessingid int,
+            0 ·´²¨µ¨
+            1 LOL',
+   etickmatchtypeinfo   varchar(30),
+   guessingtype         int comment '¾º²ÂÀàĞÍ
+            0 Õı³£
+            1 ´øµ¥
+            2 ¸£Àû
+            3 ¿ª×¯',
+   guessingtypeinfo     varchar(30),
+   matchid              int,
+   guessingid           int,
    bettingeti           float(12,2),
    status               int comment '×¢µ¥×´Ì¬
             0 Î´½áËã
@@ -684,8 +680,9 @@ create table etick_lol_banker_competition_guessing
 (
    id                   int not null auto_increment,
    caption              varchar(30),
-   lolmatchtype         int comment '3 ¿ª×¯ÈüÊÂ',
-   lolmatchid           int,
+   guessingtype         int comment '3 ¿ª×¯ÈüÊÂ',
+   guessingtypeinfo     varchar(30),
+   matchid              int,
    type                 int comment '¾º²ÂÀàĞÍ£º
             0 ÊäÓ®¾º²Â
             1 Ò»Ñª
@@ -697,7 +694,6 @@ create table etick_lol_banker_competition_guessing
             7 ±ÈÈüÊ±³¤
             ',
    typeinfo             varchar(30),
-   competitionguessinfo varchar(30),
    theodds              float(12,4),
    status               int comment '¾º²Â×´Ì¬
             0 Î´¿ª½±
@@ -721,8 +717,9 @@ create table etick_lol_competition_guessing
 (
    id                   int not null auto_increment,
    caption              varchar(30),
-   lolmatchtype         int comment '0 Õı³£ÈüÊÂ',
-   lolmatchid           int,
+   guessingtype         int comment '0 Õı³£ÈüÊÂ',
+   guessingtypeinfo     varchar(30),
+   matchid              int,
    type                 int comment '¾º²ÂÀàĞÍ£º
             0 ÊäÓ®¾º²Â
             1 Ò»Ñª
@@ -735,7 +732,6 @@ create table etick_lol_competition_guessing
             
             ',
    typeinfo             varchar(30),
-   competitionguessinfo varchar(30),
    theodds              float(12,4),
    status               int comment '¾º²Â×´Ì¬
             0 Î´¿ª½±
@@ -760,10 +756,11 @@ create table etick_lol_lead_competition_guessing
 (
    id                   int not null auto_increment,
    caption              varchar(30),
-   lolmatchtype         int comment '1 ´øµ¥ÈüÊÂ',
+   guessingtype         int comment '1 ´øµ¥ÈüÊÂ',
+   guessingtypeinfo     varchar(30),
    userid               int,
-   lolmatchid           int,
-   lolmatchcompetitionguessingidlist varchar(1024),
+   matchid              int,
+   guessingidlist       varchar(1024),
    etiperpart           float(12,2),
    count                int,
    status               int comment '·½°¸×´Ì¬
@@ -808,12 +805,12 @@ create table etick_lol_match
 (
    id                   int not null auto_increment,
    caption              varchar(30),
-   types                int comment '¾º²ÂÀàĞÍ
+   guessingtypes        int comment '¾º²ÂÀàĞÍ
             0 Õı³£
             1 ´øµ¥
             2 ¸£Àû
             3 ¿ª×¯',
-   typesinfo            varchar(30),
+   guessingtypesinfo    varchar(30),
    matchtypeid          int,
    matchteamhostid      int,
    matchteamguestid     int,
@@ -830,6 +827,7 @@ create table etick_lol_match
    displaytime          timestamp comment 'ÔÚ½çÃæÏÔÊ¾Ê±¼ä',
    disappeartime        timestamp comment '´Ó½çÃæÏûÊ§Ê±¼ä',
    balancetime          timestamp,
+   etickmatchtype       int comment '1 lol',
    primary key (id)
 )
 type = InnoDB
@@ -874,8 +872,9 @@ create table etick_lol_welfare_competition_guessing
 (
    id                   int not null auto_increment,
    caption              varchar(30),
-   lolmatchtype         int comment '2 ¸£ÀûÈüÊÂ',
-   lolmatchid           int,
+   guessingtype         int comment '2 ¸£ÀûÈüÊÂ',
+   guessingtypeinfo     varchar(30),
+   matchid              int,
    type                 int comment '¾º²ÂÀàĞÍ£º
             0 ÊäÓ®¾º²Â
             1 Ò»Ñª
@@ -887,7 +886,6 @@ create table etick_lol_welfare_competition_guessing
             7 ±ÈÈüÊ±³¤
             ',
    typeinfo             varchar(30),
-   competitionguessinfo varchar(30),
    theodds              float(12,4),
    status               int comment '¾º²Â×´Ì¬
             0 Î´¿ª½±

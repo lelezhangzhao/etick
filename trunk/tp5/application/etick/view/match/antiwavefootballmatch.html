@@ -1,7 +1,20 @@
 {layout name="layout" $title="足球反波胆" /}
 <div class="container" >
-    <div class="panel-group" id="antiwavefootballmatchcontainer">
+    <div class="layui-tab layui-tab-card" lay-filter="etickmatch">
+        <ul class="layui-tab-title">
+            <li class="layui-this">反波胆</li>
+            <li>正波胆</li>
+            <li>英雄联盟</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="panel-group" id="antiwavefootballmatchcontainer">
 
+                </div>
+            </div>
+            <div class="layui-tab-item">正在开发中。。。</div>
+            <div class="layui-tab-item">正在开发中。。。</div>
+        </div>
     </div>
 </div>
 
@@ -9,6 +22,17 @@
     $(function(){
         $(document).ready(function(){
             $.GetAntiwaveFootballMatch();
+        });
+    });
+</script>
+<script>
+    layui.use('element', function(){
+        var $ = layui.jquery
+            ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+
+        element.on('tab(etickmatch)', function(elem){
+            location.hash = 'test='+ $(this).attr('lay-id');
         });
     });
 </script>
