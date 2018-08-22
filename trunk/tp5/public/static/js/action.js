@@ -334,13 +334,16 @@ $(function(){
     //添加反波胆赛事
     $.AddAntiwaveFootballMatch = function(match){
         var html =
-            "<div class='panel panel-default' onclick=GetAntiwaveFootballMatchCompetitionGuessing(' + match.id + ')>" +
+            "<div class='panel panel-default' >" +
                 "<div class='panel-heading' >" +
                     "<div class='panel-title' >" +
                         "<div class='row' style='background-color:#ccc'>" +
                             "<a data-toggle='collapse' data-parent='#antiwavefootballmatchcontainer' href='#antiwavefootballmatchcompetitionguessingcollapse" + match.id + "'>" +
-                                "<div class='col-xs-12 col-sm-12 col-md-12' >" +
+                                "<div class='col-xs-10 col-sm-10 col-md-10' >" +
                                     "<p>" + match.caption + "</p>" +
+                                "</div>" +
+                                "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' >" +
+                                    "<span class='glyphicon glyphicon-chevron-down' id='antiwavefootballmatchglyphicon" + match.id + "'></span>" +
                                 "</div>" +
                                 "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' >" +
                                     "<p>" + match.matchteamhostid + "</p>" +
@@ -361,6 +364,21 @@ $(function(){
                 "<div id='antiwavefootballmatchcompetitionguessingcollapse" + match.id + "' class='panel-collapse collapse'>" +
                 "</div>" +
             "</div>" +
+            "<script tepe='text/javascript'>" +
+                "$(function () {" +
+                    "var antiwavefootballmatchcompetitionguessingcollapse = $('#antiwavefootballmatchcompetitionguessingcollapse" + match.id + "');" +
+                    "antiwavefootballmatchcompetitionguessingcollapse.on('show.bs.collapse', function () {" +
+                        "GetAntiwaveFootballMatchCompetitionGuessing('" + match.id + "');" +
+                    "});" +
+                    "antiwavefootballmatchcompetitionguessingcollapse.on('shown.bs.collapse', function () {" +
+                        "$('#antiwavefootballmatchglyphicon" + match.id + "').toggleClass('glyphicon-chevron-up glyphicon-chevron-down');" +
+                    "});" +
+                    "antiwavefootballmatchcompetitionguessingcollapse.on('hidden.bs.collapse', function () {" +
+                        "$('#antiwavefootballmatchglyphicon" + match.id + "').toggleClass('glyphicon-chevron-up glyphicon-chevron-down');" +
+                    "});" +
+                "});" +
+            "</script>" +
+
             "<br />";
         return html;
     };
@@ -402,17 +420,7 @@ function MatchRecordDetailInfo(ordernumber){
                     var html = "";
                     for(var i = 0; i < recordobject.length; ++i){
                         var recorddetail = recordobject[i];
-                        switch(recorddetail.status){
-                            case 0: html+= $.AddMatchRecordDetailInfoZero(recorddetail); break;
-                            case 1: html+= $.AddMatchRecordDetailInfoOne(recorddetail); break;
-                            case 2: html+= $.AddMatchRecordDetailInfoTwo(recorddetail); break;
-                            case 3: html+= $.AddMatchRecordDetailInfoThree(recorddetail); break;
-                            case 4: html+= $.AddMatchRecordDetailInfoFour(recorddetail); break;
-                            case 5: html+= $.AddMatchRecordDetailInfoFive(recorddetail); break;
-                            case 6: html+= $.AddMatchRecordDetailInfoSix(recorddetail); break;
-                            case 7: html+= $.AddMatchRecordDetailInfoSeven(recorddetail); break;
-                            default:break;
-                        }
+                        html += $.AddMatchRecordDetailInfo(recorddetail);
                     }
                     $("#matchrecordcollapse" + ordernumber).html(html);
                     break;
@@ -468,17 +476,7 @@ $(function(){
                         var html = "";
                         for(var i = 0; i < recordobject.length; ++i){
                             var record = recordobject[i];
-                            switch(record.status){
-                                case 0: html+= $.AddMatchRecordStatusZero(record); break;
-                                case 1: html+= $.AddMatchRecordStatusOne(record); break;
-                                case 2: html+= $.AddMatchRecordStatusTwo(record); break;
-                                case 3: html+= $.AddMatchRecordStatusThree(record); break;
-                                case 4: html+= $.AddMatchRecordStatusFour(record); break;
-                                case 5: html+= $.AddMatchRecordStatusFive(record); break;
-                                case 6: html+= $.AddMatchRecordStatusSix(record); break;
-                                case 7: html+= $.AddMatchRecordStatusSeven(record); break;
-                                default:break;
-                            }
+                            html += $.AddMatchRecord(record);
                         }
                         $("#matchrecordcontainer").html(html);
                         break;
@@ -492,14 +490,15 @@ $(function(){
         });
     }
 
-    //未开赛
-    $.AddMatchRecordStatusZero = function(record){
+
+    $.AddMatchRecord = function(record){
         var etickmatchtypeinfo = record.etickmatchtypeinfo;
         var ordernumber = record.ordernumber;
         var matchcaption = record.matchcaption;
         var bettingeti = record.bettingeti;
+        var statusinfo = record.statusinfo;
         var html =
-            "<div class='panel panel-default' onclick=MatchRecordDetailInfo('" + ordernumber + "')>" +
+            "<div class='panel panel-default' >" +
                 "<div class='panel-heading' >" +
                     "<div class='panel-title' >" +
                         "<div class='row' style='background-color:#ccc'>" +
@@ -517,7 +516,7 @@ $(function(){
                                     "<span class='glyphicon glyphicon-chevron-down' id='matchrecordglyphicon" + ordernumber + "'></span>" +
                                 "</div>" +
                                 "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
-                                    "<p>结算：未开赛</p>" +
+                                    "<p>" + statusinfo + "</p>" +
                                 "</div>" +
                             "</a>" +
                         "</div>" +
@@ -528,80 +527,24 @@ $(function(){
             "</div>" +
             "<script tepe='text/javascript'>" +
             "$(function () {" +
-                "$('#matchrecordcollapse" + ordernumber + "').on('shown.bs.collapse', function () {" +
-                    "$('#matchrecordglyphicon" + ordernumber + "').toggleClass('glyphicon-chevron-up glyphicon-chevron-down');});" +
-                "$('#matchrecordcollapse" + ordernumber + "').on('hidden.bs.collapse', function () {" +
-                    "$('#matchrecordglyphicon" + ordernumber + "').toggleClass('glyphicon-chevron-up glyphicon-chevron-down');});" +
+                "var matchrecordcollapse = $('#matchrecordcollapse" + ordernumber + "');" +
+                "matchrecordcollapse.on('show.bs.collapse', function () {" +
+                    "MatchRecordDetailInfo('" + ordernumber + "');" +
+                "});" +
+                "matchrecordcollapse.on('shown.bs.collapse', function () {" +
+                    "$('#matchrecordglyphicon" + ordernumber + "').toggleClass('glyphicon-chevron-up glyphicon-chevron-down');" +
+                "});" +
+                "matchrecordcollapse.on('hidden.bs.collapse', function () {" +
+                    "$('#matchrecordglyphicon" + ordernumber + "').toggleClass('glyphicon-chevron-up glyphicon-chevron-down');" +
+                "});" +
             "});" +
             "</script>" +
             "<br />";
         return html;
     }
-    //比赛延迟
-    $.AddMatchRecordStatusOne = function(record){
-        var html =
-            "<div class='container'>" +
 
-            "</div>";
 
-        return html;
-    }
-    //比赛取消
-    $.AddMatchRecordStatusTwo = function(record){
-        var html =
-            "<div class='container'>" +
-
-            "</div>";
-
-        return html;
-    }
-    //已开赛，未结算
-    $.AddMatchRecordStatusThree = function(record){
-        var html =
-            "<div class='container'>" +
-
-            "</div>";
-
-        return html;
-    }
-    //只进行上半场
-    $.AddMatchRecordStatusFour = function(record){
-        var html =
-            "<div class='container'>" +
-
-            "</div>";
-
-        return html;
-    }
-    //比赛结束，盈利
-    $.AddMatchRecordStatusFive = function(record){
-        var html =
-            "<div class='container'>" +
-
-            "</div>";
-
-        return html;
-    }
-    //比赛结束，亏损
-    $.AddMatchRecordStatusSix = function(record){
-        var html =
-            "<div class='container'>" +
-
-            "</div>";
-
-        return html;
-    }
-    //撤销
-    $.AddMatchRecordStatusSeven = function(record){
-        var html =
-            "<div class='container'>" +
-
-            "</div>";
-
-        return html;
-    }
-
-    $.AddMatchRecordDetailInfoZero = function(recorddetail){
+    $.AddMatchRecordDetailInfo = function(recorddetail){
         var ordernumber = recorddetail.ordernumber;
         var guessingcaption = recorddetail.guessingcaption;
         var bettingtime = recorddetail.bettingtime;
@@ -611,20 +554,36 @@ $(function(){
         var bettingrecordstatus = recorddetail.status;
 
 
-        //未结算单
-        if(bettingrecordstatus === 0){
-            //推迟比赛可撤销
-            var canrevert = matchstatus === 2 ? true : false;
-            if(false === canrevert){
+        //是否显示button，及button内容
+        var displaystatus = "";
+        var displaycontent = "";
+        switch(bettingrecordstatus){
+            case 0: //未开赛
                 var now = new Date();
                 var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
                 //开赛前，并且下注五分钟内可撤销
                 if(now < matchtime && bettingDiffMinutes >= 0 && bettingDiffMinutes <= 5){
-                    canrevert = true;
+                   displaystatus = "";
+                   displaycontent = "撤销";
+                }else{
+                    displaystatus = "none";
                 }
-            }
+                break;
+            case 1: //比赛推迟
+                displaystatus = "";
+                displaycontent = "撤销";
+                break;
+            case 2: //比赛取消
+            case 3: //已开赛 未结算
+            case 4: //只进行上半场
+            case 5: //比赛结束，盈利
+            case 6: //比赛结束，亏损
+            case 7: //撤销
+                displaystatus = "none";
+            default:
+                return;
+                break;
         }
-        var displaystatus = canrevert ? "" : "none";
 
 
         var html =
@@ -637,7 +596,7 @@ $(function(){
                 "</div>" +
                 "<div class='container'>" +
                     "<span>赔率：" + theodds + "</span>" +
-                    "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber +"' onclick=MatchRecordRevert('" + ordernumber + "')>撤销</button>" +
+                    "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber +"' onclick=MatchRecordRevert('" + ordernumber + "')>" +  displaycontent + "</button>" +
                 "</div>" +
                 "<div class='container'>" +
                     "<span>下注时间：" + bettingtime + "</span>" +
@@ -650,33 +609,11 @@ $(function(){
                 "$(function(){" +
                     "$('#matchrecordrevert" + ordernumber + "').css('display', '" + displaystatus + "');" +
                 "});" +
-            "</script>"
+            "</script>" +
             "<br />";
 
         return html;
     }
-    $.AddMatchRecordDetailInfoOne = function(recorddetail){
-
-    }
-    $.AddMatchRecordDetailInfoTwo = function(recorddetail){
-
-    }
-    $.AddMatchRecordDetailInfoThree = function(recorddetail){
-
-    }
-    $.AddMatchRecordDetailInfoFour = function(recorddetail){
-
-    }
-    $.AddMatchRecordDetailInfoFive = function(recorddetail){
-
-    }
-    $.AddMatchRecordDetailInfoSix = function(recorddetail){
-
-    }
-    $.AddMatchRecordDetailInfoSeven = function(recorddetail){
-
-    }
-
 });
 
 
