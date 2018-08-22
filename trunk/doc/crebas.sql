@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/8/21 9:22:32                            */
+/* Created on:     2018/8/22 9:21:24                            */
 /*==============================================================*/
 
 
@@ -257,15 +257,11 @@ alter table etick_antiwave_football_lead_info comment '带单信息
 create table etick_antiwave_football_match
 (
    id                   int not null auto_increment,
+   matchtypeid          int comment '比赛类型：中超、亚冠',
    matchteamhostid      int,
    matchteamguestid     int,
+   etickmatchtype       int comment '0 反波胆',
    caption              varchar(30),
-   guessingtypes        int comment '反波胆赛事类型
-            0 正常
-            1 带单
-            2 福利
-            3 开庄',
-   guessingtypesinfo    varchar(30),
    status               int comment '比赛状态：
             0 未开赛
             1 已开赛
@@ -281,7 +277,6 @@ create table etick_antiwave_football_match
    displaytime          timestamp comment '显示给用户时间',
    disappeartime        timestamp comment '用户界面，消失时间',
    balancetime          timestamp,
-   etickmatchtype       int comment '0 反波胆',
    primary key (id)
 )
 type = InnoDB
@@ -381,7 +376,7 @@ create table etick_betting_record
             2 亏损
             3 比赛取消
             4 撤销',
-   statustype           varchar(30),
+   statusinfo           varchar(30),
    profit               float(12,2),
    bettingtime          timestamp,
    balancetime          timestamp,
@@ -574,7 +569,8 @@ create table etick_eti_record
             12 签到 +
             13 抽奖 +
             14 建议采纳 +
-            15 领导人分红+',
+            15 领导人分红+
+            16 仲裁+-',
    typeinfo             varchar(30),
    eti                  float(12,2),
    profittime           timestamp,
