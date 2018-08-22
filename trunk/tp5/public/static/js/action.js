@@ -36,6 +36,13 @@ function IsPhoneAvailable(str) {
     }
 }
 
+function GetDiffMinutes(date1, date2){
+    var difftime = date2.getTime() - date1.getTime();   //时间差的毫秒数
+    //计算相差分钟数
+    var micro = difftime % (3600 * 1000);        //计算小时数后剩余的毫秒数
+    var minutes = Math.floor(micro / (60 * 1000));
+    return minutes;
+}
 
 
 $(function(){
@@ -327,7 +334,7 @@ $(function(){
     //添加反波胆赛事
     $.AddAntiwaveFootballMatch = function(match){
         var html =
-            "<div class='panel panel-default' id='antiwavefootballmatchid" + match.id + "' onclick='GetAntiwaveFootballMatchCompetitionGuessing(" + match.id + ")'>" +
+            "<div class='panel panel-default' onclick=GetAntiwaveFootballMatchCompetitionGuessing(' + match.id + ')>" +
                 "<div class='panel-heading' >" +
                     "<div class='panel-title' >" +
                         "<div class='row' style='background-color:#ccc'>" +
@@ -360,7 +367,7 @@ $(function(){
     //添加反波胆下注赛事
     $.AddAntiwaveFootballMatchCompetitionGuessing = function(competitionGuessing){
         var html =
-            "<div class='panel-body' id='antiwavefootballmatchcompetitionguessing" + competitionGuessing.id + "' onclick='BettingCompetitionGuessing(" + competitionGuessing.matchid + ", " + competitionGuessing.id + ")'>" +
+            "<div class='panel-body' id='antiwavefootballmatchcompetitionguessing" + competitionGuessing.id + "' onclick=BettingCompetitionGuessing('" + competitionGuessing.matchid + ", " + competitionGuessing.id + "')>" +
                 "<a class='' href='#' >" +
                     "<div class='container'>" +
                         "<span>" + competitionGuessing.caption + "</span>" +
@@ -377,7 +384,7 @@ $(function(){
 
 
 //matchrecord
-function MatchRecordDetailInfo(matchtype, matchid, guessingid, ordernumber){
+function MatchRecordDetailInfo(ordernumber){
     //获取详细记录
     $.ajax({
         type:"get",
@@ -407,7 +414,7 @@ function MatchRecordDetailInfo(matchtype, matchid, guessingid, ordernumber){
                             default:break;
                         }
                     }
-                    $("#matchrecordcollapse" + matchtype + matchid + guessingid).html(html);
+                    $("#matchrecordcollapse" + ordernumber).html(html);
                     break;
                 default:
                     break;
@@ -417,7 +424,33 @@ function MatchRecordDetailInfo(matchtype, matchid, guessingid, ordernumber){
             $.ShowMsg(msg);
         }
     });
+}
 
+function MatchRecordRevert(ordernumber){
+    $.ajax({
+        type:"get",
+        url:"/tp5/public/index.php/etick/match_record/matchrecordrevert",
+        async:true,
+        dataType:"json",
+        data:{
+            ordernumber:ordernumber
+        },
+        success:function(data){
+            data = JSON.parse(data);
+            switch(data.code){
+                case 'ERROR_STATUS_SUCCESS':
+                    $.ShowMsg(data.msg);
+                    //隐藏当前btn
+                    $('#matchrecordrevert' + ordernumber).css('display', 'none');
+                    break;
+                default:
+                    break;
+            }
+        },
+        error:function(hd, msg){
+            $.ShowMsg(msg);
+        }
+    });
 }
 
 $(function(){
@@ -461,23 +494,27 @@ $(function(){
 
     //未开赛
     $.AddMatchRecordStatusZero = function(record){
+        var etickmatchtypeinfo = record.etickmatchtypeinfo;
+        var ordernumber = record.ordernumber;
+        var matchcaption = record.matchcaption;
+        var bettingeti = record.bettingeti;
         var html =
-            "<div class='panel panel-default' id='matchrecord" + record.etickmatchtype + record.matchid + record.guessingid + "' onclick='MatchRecordDetailInfo(" + record.etickmatchtype + "," + record.matchid + "," + record.guessingid + "," + record.ordernumber + ")'>" +
+            "<div class='panel panel-default' onclick=MatchRecordDetailInfo('" + ordernumber + "')>" +
                 "<div class='panel-heading' >" +
                     "<div class='panel-title' >" +
                         "<div class='row' style='background-color:#ccc'>" +
-                            "<a data-toggle='collapse' data-parent='#matchrecordcontainer' href='#matchrecordcollapse" + record.etickmatchtype + record.matchid + record.guessingid + "'>" +
+                            "<a data-toggle='collapse' data-parent='#matchrecordcontainer' href='#matchrecordcollapse" + ordernumber + "'>" +
                                 "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
-                                    "<p>" + record.etickmatchtypeinfo + "</p>" +
+                                    "<p>" + etickmatchtypeinfo + "</p>" +
                                 "</div>" +
                                 "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10' >" +
-                                    "<p>" + record.matchcaption + "</p>" +
+                                    "<p>" + matchcaption + "</p>" +
                                 "</div>" +
                                 "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10' >" +
-                                    "<p>下注金额：" + record.bettingeti + "</p>" +
+                                    "<p>下注金额：" + bettingeti + "</p>" +
                                 "</div>" +
                                 "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' >" +
-                                    "<span class='glyphicon glyphicon-chevron-down' id='matchrecordglyphicon" + record.etickmatchtype + record.matchid + record.guessingid + "'></span>" +
+                                    "<span class='glyphicon glyphicon-chevron-down' id='matchrecordglyphicon" + ordernumber + "'></span>" +
                                 "</div>" +
                                 "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
                                     "<p>结算：未开赛</p>" +
@@ -486,9 +523,17 @@ $(function(){
                         "</div>" +
                     "</div>" +
                 "</div>" +
-                "<div id='matchrecordcollapse" + record.etickmatchtype + record.matchid + record.guessingid + "' class='panel-collapse collapse'>" +
+                "<div id='matchrecordcollapse" + ordernumber + "' class='panel-collapse collapse'>" +
                 "</div>" +
             "</div>" +
+            "<script tepe='text/javascript'>" +
+            "$(function () {" +
+                "$('#matchrecordcollapse" + ordernumber + "').on('shown.bs.collapse', function () {" +
+                    "$('#matchrecordglyphicon" + ordernumber + "').toggleClass('glyphicon-chevron-up glyphicon-chevron-down');});" +
+                "$('#matchrecordcollapse" + ordernumber + "').on('hidden.bs.collapse', function () {" +
+                    "$('#matchrecordglyphicon" + ordernumber + "').toggleClass('glyphicon-chevron-up glyphicon-chevron-down');});" +
+            "});" +
+            "</script>" +
             "<br />";
         return html;
     }
@@ -557,14 +602,56 @@ $(function(){
     }
 
     $.AddMatchRecordDetailInfoZero = function(recorddetail){
+        var ordernumber = recorddetail.ordernumber;
+        var guessingcaption = recorddetail.guessingcaption;
+        var bettingtime = recorddetail.bettingtime;
+        var matchtime = recorddetail.matchtime; //未开赛，下注五分钟内，开赛前可取消
+        var matchstatus = recorddetail.matchstatus; //推迟状态比赛可取消
+        var theodds = recorddetail.theodds;
+        var bettingrecordstatus = recorddetail.status;
+
+
+        //未结算单
+        if(bettingrecordstatus === 0){
+            //推迟比赛可撤销
+            var canrevert = matchstatus === 2 ? true : false;
+            if(false === canrevert){
+                var now = new Date();
+                var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
+                //开赛前，并且下注五分钟内可撤销
+                if(now < matchtime && bettingDiffMinutes >= 0 && bettingDiffMinutes <= 5){
+                    canrevert = true;
+                }
+            }
+        }
+        var displaystatus = canrevert ? "" : "none";
+
+
         var html =
-            "<div class='panel-body' id='matchrecorddetail" + recorddetail.etickmatchtype + recorddetail.matchid + recorddetail.guessingid + "'>" +
-                "<a class='' href='#' >" +
-                    "<div class='container'>" +
-                        "<span>" + recorddetail.bettingtime + "</span>" +
-                    "</div>" +
-                "</a>" +
-            "</div><br />";
+            "<div class='panel-body' >" +
+                "<div class='container'>" +
+                    "<span>订单号：" + ordernumber + "</span>" +
+                "</div>" +
+                "<div class='container'>" +
+                    "<span>比分：" + guessingcaption + "</span>" +
+                "</div>" +
+                "<div class='container'>" +
+                    "<span>赔率：" + theodds + "</span>" +
+                    "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber +"' onclick=MatchRecordRevert('" + ordernumber + "')>撤销</button>" +
+                "</div>" +
+                "<div class='container'>" +
+                    "<span>下注时间：" + bettingtime + "</span>" +
+                "</div>" +
+                "<div class='container'>" +
+                    "<span>比赛时间：" + matchtime + "</span>" +
+                "</div>" +
+            "</div>" +
+            "<script>" +
+                "$(function(){" +
+                    "$('#matchrecordrevert" + ordernumber + "').css('display', '" + displaystatus + "');" +
+                "});" +
+            "</script>"
+            "<br />";
 
         return html;
     }

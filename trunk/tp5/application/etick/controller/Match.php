@@ -10,10 +10,10 @@ use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
 use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
 use app\etick\model\AntiwaveFootballLeadCompetitionGuessing as AntiwaveFootballLeadCompetitionGuessingModel;
 use app\etick\model\AntiwaveFootballWelfareCompetitionGuessing as AntiwaveFootballWelfareCompetitionGuessingModel;
-use app\etick\model\LOLMatch as LOLMatchModel;
-use app\etick\model\LOLCompetitionGuessing as LOLCompetitionGuessingModel;
-use app\etick\model\LOLLeadCometitionGuessing as LOLLeadCompetitionGuessingModel;
-use app\etick\model\LOLWelfareCompetitionGuessing as LOLWelfareCompetitionGuessingModel;
+use app\etick\model\LolMatch as LolMatchModel;
+use app\etick\model\LolCompetitionGuessing as LolCompetitionGuessingModel;
+use app\etick\model\LolLeadCometitionGuessing as LolLeadCompetitionGuessingModel;
+use app\etick\model\LolWelfareCompetitionGuessing as LolWelfareCompetitionGuessingModel;
 
 use app\etick\api\Status as StatusApi;
 use app\etick\api\Times as TimesApi;
@@ -140,27 +140,27 @@ class Match extends Controller{
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($antiwavefootballwelfarecompetitionguessing));
     }
 
-    public function GetLOLMatchList(){
+    public function GetLolMatchList(){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
         }
 
         //获取可显示比赛
-        $lolMatchList = LOLMatchModel::where('status', 0)
+        $LolMatchList = LolMatchModel::where('status', 0)
             ->whereTime('displaytime', '<=', date('Y-m-d H:i:s'))
             ->whereTime('disappeartime', '>=', date('Y-m-d H:i:s'))
             ->select();
 
-        if(count($lolMatchList) === 0){
+        if(count($LolMatchList) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_NOMATCHMATCH');
         }
 
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($lolMatchList));
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($LolMatchList));
 
     }
 
-    public function GetLOLMatchListCompetitionGuessing(Request $request){
+    public function GetLolMatchListCompetitionGuessing(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
@@ -173,7 +173,7 @@ class Match extends Controller{
         }
 
         //当前match是否可竞猜
-        $match = LOLMatchModel::get($matchid);
+        $match = LolMatchModel::get($matchid);
         $systemTimestamp = TimesApi::GetSystemTime();
         if($match->displaytime > $systemTimestamp || $match->disappeartime < $systemTimestamp){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
@@ -182,15 +182,15 @@ class Match extends Controller{
 
 
         //获取对应matchid的竞猜
-        $lolcompetitionguessing = LOLCompetitionGuessingModel::where('matchid', $matchid)->select();
-        if(count($lolcompetitionguessing) === 0){
+        $Lolcompetitionguessing = LolCompetitionGuessingModel::where('matchid', $matchid)->select();
+        if(count($Lolcompetitionguessing) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
 
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($lolcompetitionguessing));
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($Lolcompetitionguessing));
     }
 
-    public function GetLOLMatchListLeadCompetitionGuessing(Request $request){
+    public function GetLolMatchListLeadCompetitionGuessing(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
@@ -203,7 +203,7 @@ class Match extends Controller{
         }
 
         //当前match是否可竞猜
-        $match = LOLMatchModel::get($matchid);
+        $match = LolMatchModel::get($matchid);
         $systemTimestamp = TimesApi::GetSystemTime();
         if($match->displaytime > $systemTimestamp || $match->disappeartime < $systemTimestamp){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
@@ -212,15 +212,15 @@ class Match extends Controller{
 
 
         //获取对应matchid的竞猜
-        $lolleadcompetitionguessing = LOLLeadCompetitionGuessingModel::where('matchid', $matchid)->select();
-        if(count($lolleadcompetitionguessing) === 0){
+        $Lolleadcompetitionguessing = LolLeadCompetitionGuessingModel::where('matchid', $matchid)->select();
+        if(count($Lolleadcompetitionguessing) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
 
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($lolleadcompetitionguessing));
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($Lolleadcompetitionguessing));
     }
 
-    public function GetLOLMatchListWelfareCompetitionGuessing(Request $request){
+    public function GetLolMatchListWelfareCompetitionGuessing(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
@@ -233,7 +233,7 @@ class Match extends Controller{
         }
 
         //当前match是否可竞猜
-        $match = LOLMatchModel::get($matchid);
+        $match = LolMatchModel::get($matchid);
         $systemTimestamp = TimesApi::GetSystemTime();
         if($match->displaytime > $systemTimestamp || $match->disappeartime < $systemTimestamp){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
@@ -242,10 +242,10 @@ class Match extends Controller{
 
 
         //获取对应matchid的竞猜
-        $lolwelfarecompetitionguessing = LOLWelfareCompetitionGuessingModel::where('matchid', $matchid)->select();
-        if(count($lolwelfarecompetitionguessing) === 0){
+        $Lolwelfarecompetitionguessing = LolWelfareCompetitionGuessingModel::where('matchid', $matchid)->select();
+        if(count($Lolwelfarecompetitionguessing) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($lolwelfarecompetitionguessing));
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($Lolwelfarecompetitionguessing));
     }
 }

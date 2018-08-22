@@ -41,6 +41,7 @@ class Database{
 
         $bettingrecord = new BettingRecordModel();
         $bettingrecord->userid = $userid;
+
         $bettingrecord->ordernumber = preg_replace('/[ :.-]/','', TimesApi::GetSystemMicroTime());
         $bettingrecord->etickmatchtype = $etickmatchtype;
         $bettingrecord->etickmatchtypeinfo = Database::GetMatchTypeInfo($etickmatchtype);

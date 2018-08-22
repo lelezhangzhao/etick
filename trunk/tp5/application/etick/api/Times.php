@@ -22,6 +22,4 @@ class Times{
         return $datetime;
     }
 
-
-
 }
