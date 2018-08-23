@@ -1,7 +1,7 @@
 <?php
 namespace app\etick\validate;
 
-class EntrustmentBuying
+class EntrustmentPurchase
 {
 
 }

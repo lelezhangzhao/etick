@@ -49,8 +49,8 @@ class Status{
         'ERROR_STATUS_PURCHASEISNOTEXIST' => '交易不存在',
         'ERROR_STATUS_PURCHASEREMAINETIISNOTENOUGH' => '交易剩余ETI不足',
         'ERROR_STATUS_ETIISNOTENOUGH' => '可用ETI不足',
-        'ERROR_STATUS_PARAMERROR' => '参数错误'
-
+        'ERROR_STATUS_PARAMERROR' => '参数错误',
+        'ERROR_STATUS_PROOFUPLOADSUCCESS' => '凭证上传成功',
     );
 
     static public function ReturnJson($code, $msg){

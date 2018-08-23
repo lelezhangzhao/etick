@@ -3,7 +3,7 @@ namespace app\etick\model;
 
 use think\Model;
 
-class EntrustmentSaling extends Model
+class DirectPurchase extends Model
 {
 
 }

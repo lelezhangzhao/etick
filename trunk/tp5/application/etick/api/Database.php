@@ -45,7 +45,7 @@ class Database{
         $bettingrecord = new BettingRecordModel();
         $bettingrecord->userid = $userid;
 
-        $bettingrecord->ordernumber = TimesApi::GetOrderNumber();
+        $bettingrecord->ordernumber = TimesApi::GetOrderNumber($systemtime);
         $bettingrecord->etickmatchtype = $etickmatchtype;
         $bettingrecord->etickmatchtypeinfo = Database::GetMatchTypeInfo($etickmatchtype);
         $bettingrecord->guessingtype = $guessingtype;

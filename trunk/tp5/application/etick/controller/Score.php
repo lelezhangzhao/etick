@@ -3,7 +3,7 @@ namespace app\etick\controller;
 
 use app\etick\api\UserStatus;
 use think\Controller;
-use think\response\Json;
+
 use think\Session;
 use think\Request;
 use think\Db;
@@ -38,23 +38,21 @@ class Score extends Controller{
 
         $userid = Session::get('userid');
 
-        $entrustmentbuying = EntrustmentBuyingModel::where('userid', $userid)->select();
-        $entrustmentSaling = EntrustmentSalingModel::where('userid', $userid)->select();
-        $directbuying = DirectBuyingModel::where('userid', $userid)->select();
-        $entrustmentSalingOperatable = Db::name('DirectBuying')
-            ->view('EntrustmentSaling', '*', 'EntrustmentSaling.id = DirectBuying.entrustmentsalingid')
-            ->where('DirectBuying.status', 'in', '0,1')
-            ->where('EntrustmentSaling.userid', $userid)
-            ->select();
-        $directsaling = DirectSalingModel::where('userid', $userid)->select();
-        $entrustmentBuyingOperatable = Db::name('DirectSaling')
-            ->view('EntrustmentBuying', '*', 'EntrustmentBuying.id = DirectSaling.entrustmentbuyingid')
-            ->where('DirectSaling.status', 'in', '0,1')
-            ->where('EntrustmentBuying.userid', $userid)
-            ->select();
+        //挂单
+        $entrustmentPurchase = EntrustmentPurchaseModel::where('userid', $userid)->select();
+        //直接
+        $directPurchase = DirectPurchaseModel::where('userid', $userid)->select();
 
-        $purchaserecord = ['entrustmentbuying' => $entrustmentbuying, 'entrustmentsaling' => $entrustmentSaling, 'directbuying' => $directbuying,
-        'entrustmentsalingoperatable' => $entrustmentSalingOperatable, 'directsaling' => $directsaling, 'entrustmentbuyingoperatable' => $entrustmentBuyingOperatable];
+        //可操作挂单项
+        $entrustmentOperatable = Db::view('DirectPurchase', 'id, status')
+            ->where('DirectPurchase.status', 'in', '0,1')
+            ->view('EntrustmentPurchase', 'userid', 'EntrustmentPurchase.id = DirectPurchase.entrustmentid')
+            ->where('EntrustmentPurchase.userid', $userid)
+            ->select();
+//        $entrustmentOperatable = Db::name('direct_purchase')->select();
+
+
+        $purchaserecord = ['entrustmentpurchase' => $entrustmentPurchase, 'directpurchase' => $directPurchase, '$entrustmentoperatable' => $entrustmentOperatable];
 
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $purchaserecord);
     }
@@ -84,25 +82,51 @@ class Score extends Controller{
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $detailRecord);
     }
 
-    //获取直接交易详情
-    public function GetDirectDetail(Request $request){
+    //获取卖方银行账户
+    public function GetSalingUserAccount(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
         }
 
-        $ordernumber = $request->param('ordernumber');
+        $directOrderNumber = $request->param('ordernumber');
         $userid = Session::get('userid');
 
-        $detailRecord = DirectPurchaseModel::where('ordernumber', $ordernumber)->find();
+        $detailRecord = DirectPurchaseModel::where('ordernumber', $directOrderNumber)->find();
         if(empty($detailRecord)){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
-        }else if($detailRecord->userid !== $userid){
-            UserStatusApi::FrozenUser('获取不是自己交易单详情');
+        }
+
+        if($detailRecord->status !== 0 && $detailRecord->status !== 1){
+            UserStatusApi::FrozenUser('获取不是未完成交易用户信息');
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
         }
 
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $detailRecord);
+        $entrustmentPurchase = EntrustmentPurchaseModel::get($detailRecord->entrustmentid);
+        if(empty($entrustmentPurchase)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
+        }
+
+        $userforsaling = null;
+        //买方未完成交易，获取对方银行信息
+        if($detailRecord->userid === $userid && $detailRecord->purchasetype === 0){
+            //直接买交易未完成，显示卖方信息
+            $userforsaling = Db::name('User', 'name, tel, banknum, bankname, alipaynum')->where('id', $entrustmentPurchase->userid)->find();
+        }else if($detailRecord->userid !== $userid && $detailRecord->purchasetype === 1){
+            //挂买交易未完成，显示卖方信息
+            $userforbuying = UserModel::get($entrustmentPurchase->userid);
+            if($userforbuying !== $userid){
+                UserStatusApi::FrozenUser('获取挂买方不是自己的卖方信息');
+                return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
+            }
+            $userforsaling = Db::name('User', 'name, tel, banknum, bankname, alipaynum')->where('id', $detailRecord->userid)->find();
+        }
+        if(empty($userforsaling)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_USERISNOTEXIST');
+        }
+
+
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $userforsaling);
     }
     //挂单可买入记录
     public function GetEntrustmentBuyingEtiRecord(){
@@ -445,5 +469,60 @@ class Score extends Controller{
 
         return StatusApi::ReturnJson('ERROR_STATUS_SECCESS', '交易成功');
 
+    }
+
+    public function UploadProof(Request $request){
+        $userstatus = UserStatusApi::TestUserLoginAndStatus();
+        if(true !== $userstatus){
+            return $userstatus;
+        }
+
+        $directOrderNumber = $request->param('ordernumber');
+        $proofOne = $request->param('proofone');
+        $proofTwo = $request->param('prooftwo');
+        $proofThree = $request->param('proofthree');
+        $userid = Session::get('userid');
+
+        //只有买家未完成交易，才可以上传凭证
+        $directPurchase = DirectPurchaseModel::where('ordernumber', $directOrderNumber)->find();
+        if(empty($directPurchase)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
+        }
+
+        if($directPurchase->status !== 0 && $directPurchase->status !== 1){
+            UserStatusApi::FrozenUser('获取不是未完成交易用户信息');
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
+        }
+
+        $entrustmentPurchase = EntrustmentPurchaseModel::get($directPurchase->entrustmentid);
+        if(empty($entrustmentPurchase)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
+        }
+
+        $couldUploadProof = false;
+        //买方未完成交易，可以上传凭证
+        if($directPurchase->userid === $userid && $directPurchase->purchasetype === 0){
+            //直接买交易未完成，可以上传凭证
+            $couldUploadProof = true;
+        }else if($directPurchase->userid !== $userid && $directPurchase->purchasetype === 1){
+            //挂买交易未完成，可以上传凭证
+            $userforbuying = UserModel::get($entrustmentPurchase->userid);
+            if($userforbuying !== $userid){
+                UserStatusApi::FrozenUser('挂买方不是自己，要上传挂买凭证');
+                return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
+            }
+            $couldUploadProof = true;
+        }
+        if(!$couldUploadProof){
+            UserStatusApi::FrozenUser('没权限上传凭证');
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
+        }
+
+        $directPurchase->proofone = $proofOne;
+        $directPurchase->prooftwo = $proofTwo;
+        $directPurchase->proofThree = $proofThree;
+        $directPurchase->allowField(true)->save();
+
+        return StatusApi::ReturnErrorStatus('ERROR_STATUS_PROOFUPLOADSUCCESS');
     }
 }

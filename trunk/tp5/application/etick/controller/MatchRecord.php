@@ -126,9 +126,9 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
         $systemTime = TimesApi::GetSystemTime();
         if($bettingrecord->status === 0){
             //比赛已开始或下注超过五分钟
-            if($match->matchtime < strtotime($systemTime)){
+            if($match->matchtime < $systemTime){
                 return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHHASALREADYBEGINING');
-            }else if(strtotime($systemTime) - $bettingrecord->bettingtime > 5 * 60){
+            }else if($systemTime - $bettingrecord->bettingtime > 5 * 60){
                 return StatusApi::ReturnErrorStatus('ERROR_STATUS_FIVEMINUTESOVERBETTINGTIME');
             }
         }else if($bettingrecord->status !== 1){

@@ -385,7 +385,8 @@ $(function(){
     //添加反波胆下注赛事
     $.AddAntiwaveFootballMatchCompetitionGuessing = function(competitionGuessing){
         var html =
-            "<div class='panel-body' id='antiwavefootballmatchcompetitionguessing" + competitionGuessing.id + "' onclick=BettingCompetitionGuessing('" + competitionGuessing.matchid + ", " + competitionGuessing.id + "')>" +
+            "<div class='panel-body' id='antiwavefootballmatchcompetitionguessing" + competitionGuessing.id + "' " +
+            "onclick='BettingCompetitionGuessing(" + competitionGuessing.matchid + ", " + competitionGuessing.id + ")'>" +
                 "<a class='' href='#' >" +
                     "<div class='container'>" +
                         "<span>" + competitionGuessing.caption + "</span>" +
@@ -562,7 +563,7 @@ $(function(){
                 var now = new Date();
                 var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
                 //开赛前，并且下注五分钟内可撤销
-                if(now < matchtime && bettingDiffMinutes >= 0 && bettingDiffMinutes <= 5){
+                if(now < new Date(matchtime) && bettingDiffMinutes >= 0 && bettingDiffMinutes <= 5){
                    displaystatus = "";
                    displaycontent = "撤销";
                 }else{
@@ -596,7 +597,7 @@ $(function(){
                 "</div>" +
                 "<div class='container'>" +
                     "<span>赔率：" + theodds + "</span>" +
-                    "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber +"' onclick=MatchRecordRevert('" + ordernumber + "')>" +  displaycontent + "</button>" +
+                    "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber +"' onclick='MatchRecordRevert(" + ordernumber.toString() + ")'>" +  displaycontent + "</button>" +
                 "</div>" +
                 "<div class='container'>" +
                     "<span>下注时间：" + bettingtime + "</span>" +
@@ -613,6 +614,32 @@ $(function(){
             "<br />";
 
         return html;
+    }
+});
+
+
+//score
+$(function(){
+    $.GetScoreRecord = function(){
+        $.ajax({
+            type:"get",
+            url:"/tp5/public/index.php/etick/score/getpurchaserecord",
+            async:true,
+            dataType:"json",
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        // var purchaserecords = JSON.parse(data.jsoncontent);
+                        break;
+                    default:
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
     }
 });
 
