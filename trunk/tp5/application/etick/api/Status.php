@@ -41,6 +41,10 @@ class Status{
         'ERROR_STATUS_MATCHTYPEERROR' => '赛事类型错误', //0/1/2/3 正常/带单/福利/开庄
         'ERROR_STATUS_COMPETITIONGUESSINGISNOTEXIST' => '竞猜不存在',
         'ERROR_STATUS_COMPETITIONGUESSINGISSTOP' => '竞猜已停止',
+        'ERROR_STATUS_FIVEMINUTESOVERBETTINGTIME' => '下注超过五分钟，不可撤单',
+        'ERROR_STATUS_MATCHHASALREADYBEGINING' => '比赛已开始，不可撤单',
+        'ERROR_STATUS_CANTREVERT' => '不可撤单', //非法访问
+        'ERROR_STATUS_BETTINGRECORDISNOTEXIST' => '注单不存在',
         'ERROR_STATUS_ETIISNOTENOUGH' => '可用ETI不足',
         'ERROR_STATUS_PARAMERROR' => '参数错误'
 

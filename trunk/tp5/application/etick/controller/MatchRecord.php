@@ -1,6 +1,7 @@
 <?php
 namespace app\etick\controller;
 
+use app\etick\validate\LolCompetitionGuessing;
 use think\Controller;
 use think\Session;
 use think\Request;
@@ -8,7 +9,10 @@ use think\Db;
 
 use app\etick\api\UserStatus as UserStatusApi;
 use app\etick\api\Status as StatusApi;
+use app\etick\api\Times as TimesApi;
+use app\etick\api\Database as DatabaseApi;
 
+use app\etick\model\User as UserModel;
 use app\etick\model\BettingRecord as BettingRecordModel;
 use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
 use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
@@ -17,6 +21,11 @@ use app\etick\model\AntiwaveFootballWelfareCompetitionGuessing as AntiwaveFootba
 use app\etick\model\AntiwaveFootballBankerCompetitionGuessing as AntiwaveFootballBankerCompetitionGuessingModel;
 use app\etick\model\FootballMatchTeam as FootballMatchTeamModel;
 use app\etick\model\FootballMatchType as FootballMatchTypeModel;
+use app\etick\model\LolMatch as LolMatchModel;
+use app\etick\model\LolCompetitionGuessing as LolCompetitionGuessingModel;
+use app\etick\model\LolLeadCometitionGuessing as LolLeadCompetitionGuessingModel;
+use app\etick\model\LolWelfareCompetitionGuessing as LolWelfareCompetitionGuessingModel;
+use app\etick\model\LolBankerCompetitionGuessing as LolBankerCompetitionGuessingModel;
 
 class MatchRecord extends Controller{
     public function Index(){
@@ -70,7 +79,6 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
 
         $orderNumber = $request->param('ordernumber');
 
-        $userid = Session::get('userid');
 
         $sql = "select betting_record.*,
  football_match_team_host.caption as hostcaption,
@@ -89,5 +97,107 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
         $bettingRecordDetail = Db::query($sql);
 
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($bettingRecordDetail));
+    }
+
+    public function MatchRecordRevert(Request $request){
+        $userstatus = UserStatusApi::TestUserLoginAndStatus();
+        if(true !== $userstatus){
+            return $userstatus;
+        }
+
+        $orderNumber = $request->param('ordernumber');
+
+
+        $bettingrecord = BettingRecordModel::where('ordernumber', $orderNumber)->find();
+        if(empty($bettingrecord)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_BETTINGRECORDISNOTEXIST');
+        }
+        $match = null;
+        if($bettingrecord->etickmatchtype === 0){
+            $match = AntiwaveFootballMatchModel::get($bettingrecord->matchid);
+        }else if($bettingrecord->etickmatchtype === 1){
+            $match = LolMatchModel::get($bettingrecord->matchid);
+        }
+        if(empty($match)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_NOMATCHMATCH');
+        }
+
+
+        $systemTime = TimesApi::GetSystemTime();
+        if($bettingrecord->status === 0){
+            //比赛已开始或下注超过五分钟
+            if($match->matchtime < strtotime($systemTime)){
+                return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHHASALREADYBEGINING');
+            }else if(strtotime($systemTime) - $bettingrecord->bettingtime > 5 * 60){
+                return StatusApi::ReturnErrorStatus('ERROR_STATUS_FIVEMINUTESOVERBETTINGTIME');
+            }
+        }else if($bettingrecord->status !== 1){
+            //比赛不可撤销状态
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_CANTREVERT');
+        }
+
+        //撤销
+        //标注撤销状态
+        $bettingrecord->status = 7;
+        $bettingrecord->statusinfo = '撤销';
+        $bettingrecord->allowField(true)->save();
+
+        //返额度
+        $guessing = null;
+        $guessingid = $bettingrecord->guessingid;
+        switch($bettingrecord->etickmatchtype){
+            case 0:
+                switch($bettingrecord->guessingtype){
+                    case 0:
+                        $guessing = AntiwaveFootballCompetitionGuessingModel::get($guessingid);
+                        break;
+                    case 1:
+                        $guessing = AntiwaveFootballLeadCompetitionGuessingModel::get($guessingid);
+                        break;
+                    case 2:
+                        $guessing = AntiwaveFootballWelfareCompetitionGuessingModel::get($guessingid);
+                        break;
+                    case 3:
+                        $guessing = AntiwaveFootballBankerCompetitionGuessingModel::get($guessingid);
+                        break;
+                    default:
+                        return StatusApi::ReturnErrorStatus('ERROR_STATUS_PARAMERROR');
+                }
+                break;
+            case 1:
+                switch($bettingrecord->guessingtype){
+                    case 0:
+                        $guessing = LolCompetitionGuessingModel::get($guessingid);
+                        break;
+                    case 1:
+                        $guessing = LolLeadCompetitionGuessingModel::get($guessingid);
+                        break;
+                    case 2:
+                        $guessing = LolWelfareCompetitionGuessingModel::get($guessingid);
+                        break;
+                    case 3:
+                        $guessing = LolBankerCompetitionGuessingModel::get($guessingid);
+                        break;
+                    default:
+                        return StatusApi::ReturnErrorStatus('ERROR_STATUS_PARAMERROR');
+                }
+                break;
+            default:
+                return StatusApi::ReturnErrorStatus('ERROR_STATUS_PARAMERROR');
+        }
+        if(empty($guessing)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_COMPETITIONGUESSINGISNOTEXIST');
+        }
+        //记录etirecord
+        $userid = Session::get('userid');
+        DataBaseApi::AddEtiRecord($userid, 3, $bettingrecord->bettingeti);
+
+        //返钱
+        $user = UserModel::get($userid);
+        $user->eti += $bettingrecord->bettingeti;
+        $user->allowField(true)->save();
+
+
+
     }
 }

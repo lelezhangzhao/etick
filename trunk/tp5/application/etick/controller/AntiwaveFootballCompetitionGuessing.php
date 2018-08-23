@@ -94,7 +94,7 @@ class AntiwaveFootballCompetitionGuessing extends Controller{
         $user->allowField(true)->save();
 
         //插入etirecord
-        DatabaseApi::AddEtiRecord($userid, 1, $eti);
+        DatabaseApi::AddEtiRecord($userid, 1, -$eti);
 
         //插入bettingrecord
         DatabaseApi::AddBettingRecord($userid, 0, 0, $matchid, $guessingid, $eti, 0);
