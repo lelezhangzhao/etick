@@ -5,6 +5,9 @@ namespace app\etick\api;
 use app\etick\model\User as UserModel;
 use app\etick\model\EtiRecord as EtiRecordModel;
 use app\etick\model\BettingRecord as BettingRecordModel;
+use app\etick\model\EntrustmentPurchase as EntrustmentPurchaseModel;
+use app\etick\model\DirectPurchase as DirectPurchaseModel;
+
 
 use app\etick\api\Util as UtilApi;
 use app\etick\api\Times as TimesApi;
@@ -42,7 +45,7 @@ class Database{
         $bettingrecord = new BettingRecordModel();
         $bettingrecord->userid = $userid;
 
-        $bettingrecord->ordernumber = preg_replace('/[ :.-]/','', TimesApi::GetSystemMicroTime());
+        $bettingrecord->ordernumber = TimesApi::GetOrderNumber();
         $bettingrecord->etickmatchtype = $etickmatchtype;
         $bettingrecord->etickmatchtypeinfo = Database::GetMatchTypeInfo($etickmatchtype);
         $bettingrecord->guessingtype = $guessingtype;
@@ -60,19 +63,19 @@ class Database{
         $bettingrecord->allowField(true)->save();
     }
 
-    static public function GetMatchTypeInfo($etickmatchtype){
+    static private function GetMatchTypeInfo($etickmatchtype){
         if($etickmatchtype === 0) return '足球反波胆';
         else if($etickmatchtype === 1) return '英雄联盟';
     }
 
-    static public function GetGuessingTypeInfo($guessingtype){
+    static private function GetGuessingTypeInfo($guessingtype){
         if($guessingtype === 0) return '正常单';
         else if($guessingtype === 1) return '带单';
         else if($guessingtype === 2) return '福利单';
         else if($guessingtype === 3) return '开庄单';
     }
 
-    static public function GetEtiStatusInfo($etistatus){
+    static private function GetEtiStatusInfo($etistatus){
         if($etistatus === 0) return 'ETI';
         else if($etistatus === 1) return '体验金';
         else if($etistatus === 2) return '冻结金';
@@ -91,7 +94,7 @@ class Database{
         $etirecord->allowField(true)->save();
     }
 
-    static public function GetEtiRecordTypeInfo($type){
+    static private function GetEtiRecordTypeInfo($type){
         $typeinfo = '';
         switch($type){
             case 0: $typeinfo = '注册'; break;
@@ -114,5 +117,61 @@ class Database{
             default:break;
         }
         return $typeinfo;
+    }
+
+    static public function AddEntrustmentPurchase($userid, $eticount, $rmbpereti, $mineti, $maxeti, $purchasetype){
+
+        $systemTime = TimesApi::GetSystemTime();
+        $ordernumber = TimesApi::GetOrderNumber($systemTime);
+
+        $entrustmentPurchase = new EntrustmentPurchaseModel();
+
+        $entrustmentPurchase->userid = $userid;
+        $entrustmentPurchase->eticount = $eticount;
+        $entrustmentPurchase->rmbpereti = $rmbpereti;
+        $entrustmentPurchase->eti = $eticount * $rmbpereti;
+        $entrustmentPurchase->mineti = $mineti;
+        $entrustmentPurchase->maxeti = $maxeti;
+        $entrustmentPurchase->successfuleti = 0;
+        $entrustmentPurchase->lockedeti = 0;
+        $entrustmentPurchase->remaineti = $eticount;
+        $entrustmentPurchase-> status = 0;
+        $entrustmentPurchase->statusinfo = '挂单中';
+        $entrustmentPurchase->publishtime = $systemTime;
+        $entrustmentPurchase->purchasetype = $purchasetype;
+        $entrustmentPurchase->purchasetypeinfo = self::GetEntrustmentPurchaseTypeInfo($purchasetype);
+        $entrustmentPurchase->ordernumber = $ordernumber;
+
+        $entrustmentPurchase->allowField(true)->save();
+    }
+
+    static private function GetEntrustmentPurchaseTypeInfo($purchaseType){
+        if($purchaseType === 0) return '挂买';
+        else if($purchaseType === 1) return '挂卖';
+    }
+
+    static public function AddDirectPurchase($userid, $entrustmentid, $eticount, $rmbpereti, $purchasetype){
+        $systemTiem = TimesApi::GetSystemTime();
+        $ordernumber = TimesApi::GetOrderNumber($systemTiem);
+
+        $directPurchase = new DirectPurchaseModel();
+        $directPurchase->userid = $userid;
+        $directPurchase->entrustmentid = $entrustmentid;
+        $directPurchase->eticount = $eticount;
+        $directPurchase->rmbpereti = $rmbpereti;
+        $directPurchase->eti = $eticount * $rmbpereti;
+        $directPurchase->status = 0;
+        $directPurchase->statusinfo = '已锁定，等待打款';
+        $directPurchase->lockedtime = $systemTiem;
+        $directPurchase->purchasetype = $purchasetype;
+        $directPurchase->purchasetypeinfo = self::GetDirectPurchaseTypeInfo($purchasetype);
+        $directPurchase->ordernumber = $ordernumber;
+
+        $directPurchase->allowField(true)->save();
+    }
+
+    static private function GetDirectPurchaseTypeInfo($purchasetype){
+        if($purchasetype === 0) return '直接买';
+        else if($purchasetype === 1) return '直接卖';
     }
 }

@@ -22,4 +22,7 @@ class Times{
         return $datetime;
     }
 
+    static public function GetOrderNumber($systemTime){
+        return preg_replace('/[ :.-]/','', $systemTime);
+    }
 }

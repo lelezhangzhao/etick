@@ -33,11 +33,12 @@ class Status{
         'ERROR_STATUS_CAPTCHAEMPTY' => '图片验证码为空',
         'ERROR_STATUS_CAPTCHAERROR' => '图片验证码错误',
         'ERROR_STATUS_RANKPREERROR' => '推荐码有误',
-        'ERROR_STATUS_HACKER' => '非法访问',
+        'ERROR_STATUS_HACKER' => '非法访问，账号已冻结',
         'ERROR_STATUS_PROGRESSERRORJUMPTOMATCH' => '流程错误，直接跳到主页',
         'ERROR_STATUS_NOMATCHMATCH' => '没有赛事',
         'ERROR_STATUS_MATCHISNOTDISPLAY' => '赛事未开始竞猜', //非法访问
         'ERROR_STATUS_MATCHCANTCOMPETITION' => '当前比赛无竞猜',
+        'ERROR_STATUS_GUESSINGREMAINETINOTENOUGH' => '竞猜剩余额度不足',
         'ERROR_STATUS_MATCHTYPEERROR' => '赛事类型错误', //0/1/2/3 正常/带单/福利/开庄
         'ERROR_STATUS_COMPETITIONGUESSINGISNOTEXIST' => '竞猜不存在',
         'ERROR_STATUS_COMPETITIONGUESSINGISSTOP' => '竞猜已停止',
@@ -45,6 +46,8 @@ class Status{
         'ERROR_STATUS_MATCHHASALREADYBEGINING' => '比赛已开始，不可撤单',
         'ERROR_STATUS_CANTREVERT' => '不可撤单', //非法访问
         'ERROR_STATUS_BETTINGRECORDISNOTEXIST' => '注单不存在',
+        'ERROR_STATUS_PURCHASEISNOTEXIST' => '交易不存在',
+        'ERROR_STATUS_PURCHASEREMAINETIISNOTENOUGH' => '交易剩余ETI不足',
         'ERROR_STATUS_ETIISNOTENOUGH' => '可用ETI不足',
         'ERROR_STATUS_PARAMERROR' => '参数错误'
 

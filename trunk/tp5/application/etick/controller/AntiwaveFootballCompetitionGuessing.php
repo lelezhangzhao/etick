@@ -12,6 +12,7 @@ use think\Validate;
 use think\Db;
 
 
+
 use app\etick\model\User as UserModel;
 use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
 use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
@@ -74,15 +75,18 @@ class AntiwaveFootballCompetitionGuessing extends Controller{
         try {
             $transGuessing = Db::name('AntiwaveFootballCompetitionGuessing')->lock(true)->where('id', $guessingid)->find();
             if(empty($transGuessing)){
-                throw(new \PDOException('Db find error'));
+                throw(new \PDOException('ERROR_STATUS_COMPETITIONGUESSINGISNOTEXIST'));
             }
             if($transGuessing['remaineti'] > $eti){
                 $transGuessing['remaineti'] -= $eti;
                 Db::name('AntiwaveFootballCompetitionGuessing')->update($transGuessing);
+            }else{
+                throw(new \PDOException('ERROR_STATUS_GUESSINGREMAINETINOTENOUGH'));
             }
             Db::commit(); //提交事务
         } catch (\PDOException $e) {
             Db::rollback(); //回滚事务
+            return StatusApi::ReturnErrorStatus($e->getMessage());
         }
 
 

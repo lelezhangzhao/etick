@@ -196,8 +196,5 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
         $user = UserModel::get($userid);
         $user->eti += $bettingrecord->bettingeti;
         $user->allowField(true)->save();
-
-
-
     }
 }
