@@ -550,6 +550,9 @@ $(function(){
         var guessingcaption = recorddetail.guessingcaption;
         var bettingtime = recorddetail.bettingtime;
         var matchtime = recorddetail.matchtime; //未开赛，下注五分钟内，开赛前可取消
+        var balancetime = recorddetail.balancetime;
+        var reverttime = recorddetail.reverttime;
+        var canceltime = recorddetail.canceltime;
         var matchstatus = recorddetail.matchstatus; //推迟状态比赛可取消
         var theodds = recorddetail.theodds;
         var bettingrecordstatus = recorddetail.status;
@@ -581,11 +584,23 @@ $(function(){
             case 6: //比赛结束，亏损
             case 7: //撤销
                 displaystatus = "none";
+                break;
             default:
                 return;
                 break;
         }
 
+
+        var matchrecordtimescontent = "";
+        if(bettingrecordstatus === 0 || bettingrecordstatus === 1 || bettingrecordstatus === 3) {
+            matchrecordtimescontent = "<span>比赛时间：" + matchtime + "</span>";
+        }else if(bettingrecordstatus === 2) {
+            matchrecordtimescontent = "<span>取消时间：" + canceltime + "</span>";
+        }else if(bettingrecordstatus === 4 || bettingrecordstatus === 5) {
+            matchrecordtimescontent = "<div>比赛时间：" + matchtime + "</div><div>结算时间：" + balancetime + "</div>";
+        }else if(bettingrecordstatus === 6){
+            matchrecordtimescontent = "<span>撤销时间：" + reverttime + "</span>";
+        }
 
         var html =
             "<div class='panel-body' >" +
@@ -602,13 +617,18 @@ $(function(){
                 "<div class='container'>" +
                     "<span>下注时间：" + bettingtime + "</span>" +
                 "</div>" +
-                "<div class='container'>" +
-                    "<span>比赛时间：" + matchtime + "</span>" +
+
+                //比赛时间
+                //撤销时间
+                //结算时间
+                "<div class='container' id='matchrecordtimes" + ordernumber + "'>" +
+                    // "<span>比赛时间：" + matchtime + "</span>" +
                 "</div>" +
             "</div>" +
             "<script>" +
                 "$(function(){" +
                     "$('#matchrecordrevert" + ordernumber + "').css('display', '" + displaystatus + "');" +
+                    "$('#matchrecordtimes" + ordernumber + "').html('" + matchrecordtimescontent + "');"  +
                 "});" +
             "</script>" +
             "<br />";
@@ -619,17 +639,30 @@ $(function(){
 
 
 //score
+
+
+
 $(function(){
-    $.GetScoreRecord = function(){
+    $.GetScoreFinished = function(beginRecord){
         $.ajax({
             type:"get",
-            url:"/tp5/public/index.php/etick/score/getpurchaserecord",
+            url:"/tp5/public/index.php/etick/score/getpurchaserecordfinished",
             async:true,
             dataType:"json",
+            data:{
+                beginrecord:beginRecord,
+            },
             success:function(data){
                 data = JSON.parse(data);
                 switch(data.code){
                     case 'ERROR_STATUS_SUCCESS':
+                        var html = "";
+                        var scoreFinishedRecords = JSON.parse(data.jsoncontent);
+                        for(var i = 0; i < scoreFinishedRecords.length; ++i){
+                            html += $.AddScoreRecord(scoreFinishedRecords[i], "scorecontainerfinished");
+                        }
+
+                        $("#scorecontainerfinished").html(html);
                         // var purchaserecords = JSON.parse(data.jsoncontent);
                         break;
                     default:
@@ -641,6 +674,269 @@ $(function(){
             }
         });
     }
+
+    $.GetScoreRunning = function(){
+        $.ajax({
+            type:"get",
+            url:"/tp5/public/index.php/etick/score/getpurchaserecordrunning",
+            async:true,
+            dataType:"json",
+            data:{
+                beginrecord:beginRecord,
+            },
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        var scoreRunningRecords = JSON.parse(data.jsoncontent);
+                        var html = "";
+                        for(var i = 0; i < scoreRunningRecords.length; ++i){
+                            html += $.AddScoreRecord(scoreRunningRecords[i], "scorecontainerrunning");
+                        }
+
+                        $("#scorecontainerrunning").html(html);
+                        // var purchaserecords = JSON.parse(data.jsoncontent);
+                        break;
+                    default:
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
+    }
+
+    $.AddScoreRecord = function(record, parent){
+        var purchaseType = record.purchasetype;
+        var orderNumber = record.ordernumber;
+        var status = record.status;
+        var statusinfo = record.statusinfo;
+        var rmbpereti = record.rmbpereti;
+        var eticount = record.eticount;
+
+        var purchaseCaption = $.GetPurchaseCaption(purchaseType, status);
+
+        var html =
+            "<div class='panel panel-default' >" +
+                "<div class='panel-heading' >" +
+                    "<div class='panel-title' >" +
+                        "<div class='row' style='background-color:#ccc'>" +
+                            "<a data-toggle='collapse' data-parent='#" + parent + "' href='#scorerecordcollapse" + orderNumber + "'>" +
+                                "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
+                                    "<p>" + purchaseCaption + "</p>" +
+                                "</div>" +
+                                "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10' >" +
+                                    "<p>" + rmbpereti + " : 1</p>" +
+                                "</div>" +
+                                "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10' >" +
+                                    "<p>" + eticount + "</p>" +
+                                "</div>" +
+                                "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' >" +
+                                    "<span class='glyphicon glyphicon-chevron-down' id='scorerecordglyphicon" + orderNumber + "'></span>" +
+                                "</div>" +
+                                "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
+                                    "<p>" + statusinfo + "</p>" +
+                                "</div>" +
+                            "</a>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+                "<div id='scorerecordcollapse" + orderNumber + "' class='panel-collapse collapse'>" +
+                "</div>" +
+            "</div>" +
+            "<script tepe='text/javascript'>" +
+                "$(function () {" +
+                    "var scorerecordcollapse = $('#scorerecordcollapse" + orderNumber + "');" +
+                        "scorerecordcollapse.on('show.bs.collapse', function () {" +
+                        "$.ScoreRecordDetailInfo('" + purchaseType + "," + orderNumber + "');" +
+                    "});" +
+                    "scorerecordcollapse.on('shown.bs.collapse', function () {" +
+                        "$('#scorerecordglyphicon" + orderNumber + "').toggleClass('glyphicon-chevron-up glyphicon-chevron-down');" +
+                    "});" +
+                    "scorerecordcollapse.on('hidden.bs.collapse', function () {" +
+                        "$('#scorerecordglyphicon" + orderNumber + "').toggleClass('glyphicon-chevron-up glyphicon-chevron-down');" +
+                    "});" +
+                "});" +
+            "</script>" +
+            "<br />";
+        return html;
+    }
+
+    $.GetPurchaseCaption = function(purchaseType, status){
+        var typeCaption = purchaseType === 0 ? "挂单" : "直接";
+        var statusCaption = status === 0 ? "买入" : "卖出";
+        return typeCaption + statusCaption;
+    }
+
+    $.ScoreRecordDetailInfo = function(purchaseType, orderNumber){
+        $.ajax({
+            type:"get",
+            url:"/tp5/public/index.php/etick/score/getpurchasedetail",
+            async:true,
+            dataType:"json",
+            data:{
+                purchasetype: purchaseType,
+                ordernumber: orderNumber
+            },
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        var recordobject = JSON.parse(data.jsoncontent);
+                        var html = "";
+                        for(var i = 0; i < recordobject.length; ++i){
+                            var recorddetail = recordobject[i];
+                            html += $.AddScoreRecordDetailInfo(recorddetail, purchaseType);
+                        }
+                        $("#scorerecordcollapse" + orderNumber).html(html);
+                        break;
+                    default:
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
+    }
+
+    $.AddScoreRecordDetailInfo = function(recordDetail, purchaseType, type){
+        var orderNumber = recordDetail.orderNumber;
+        var etiCount = recordDetail.eticount;
+        var rmbPerEti = recordDetail.rmbpereti;
+        var status = recordDetail.status;
+        var statusInfo = recordDetail.statusInfo;
+        var lockTime = recordDetail.locitime;
+        var payTime = recordDetail.payTime;
+        var confirmTime = recordDetail.confirmtime;
+        var directType = recordDetail.directtype;
+
+
+        // var basicInfo = "";
+        // var userInfo = "";
+        // var userDisplayInfo = "";
+        // var operatorInfo = "";
+        // var operatorDisplayInfo = "";
+        // var proofDisplayInfo = "";
+
+        var objInfo = new Object();
+
+        if(purchaseType === 0){
+            if(directType === 0){
+                //挂卖
+            }else if(directType === 1){
+                //挂买
+            }
+        }else if(purchaseType === 1){
+            if(directType === 0){
+                //直接买
+            }else if(directType === 1){
+                //直接卖
+            }
+        }
+
+
+
+        //是否显示button，及button内容
+        var displaystatus = "";
+        var displaycontent = "";
+        switch(bettingrecordstatus){
+            case 0: //未开赛
+                var now = new Date();
+                var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
+                //开赛前，并且下注五分钟内可撤销
+                if(now < new Date(matchtime) && bettingDiffMinutes >= 0 && bettingDiffMinutes <= 5){
+                    displaystatus = "";
+                    displaycontent = "撤销";
+                }else{
+                    displaystatus = "none";
+                }
+                break;
+            case 1: //比赛推迟
+                displaystatus = "";
+                displaycontent = "撤销";
+                break;
+            case 2: //比赛取消
+            case 3: //已开赛 未结算
+            case 4: //只进行上半场
+            case 5: //比赛结束，盈利
+            case 6: //比赛结束，亏损
+            case 7: //撤销
+                displaystatus = "none";
+                break;
+            default:
+                return;
+                break;
+        }
+
+
+        var matchrecordtimescontent = "";
+        if(bettingrecordstatus === 0 || bettingrecordstatus === 1 || bettingrecordstatus === 3) {
+            matchrecordtimescontent = "<span>比赛时间：" + matchtime + "</span>";
+        }else if(bettingrecordstatus === 2) {
+            matchrecordtimescontent = "<span>取消时间：" + canceltime + "</span>";
+        }else if(bettingrecordstatus === 4 || bettingrecordstatus === 5) {
+            matchrecordtimescontent = "<div>比赛时间：" + matchtime + "</div><div>结算时间：" + balancetime + "</div>";
+        }else if(bettingrecordstatus === 6){
+            matchrecordtimescontent = "<span>撤销时间：" + reverttime + "</span>";
+        }
+
+        var html =
+            "<div class='panel-body' >" +
+            "<div class='container'>" +
+            "<span>订单号：" + ordernumber + "</span>" +
+            "</div>" +
+            "<div class='container'>" +
+            "<span>比分：" + guessingcaption + "</span>" +
+            "</div>" +
+            "<div class='container'>" +
+            "<span>赔率：" + theodds + "</span>" +
+            "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber +"' onclick='MatchRecordRevert(" + ordernumber.toString() + ")'>" +  displaycontent + "</button>" +
+            "</div>" +
+            "<div class='container'>" +
+            "<span>下注时间：" + bettingtime + "</span>" +
+            "</div>" +
+
+            //比赛时间
+            //撤销时间
+            //结算时间
+            "<div class='container' id='matchrecordtimes" + ordernumber + "'>" +
+            // "<span>比赛时间：" + matchtime + "</span>" +
+            "</div>" +
+            "</div>" +
+            "<script>" +
+            "$(function(){" +
+            "$('#matchrecordrevert" + ordernumber + "').css('display', '" + displaystatus + "');" +
+            "$('#matchrecordtimes" + ordernumber + "').html('" + matchrecordtimescontent + "');"  +
+            "});" +
+            "</script>" +
+            "<br />";
+
+        return html;
+    }
+
+    // var basicInfo = "";
+    // var userInfo = "";
+    // var userDisplayInfo = "";
+    // var operatorInfo = "";
+    // var operatorDisplayInfo = "";
+    // var proofDisplayInfo = "";
+
+    $.GetBuyingInfo(objInfo, status){
+
+    }
+    $.GetSalingInfo(objInfo, status){
+
+    }
+
+    $("#scorebuyeti").click(function(){
+
+    });
+
+    $("#scoresaleeti").click(function(){
+
+    });
 });
 
 

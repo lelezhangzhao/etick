@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/8/22 9:21:24                            */
+/* Created on:     2018/8/24 10:54:40                           */
 /*==============================================================*/
 
 
@@ -26,13 +26,9 @@ drop table if exists etick_betting_record;
 
 drop table if exists etick_credit_record;
 
-drop table if exists etick_direct_buying;
+drop table if exists etick_direct_purchase;
 
-drop table if exists etick_direct_saling;
-
-drop table if exists etick_entrustment_buying;
-
-drop table if exists etick_entrustment_saling;
+drop table if exists etick_entrustment_purchase;
 
 drop table if exists etick_eti_record;
 
@@ -84,7 +80,8 @@ create table etick_advice
    id                   int not null auto_increment,
    userid               int,
    advice               varchar(2048),
-   advicetime           timestamp,
+   updatetime           timestamp,
+   advicetime           datetime,
    status               int comment '建议状态
             0 未读
             1 未采纳
@@ -273,10 +270,11 @@ create table etick_antiwave_football_match
             7 比赛结束结算成功
             ',
    statusinfo           varchar(30),
-   matchtime            timestamp,
-   displaytime          timestamp comment '显示给用户时间',
-   disappeartime        timestamp comment '用户界面，消失时间',
-   balancetime          timestamp,
+   updatetime           timestamp,
+   matchtime            datetime,
+   displaytime          datetime comment '显示给用户时间',
+   disappeartime        datetime comment '用户界面，消失时间',
+   balancetime          datetime,
    primary key (id)
 )
 type = InnoDB
@@ -330,7 +328,7 @@ create table etick_arbitration
    proofone             varchar(128),
    prooftwo             varchar(128),
    proofthree           varchar(128),
-   ordernumber          varchar(10),
+   ordernumber          varchar(17),
    result               int comment '仲裁结果
             0 提出人胜
             1 对方胜',
@@ -371,21 +369,37 @@ create table etick_betting_record
    guessingid           int,
    bettingeti           float(12,2),
    status               int comment '注单状态
-            0 未结算
-            1 盈利
-            2 亏损
-            3 比赛取消
-            4 撤销',
+            0 未开赛
+            1 比赛推迟
+            2 比赛取消
+            3 已开赛，未结算
+            4 只进行上半场，结束 
+            5 比赛正常结束
+            6 撤销
+            ',
    statusinfo           varchar(30),
    profit               float(12,2),
-   bettingtime          timestamp,
-   balancetime          timestamp,
+   updatetime           timestamp,
+   bettingtime          datetime,
+   balancetime          datetime,
+   canceltime           datetime comment '比赛取消时间',
+   reverttime           datetime,
+   revertstatus         int comment '撤销原因
+            0 正常撤销
+            1 比赛推迟撤销
+            ',
+   revertstatusinfo     varchar(30),
    etistatus            int comment '下注eti类型
             0 eti
             1 tasteeti
             2 frozeneti
             什么类型eti下注，收益便是什么类型',
    etistatusinfo        varchar(30),
+   bettingresult        int comment '竞猜结果
+            0 盈利
+            1 亏损
+            2 --',
+   bettingresultinfo    varchar(30),
    primary key (id)
 )
 type = InnoDB
@@ -416,135 +430,78 @@ auto_increment = 0;
 alter table etick_credit_record comment '信用分记录';
 
 /*==============================================================*/
-/* Table: etick_direct_buying                                   */
+/* Table: etick_direct_purchase                                 */
 /*==============================================================*/
-create table etick_direct_buying
+create table etick_direct_purchase
 (
    id                   int not null auto_increment,
    userid               int,
-   entrustmentsalingid  int,
+   entrustmentid        int,
    eticount             int,
-   etiperrmb            float(5,2),
+   rmbpereti            float(5,2),
    eti                  float(12,2),
    status               int comment '交易状态
-            0 买家锁定
-            1 买家打款
-            2 卖家确认
-            3 买家撤销
-            4 卖家撤销
-            5 仲裁单
+            0 已锁定，等待打款
+            1 已打款，等待确认
+            2 交易完成
+            3 买方申请，系统撤销
+            4 卖方申请，系统撤销
+            
             ',
    statusinfo           varchar(30),
-   lockedtime           timestamp,
-   paytime              timestamp,
-   revoketime           timestamp,
-   theothersiderevoketime timestamp,
-   theothersideconfirmtime timestamp,
+   updatetime           timestamp,
+   lockedtime           datetime,
+   paytime              datetime,
+   revoketime           datetime,
+   confirmtime          datetime,
    proofone             varchar(128),
    prooftwo             varchar(128),
    proofthree           varchar(128),
-   creditdescription    varchar(30) comment '一方撤销时，该字段记录扣除信用分相关信息',
+   description          varchar(30) comment '一方撤销时，该字段记录扣除信用分相关信息',
+   purchasetype         int comment '0 直接买
+            1 直接卖
+            ',
+   purchasetypeinfo     varchar(30),
+   ordernumber          varchar(17),
    primary key (id)
 )
 type = InnoDB
 auto_increment = 0;
 
-alter table etick_direct_buying comment '直接买入记录';
+alter table etick_direct_purchase comment '直接交易 记录';
 
 /*==============================================================*/
-/* Table: etick_direct_saling                                   */
+/* Table: etick_entrustment_purchase                            */
 /*==============================================================*/
-create table etick_direct_saling
-(
-   id                   int not null auto_increment,
-   userid               int,
-   entrustmentbuyingid  int,
-   eticount             int,
-   etiperrmb            float(5,2),
-   eti                  float(12,2),
-   status               int comment '交易状态
-            0 卖家锁定
-            1 买家锁定
-            2 买家打款
-            3 卖家确认
-            4 卖家撤销
-            5 买家撤销
-            6 仲裁单',
-   statusinfo           varchar(30),
-   lockedtime           timestamp,
-   theothersidelockedtime timestamp,
-   theothersidepaytime  timestamp,
-   revoketime           timestamp,
-   theothersiderevoketime timestamp,
-   confirmtime          timestamp,
-   proofone             varchar(128),
-   prooftwo             varchar(128),
-   proofthree           varchar(128),
-   creditdescription    varchar(30) comment '一方撤销时，该字段记录扣除信用分相关信息',
-   primary key (id)
-)
-type = InnoDB
-auto_increment = 0;
-
-alter table etick_direct_saling comment '直接卖出积分记录';
-
-/*==============================================================*/
-/* Table: etick_entrustment_buying                              */
-/*==============================================================*/
-create table etick_entrustment_buying
+create table etick_entrustment_purchase
 (
    id                   int not null auto_increment,
    userid               int,
    eticount             int,
-   etiperrmb            float(5,2),
+   rmbpereti            float(5,2),
    eti                  float(12,2),
    mineti               int,
    maxeti               int,
    successfuleti        float(12,2),
-   lockedeti            float(12,2),
-   remaineti            float(12,2),
    status               int comment '挂买积分状态
             0 挂买中
             1 已完成
             2 已撤销',
    statusinfo           varchar(30),
-   publishtime          timestamp,
-   endtime              timestamp,
-   primary key (id)
-)
-type = InnoDB
-auto_increment = 0;
-
-alter table etick_entrustment_buying comment '委托买入';
-
-/*==============================================================*/
-/* Table: etick_entrustment_saling                              */
-/*==============================================================*/
-create table etick_entrustment_saling
-(
-   id                   int not null auto_increment,
-   userid               int,
-   eticount             int,
-   etiperrmb            float(5,2),
-   eti                  float(12,2),
-   mineti               int,
-   maxeti               int,
-   successfuleti        float(12,2),
-   lockedeti            float(12,2),
    remaineti            float(12,2),
-   status               int comment '挂单状态：
-            0 正在挂单
-            1 完成
-            2 撤销',
-   statusinfo           varchar(30),
-   publicshtime         timestamp,
-   endtime              timestamp,
+   updatetime           timestamp,
+   publishtime          datetime,
+   endtime              datetime,
+   purchasetype         int comment '0 挂买
+            1 挂卖',
+   purchasetypeifo      varchar(30),
+   ordernumber          varchar(17),
    primary key (id)
 )
 type = InnoDB
 auto_increment = 0;
 
-alter table etick_entrustment_saling comment '委托卖出';
+alter table etick_entrustment_purchase comment '委托交易';
 
 /*==============================================================*/
 /* Table: etick_eti_record                                      */
@@ -570,10 +527,12 @@ create table etick_eti_record
             13 抽奖 +
             14 建议采纳 +
             15 领导人分红+
-            16 仲裁+-',
+            16 仲裁+-
+            ',
    typeinfo             varchar(30),
    eti                  float(12,2),
-   profittime           timestamp,
+   updatetime           timestamp,
+   profittime           datetime,
    primary key (id)
 )
 type = InnoDB
@@ -819,10 +778,11 @@ create table etick_lol_match
             5 比赛结束结算成功
             ',
    statusinfo           varchar(30),
-   matchtime            timestamp,
-   displaytime          timestamp comment '在界面显示时间',
-   disappeartime        timestamp comment '从界面消失时间',
-   balancetime          timestamp,
+   updatetime           timestamp,
+   matchtime            datetime,
+   displaytime          datetime comment '在界面显示时间',
+   disappeartime        datetime comment '从界面消失时间',
+   balancetime          datetime,
    etickmatchtype       int comment '1 lol',
    primary key (id)
 )
@@ -921,8 +881,9 @@ create table etick_tel_identify
 (
    id                   int not null auto_increment,
    ip                   varchar(15),
-   firsttime            timestamp,
-   secondtime           timestamp,
+   updatetime           timestamp,
+   firsttime            datetime,
+   secondtime           datetime,
    primary key (id)
 )
 type = InnoDB
@@ -937,7 +898,8 @@ create table etick_the_anti_fortune
 (
    id                   int not null auto_increment,
    userid               int,
-   chipintime           timestamp,
+   updatetime           timestamp,
+   chipintime           datetime,
    primary key (id)
 )
 type = InnoDB
@@ -954,7 +916,8 @@ create table etick_the_fortune
 (
    id                   int not null auto_increment,
    userid               int,
-   chipintime           timestamp,
+   updatetime           timestamp,
+   chipintime           datetime,
    primary key (id)
 )
 type = InnoDB
@@ -971,7 +934,8 @@ create table etick_the_last_one
 (
    id                   int not null auto_increment,
    userid               int,
-   chipintime           timestamp,
+   updatetime           timestamp,
+   chipintime           datetime,
    primary key (id)
 )
 type = InnoDB
@@ -987,8 +951,9 @@ create table etick_the_last_one_record
    id                   int not null auto_increment,
    userid               int,
    eti                  float(12,2),
-   chipintime           timestamp,
-   balancetime          timestamp,
+   updatetime           timestamp,
+   chipintime           datetime,
+   balancetime          datetime,
    primary key (id)
 )
 type = InnoDB
@@ -1008,12 +973,14 @@ create table etick_user
    passwordmd5          varchar(32),
    secondpassword       varchar(30),
    secondpasswordmd5    varchar(32),
+   name                 varchar(30),
    idcard               varchar(18),
    tel                  varchar(11),
    banknum              varchar(30),
    bankname             varchar(60),
    alipaynum            varchar(30),
    eti                  float(12,2),
+   etiforsaling         float(12,2) comment '卖出中eti',
    frozeneti            float(12.2),
    tasteeti             float(12,2),
    credit               float(5,1) comment '信用分 0-100',
@@ -1031,9 +998,10 @@ create table etick_user
    islead               bool comment '是否带单师',
    isleader             bool,
    isbanker             bool,
-   registertime         timestamp,
-   lastlogintime        timestamp,
-   logouttime           timestamp,
+   updatetime           timestamp,
+   registertime         datetime,
+   lastlogintime        datetime,
+   logouttime           datetime,
    issigntoday          bool,
    invoke               varchar(100) comment '预留接口',
    primary key (id)

@@ -104,6 +104,7 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
         if(true !== $userstatus){
             return $userstatus;
         }
+        $systemTime = TimesApi::GetSystemTime();
 
         $orderNumber = $request->param('ordernumber');
 
@@ -123,7 +124,6 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
         }
 
 
-        $systemTime = TimesApi::GetSystemTime();
         if($bettingrecord->status === 0){
             //比赛已开始或下注超过五分钟
             if($match->matchtime < $systemTime){
@@ -138,8 +138,11 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
 
         //撤销
         //标注撤销状态
-        $bettingrecord->status = 7;
+        $bettingrecord->status = 6;
         $bettingrecord->statusinfo = '撤销';
+        $bettingrecord->revertstatus = 0;
+        $bettingrecord->revertstatusinfo = '正常撤销';
+        $bettingrecord->reverttime = $systemTime;
         $bettingrecord->allowField(true)->save();
 
         //返额度
@@ -196,5 +199,7 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
         $user = UserModel::get($userid);
         $user->eti += $bettingrecord->bettingeti;
         $user->allowField(true)->save();
+
+        return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '撤销成功');
     }
 }

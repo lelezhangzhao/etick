@@ -29,54 +29,68 @@ class Score extends Controller{
     }
 
 
-    //我的交易
-    public function GetPurchaseRecord(){
+    //我的交易--已完成
+    public function GetPurchaseRecordFinished(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
         }
 
         $userid = Session::get('userid');
-
-        //挂单
-        $entrustmentPurchase = EntrustmentPurchaseModel::where('userid', $userid)->select();
-        //直接
-        $directPurchase = DirectPurchaseModel::where('userid', $userid)->select();
-
-        //可操作挂单项
-        $entrustmentOperatable = Db::view('DirectPurchase', 'id, status')
-            ->where('DirectPurchase.status', 'in', '0,1')
-            ->view('EntrustmentPurchase', 'userid', 'EntrustmentPurchase.id = DirectPurchase.entrustmentid')
-            ->where('EntrustmentPurchase.userid', $userid)
-            ->select();
-//        $entrustmentOperatable = Db::name('direct_purchase')->select();
+        $beginRecord = $request->param('beginrecord');
 
 
-        $purchaserecord = ['entrustmentpurchase' => $entrustmentPurchase, 'directpurchase' => $directPurchase, '$entrustmentoperatable' => $entrustmentOperatable];
+        $sql = "select purchasetype, ordernumber, status, statusinfo, rmppereti, eticount from etick_entrustment_purchase where status in (1,2) 
+                union 
+                select purchasetype, ordernumber, status, statusinfo, rmppereti, eticount, from etick_direct_purchase where status in (2,3,4) order by publictime desc limit $beginRecord, 20";
+        $purchaseRecord = Db::query($sql);
 
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $purchaserecord);
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $purchaseRecord);
     }
 
-    //挂单详情
-    public function GetEntrustmentDetail(Request $request){
+    //我的交易--进行中
+    public function GetPruchaseRecordRunning(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
             return $userstatus;
         }
 
-        $ordernumber = $request->param('ordernumber');
         $userid = Session::get('userid');
+        $beginRecord = $request->param('beginrecord');
 
-        $entrustmentPurchase = EntrustmentPurchaseModel::where('ordernumber', $ordernumber)->find();
-        if(empty($entrustmentPurchase)){
-            return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
-        }else if($entrustmentPurchase->userid !== $userid){
-            UserStatusApi::FrozenUser('获取不是自己的挂单详情');
-            return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
+        $sql = "select purchasetype, ordernumber, status from etick_entrustment_purchase where status in (0,3) union select purchasetype, ordernumber, status from etick_direct_purchase where status in (0,1) limit $beginRecord, 20 order by publictime desc";
+        $purchaseRecord = Db::query($sql);
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $purchaseRecord);
+
+    }
+
+    //交易详情
+    public function GetPurchaseDetail(Request $request){
+        $userstatus = UserStatusApi::TestUserLoginAndStatus();
+        if(true !== $userstatus){
+            return $userstatus;
         }
-        $detailRecord = DirectPurchaseModel::where('entrustmentid', $entrustmentPurchase->id)->select();
-        if(empty($detailRecord)){
-            return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
+
+        $purchaseType = $request->param('purchasetype');
+        $orderNumber = $request->param('ordernumber');
+        $userid = Session::get('userid');
+        $detailRecord = null;
+
+
+        if($purchaseType === 0){
+            $entrustmentPurchase = EntrustmentPurchaseModel::where('ordernumber', $orderNumber)->find();
+            if(empty($entrustmentPurchase)){
+                return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
+            }else if($entrustmentPurchase->userid !== $userid){
+                UserStatusApi::FrozenUser('获取不是自己的挂单详情');
+                return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
+            }
+            $detailRecord = DirectPurchaseModel::where('entrustmentid', $entrustmentPurchase->id)->select();
+            if(empty($detailRecord)){
+                return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
+            }
+        }else if($purchaseType === 1){
+            $detailRecord = DirectPurchaseModel::where('ordernumber', $orderNumber)->find();
         }
 
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $detailRecord);
@@ -263,6 +277,13 @@ class Score extends Controller{
         $user->etiforsaling -= $eti;
         $user->allowField(true)->save();
 
+        //挂卖单状态改变
+        if($entrustmentPurchase->remaineti <= 0.00){
+            $entrustmentPurchase->status = 1;
+            $entrustmentPurchase->statusinfo = '已完成';
+            $entrustmentPurchase->allowField(true)->save();
+        }
+
         //积分转出状态改变
         $directPurchase->status = 2;
         $directPurchase->statusinfo = '交易完成';
@@ -273,6 +294,8 @@ class Score extends Controller{
         $userforbuying = UserModel::get($directOrderNumber->userid);
         $userforbuying->eti += $directPurchase->eti;
         $userforbuying->allowField(true)->save();
+
+
 
         //eti record
         DatabaseApi::AddEtiRecord($userid, 11, -$eti);
@@ -311,6 +334,12 @@ class Score extends Controller{
             }
             if($transEntrustmentPurchase['remaineti'] > $eticount){
                 $transEntrustmentPurchase['remaineti'] -= $eticount;
+
+                if($transEntrustmentPurchase['remaineti'] === 0){
+                    $transEntrustmentPurchase['status'] = 3;
+                    $transEntrustmentPurchase['statusinfo'] = '挂单中，无剩余额度';
+                }
+
                 Db::name('EntrustmentPurchase')->update($transEntrustmentPurchase);
             }else{
                 throw(new \PDOException('ERROR_STATUS_PURCHASEREMAINETIISNOTENOUGH'));
@@ -392,6 +421,7 @@ class Score extends Controller{
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
         }
 
+
         //事务修改交易单
         Db::startTrans(); //启动事务
         try {
@@ -401,6 +431,11 @@ class Score extends Controller{
             }
             if($transEntrustmentPurchase['remaineti'] > $eti){
                 $transEntrustmentPurchase['remaineti'] -= $eti;
+
+                if($transEntrustmentPurchase['remaineti'] === 0){
+                    $transEntrustmentPurchase['status'] = 3;
+                    $transEntrustmentPurchase['statusinfo'] = '挂单中，无剩余额度';
+                }
                 Db::name('EntrustmentPurchase')->update($transEntrustmentPurchase);
             }else{
                 throw(new \PDOException('ERROR_STATUS_PURCHASEREMAINETIISNOTENOUGH'));
@@ -449,15 +484,24 @@ class Score extends Controller{
         $user->etiforsaling -= $eti;
         $user->allowField(true)->save();
 
+
+
         //积分转出状态改变
         $directPurchase->status = 2;
         $directPurchase->statusinfo = '交易完成';
         $directPurchase->confirmtime = $systemTime;
         $directPurchase->allowField(true)->save();
 
-        //挂买方获得eti
-        $entrustmentPurchase = EntrustmentPurchaseModel::get($directPurchase->entrustmentid);
 
+        //改变挂买单状态
+        $entrustmentPurchase = EntrustmentPurchaseModel::get($directPurchase->entrustmentid);
+        if($entrustmentPurchase->remaineti <= 0.00){
+            $entrustmentPurchase->status = 1;
+            $entrustmentPurchase->statusinfo = '已完成';
+            $entrustmentPurchase->allowField(true)->save();
+        }
+
+        //挂买方获得eti
         $userforbuying = UserModel::get($entrustmentPurchase->userid);
         $userforbuying->eti += $directPurchase->eti;
         $userforbuying->allowField(true)->save();
@@ -471,6 +515,7 @@ class Score extends Controller{
 
     }
 
+    //上传凭证
     public function UploadProof(Request $request){
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){

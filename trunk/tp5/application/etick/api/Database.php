@@ -119,7 +119,7 @@ class Database{
         return $typeinfo;
     }
 
-    static public function AddEntrustmentPurchase($userid, $eticount, $rmbpereti, $mineti, $maxeti, $purchasetype){
+    static public function AddEntrustmentPurchase($userid, $eticount, $rmbpereti, $mineti, $maxeti, $entrustmentType){
 
         $systemTime = TimesApi::GetSystemTime();
         $ordernumber = TimesApi::GetOrderNumber($systemTime);
@@ -138,19 +138,20 @@ class Database{
         $entrustmentPurchase-> status = 0;
         $entrustmentPurchase->statusinfo = '挂单中';
         $entrustmentPurchase->publishtime = $systemTime;
-        $entrustmentPurchase->purchasetype = $purchasetype;
-        $entrustmentPurchase->purchasetypeinfo = self::GetEntrustmentPurchaseTypeInfo($purchasetype);
+        $entrustmentPurchase->purchasetype = 0;
+        $entrustmentPurchase->entrustmenttype = $entrustmentType;
+        $entrustmentPurchase->entrustmenttypeinfo = self::GetEntrustmentTypeInfo($entrustmentType);
         $entrustmentPurchase->ordernumber = $ordernumber;
 
         $entrustmentPurchase->allowField(true)->save();
     }
 
-    static private function GetEntrustmentPurchaseTypeInfo($purchaseType){
-        if($purchaseType === 0) return '挂买';
-        else if($purchaseType === 1) return '挂卖';
+    static private function GetEntrustmentTypeInfo($entrustmentType){
+        if($entrustmentType === 0) return '挂买';
+        else if($entrustmentType === 1) return '挂卖';
     }
 
-    static public function AddDirectPurchase($userid, $entrustmentid, $eticount, $rmbpereti, $purchasetype){
+    static public function AddDirectPurchase($userid, $entrustmentid, $eticount, $rmbpereti, $directType){
         $systemTiem = TimesApi::GetSystemTime();
         $ordernumber = TimesApi::GetOrderNumber($systemTiem);
 
@@ -163,15 +164,16 @@ class Database{
         $directPurchase->status = 0;
         $directPurchase->statusinfo = '已锁定，等待打款';
         $directPurchase->lockedtime = $systemTiem;
-        $directPurchase->purchasetype = $purchasetype;
-        $directPurchase->purchasetypeinfo = self::GetDirectPurchaseTypeInfo($purchasetype);
+        $directPurchase->purchasetype = 1;
+        $directPurchase->directtype = $directType;
+        $directPurchase->directtypeinfo = self::GetDirectTypeInfo($directType);
         $directPurchase->ordernumber = $ordernumber;
 
         $directPurchase->allowField(true)->save();
     }
 
-    static private function GetDirectPurchaseTypeInfo($purchasetype){
-        if($purchasetype === 0) return '直接买';
-        else if($purchasetype === 1) return '直接卖';
+    static private function GetDirectTypeInfo($directType){
+        if($directType === 0) return '直接买';
+        else if($directType === 1) return '直接卖';
     }
 }

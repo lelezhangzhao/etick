@@ -1,13 +1,41 @@
 {layout name="layout" $title="积分" /}
 
-<div class="container" id="scorecontainer">
+<div class="container" id="scorecontainer" >
+    <div class="layui-tab" lay-filter="scoretab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">已完成</li>
+            <li>进行中</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show" id="scorecontainerfinished"></div>
+            <div class="layui-tab-item" id="scorecontainerrunning"></div>
+        </div>
+    </div>
 
+    <div class = "container">
+        <button type="button" class="btn btn-default" id="scorebuyeti">买积分</button>
+        <button type="button" class="btn btn-default" id="scoresaleeti">卖积分</button>
+    </div>
 
 </div>
+<script>  layui.use('element', function(){
+        var $ = layui.jquery
+            ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+
+        element.on('tab(scoretab)', function(elem){
+            if(elem.index === 0){
+                $.GetScoreFinished(0);
+            }else if(elem.index === 1){
+                $.GetScoreRunning(0);
+            }
+        });
+    });
+</script>
 <script>
     $(function(){
         $(document).ready(function(){
-            $.GetScoreRecord();
+            $.GetScoreFinished(0);
         });
     });
 </script>
