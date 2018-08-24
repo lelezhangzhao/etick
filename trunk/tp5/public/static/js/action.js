@@ -639,9 +639,6 @@ $(function(){
 
 
 //score
-
-
-
 $(function(){
     $.GetScoreFinished = function(beginRecord){
         $.ajax({
@@ -657,9 +654,13 @@ $(function(){
                 switch(data.code){
                     case 'ERROR_STATUS_SUCCESS':
                         var html = "";
-                        var scoreFinishedRecords = JSON.parse(data.jsoncontent);
-                        for(var i = 0; i < scoreFinishedRecords.length; ++i){
-                            html += $.AddScoreRecord(scoreFinishedRecords[i], "scorecontainerfinished");
+                        if(data.jsoncontent.length !== 0){
+                            var scoreFinishedRecords = JSON.parse(data.jsoncontent);
+                            for(var i = 0; i < scoreFinishedRecords.length; ++i){
+                                html += $.AddScoreRecord(scoreFinishedRecords[i], "scorecontainerfinished");
+                            }
+                        }else{
+                            html = "没有记录";
                         }
 
                         $("#scorecontainerfinished").html(html);
@@ -819,101 +820,126 @@ $(function(){
         // var operatorInfo = "";
         // var operatorDisplayInfo = "";
         // var proofDisplayInfo = "";
+        // var userCurStatus = ""; //当前purchase状态
+        // 0 挂买锁定
+        // 1 挂买打款
+        // 2 挂买确认
+        // 3 挂买买家撤销
+        // 4 挂买卖家撤销
+        // 5 直接买锁定
+        // 6 直接买打款
+        // 7 直接买确认
+        // 8 直接买买家撤销
+        // 9 直接买卖家撤销
+        // 10 挂卖锁定
+        // 11 挂卖打款
+        // 12 挂卖确认
+        // 13 挂卖买家撤销
+        // 14 挂卖卖家撤销
+        // 15 直接卖锁定
+        // 16 直接卖打款
+        // 17 直接卖确认
+        // 18 直接卖买家撤销
+        // 19 直接卖卖家撤销
 
-        var objInfo = new Object();
-
-        if(purchaseType === 0){
-            if(directType === 0){
-                //挂卖
-            }else if(directType === 1){
-                //挂买
-            }
-        }else if(purchaseType === 1){
-            if(directType === 0){
-                //直接买
-            }else if(directType === 1){
-                //直接卖
-            }
+        var recordInfo = new Object();
+        //显示内容
+        if((purchaseType === 0 && directType === 1) || (purchaseType === 1 && directType === 0)){
+            //买
+            $.GetBuyingInfo(recordInfo, recordDetail);
+        }else if((purchaseType === 0 && directType === 0) || (purchaseType === 1 && directType === 1)){
+            //卖
+            $.GetSalingInfo(recordInfo, recordDetail);
         }
 
-
-
-        //是否显示button，及button内容
-        var displaystatus = "";
-        var displaycontent = "";
-        switch(bettingrecordstatus){
-            case 0: //未开赛
-                var now = new Date();
-                var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
-                //开赛前，并且下注五分钟内可撤销
-                if(now < new Date(matchtime) && bettingDiffMinutes >= 0 && bettingDiffMinutes <= 5){
-                    displaystatus = "";
-                    displaycontent = "撤销";
-                }else{
-                    displaystatus = "none";
-                }
-                break;
-            case 1: //比赛推迟
-                displaystatus = "";
-                displaycontent = "撤销";
-                break;
-            case 2: //比赛取消
-            case 3: //已开赛 未结算
-            case 4: //只进行上半场
-            case 5: //比赛结束，盈利
-            case 6: //比赛结束，亏损
-            case 7: //撤销
-                displaystatus = "none";
-                break;
-            default:
-                return;
-                break;
-        }
-
-
-        var matchrecordtimescontent = "";
-        if(bettingrecordstatus === 0 || bettingrecordstatus === 1 || bettingrecordstatus === 3) {
-            matchrecordtimescontent = "<span>比赛时间：" + matchtime + "</span>";
-        }else if(bettingrecordstatus === 2) {
-            matchrecordtimescontent = "<span>取消时间：" + canceltime + "</span>";
-        }else if(bettingrecordstatus === 4 || bettingrecordstatus === 5) {
-            matchrecordtimescontent = "<div>比赛时间：" + matchtime + "</div><div>结算时间：" + balancetime + "</div>";
-        }else if(bettingrecordstatus === 6){
-            matchrecordtimescontent = "<span>撤销时间：" + reverttime + "</span>";
-        }
+        $.GetUserCurStatus(recordInfo, recordDetail);
 
         var html =
             "<div class='panel-body' >" +
-            "<div class='container'>" +
-            "<span>订单号：" + ordernumber + "</span>" +
-            "</div>" +
-            "<div class='container'>" +
-            "<span>比分：" + guessingcaption + "</span>" +
-            "</div>" +
-            "<div class='container'>" +
-            "<span>赔率：" + theodds + "</span>" +
-            "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber +"' onclick='MatchRecordRevert(" + ordernumber.toString() + ")'>" +  displaycontent + "</button>" +
-            "</div>" +
-            "<div class='container'>" +
-            "<span>下注时间：" + bettingtime + "</span>" +
-            "</div>" +
-
-            //比赛时间
-            //撤销时间
-            //结算时间
-            "<div class='container' id='matchrecordtimes" + ordernumber + "'>" +
-            // "<span>比赛时间：" + matchtime + "</span>" +
-            "</div>" +
+                "<div class='container'>" +
+                    + recordInfo.basicInfo +
+                "</div>" +
+                "<div class='container'>" +
+                    "<button class='btn btn-default' id='scorerecordoperator" + orderNumber + "' style='display:none;'>" + recordInfo.operatorInfo + "</button>" +
+                "</div>" +
+                "<div class='container'>" +
+                    "<button type='button' class='btn btn-default' id='scorerecordproof" + orderNumber +"' style='display:none;'>上传凭证</button>" +
+                "</div>" +
+                "<div class='container' id='scorerecorduserinfo" + orderNumber + "' style='display:none;'>" +
+                "</div>" +
             "</div>" +
             "<script>" +
             "$(function(){" +
-            "$('#matchrecordrevert" + ordernumber + "').css('display', '" + displaystatus + "');" +
-            "$('#matchrecordtimes" + ordernumber + "').html('" + matchrecordtimescontent + "');"  +
+                "$('#scorerecordoperator" + orderNumber + "').css('display', '" + recordInfo.operatorDisplayInfo + "');" +
+                "$('#scorerecordoperator" + orderNumber + "').click = $.ScoreRecordOperator(" + recordInfo.userCurStatus + "," + orderNumber + ")" +
+                "$('#scorerecorduserinfo" + orderNumber + "').html('" + recordInfo.userInfo + "');"  +
+                "$('#scorerecorduserinfo" + orderNumber + "').css('display', '" + recordInof.userDisplayInfo + "')" +
+                "$('#scorerecordproof" + orderNumber + "').css('display', '" + recordInof.proofDisplayInfo + "')" +
+                "$('#scorerecordproof" + orderNumber + "').click = $.ScoreRecordProof(" + recordInfo.userCurStatus + ")" +
             "});" +
             "</script>" +
             "<br />";
 
         return html;
+    }
+
+    $.ScoreRecordOperator = function(userCurStatus, orderNumber){
+        if(userCurStatus !== 0 || userCurStatus !== 5)
+            return;
+        if(userCurStatus === 0){
+            //挂买已打款
+            $.ajax({
+                type:"get",
+                url:"/tp5/public/index.php/etick/score/entrustmentbuyingpurchase",
+                async:true,
+                dataType:"json",
+                data:{
+                    ordernumber: orderNumber,
+                },
+                success:function(data){
+                    data = JSON.parse(data);
+                    switch(data.code){
+                        case 'ERROR_STATUS_SUCCESS':
+                            var recordobject = JSON.parse(data.jsoncontent);
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                error:function(hd, msg){
+                    $.ShowMsg(msg);
+                }
+            });
+        }else if(userCurStatus === 5){
+            //直接买已打款
+            $.ajax({
+                type:"get",
+                url:"/tp5/public/index.php/etick/score/directbuyingpurchase",
+                async:true,
+                dataType:"json",
+                data:{
+                    ordernumber: orderNumber,
+                },
+                success:function(data){
+                    data = JSON.parse(data);
+                    switch(data.code){
+                        case 'ERROR_STATUS_SUCCESS':
+                            var recordobject = JSON.parse(data.jsoncontent);
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                error:function(hd, msg){
+                    $.ShowMsg(msg);
+                }
+            });
+
+        }
+    }
+
+    $.ScoreRecordProof = function(userCurStatus){
+
     }
 
     // var basicInfo = "";
@@ -923,20 +949,650 @@ $(function(){
     // var operatorDisplayInfo = "";
     // var proofDisplayInfo = "";
 
-    $.GetBuyingInfo(objInfo, status){
+    $.GetBuyingInfo = function(objInfo, recordDetail){
+        var status = recordDetail.status;
+        var orderNumber = recordDetail.ordernumber;
+        objInfo.basicInfo =
+            "<div class='container'>" +
+                "<div>" +
+                    "<p>" + orderNumber + "</p>" +
+                "</div>" +
+                "<div>" +
+                    "<p>" + recordDetail.eticount + "</p>" +
+                "</div>" +
+                "<div>" +
+                    "<p>" + recordDetail.eti + "</p>" +
+                "</div>" +
+                "<div>" +
+                    "<p>" + recordDetail.statusinfo + "</p>" +
+                "</div>" +
+                "<div>" +
+                    "<p>" + recordDetail.locktime + "</p>" +
+                "</div>";
+
+        // if(status === 0 || status === 1){
+        //     objInfo.userInfo = $.GetScoreBuyingUserInfo(orderNumber);
+        //     objInfo.userDisplayInfo = "";
+        //     objInfo.proofDisplayInfo = "";
+        // }else{
+        //     objInfo.userDisplayInfo = "none";
+        //     objInfo.proofDisplayInfo = "none";
+        // }
+
+        if(status === 0){
+            objInfo.userInfo = $.GetScoreBuyingUserInfo(orderNumber);
+            objInfo.userDisplayInfo = "";
+            objInfo.operatorInfo = "已打款";
+            objInfo.operatorDisplayInfo = "";
+            objInfo.proofDisplayInfo = "";
+
+        }else if(status === 1){
+            objInfo.userInfo = $.GetScoreBuyingUserInfo(orderNumber);
+            objInfo.userDisplayInfo = "";
+            objInfo.operatorDisplayInfo = "";
+            objInfo.proofDisplayInfo = "";
+
+            objInfo.basicInfo +=
+                "<div>" +
+                    "<p>" + recordDetail.paytime + "</p>" +
+                "</div>";
+
+        }else if(status === 2){
+            objInfo.userDisplayInfo = "none";
+            objInfo.operatorDisplayInfo = "";
+            objInfo.proofDisplayInfo = "none";
+
+            objInfo.basicInfo +=
+                "<div>" +
+                    "<p>" + recordDetail.paytime + "</p>" +
+                "</div>" +
+                "<div>" +
+                    "<p>" + recordDetail.confirmtime + "</p>" +
+                "</div>";
+        }else if(status === 3 || status === 4){
+            objInfo.userDisplayInfo = "none";
+            objInfo.operatorDisplayInfo = "";
+            objInfo.proofDisplayInfo = "none";
+
+            objInfo.basicInfo +=
+                "<div>" +
+                    "<p>" + recordDetail.reverttime + "</p>" +
+                "</div>";
+
+        }
+
+        objInfo.basicInfo += "</div>";
 
     }
-    $.GetSalingInfo(objInfo, status){
+    $.GetSalingInfo = function(objInfo, recordDetail){
+        var status = recordDetail.status;
+        var orderNumber = recordDetail.ordernumber;
+        objInfo.basicInfo =
+            "<div class='container'>" +
+                "<div>" +
+                    "<p>" + orderNumber + "</p>" +
+                "</div>" +
+                "<div>" +
+                    "<p>" + recordDetail.eticount + "</p>" +
+                "</div>" +
+                "<div>" +
+                    "<p>" + recordDetail.eti + "</p>" +
+                "</div>" +
+                "<div>" +
+                    "<p>" + recordDetail.statusinfo + "</p>" +
+                "</div>" +
+                "<div>" +
+                    "<p>" + recordDetail.locktime + "</p>" +
+                "</div>";
 
+        // if(status === 0 || status === 1){
+        //     objInfo.userInfo = $.GetScoreSalingUserInfo(orderNumber);
+        //     objInfo.userDisplayInfo = "";
+        // }else{
+        //     objInfo.userDisplayInfo = "none";
+        // }
+
+        objInfo.operatorDisplayInfo = "none";
+        objInfo.proofDisplayInfo = "none";
+
+        if(status === 0){
+            objInfo.userInfo = $.GetScoreSalingUserInfo(orderNumber);
+            objInfo.userDisplayInfo = "";
+        }else if(status === 1){
+            objInfo.basicInfo +=
+                "<div>" +
+                    "<p>" + recordDetail.paytime + "</p>" +
+                "</div>";
+        }else if(status === 2){
+            objInfo.userDisplayInfo = "none";
+
+            objInfo.basicInfo +=
+                "<div>" +
+                    "<p>" + recordDetail.paytime + "</p>" +
+                "</div>" +
+                "<div>" +
+                    "<p>" + recordDetail.confirmtime + "</p>" +
+                "</div>";
+        }else if(status === 3 || status === 4){
+            objInfo.userDisplayInfo = "none";
+
+            objInfo.basicInfo +=
+                "<div>" +
+                    "<p>" + recordDetail.reverttime + "</p>" +
+                "</div>";
+        }
+
+
+        objInfo.basicInfo += "</div>";
+
+    }
+
+    $.GetUserCurStatus = function(objInfo, recordDetail){
+        var purchaseType = recordDetail.purchasetype;
+        var directType = recordDetail.directtype;
+        var status = recordDetail.status;
+
+        if(purchaseType === 0){
+            //挂单
+            if(directType === 0){
+                //挂买
+                if(status === 0){
+                    objInfo.userCurStatus = 0;
+                    //挂买锁定
+                }else if(status === 1){
+                    //挂买打款
+                    objInfo.userCurStatus = 1;
+
+                }else if(status === 2){
+                    //挂买确认
+                    objInfo.userCurStatus = 2;
+
+                }else if(status === 3){
+                    //挂买买家撤销
+                    objInfo.userCurStatus = 3;
+
+                }else if(status === 4){
+                    //挂买卖家撤销
+                    objInfo.userCurStatus = 4;
+
+                }
+            }else if(directType === 1){
+                //挂卖
+                if(status === 0){
+                    //挂卖锁定
+                    objInfo.userCurStatus = 5;
+
+                }else if(status === 1){
+                    //挂卖打款
+                    objInfo.userCurStatus = 6;
+
+                }else if(status === 2){
+                    //挂卖确认
+                    objInfo.userCurStatus = 7;
+
+                }else if(status === 3){
+                    //挂卖买家撤销
+                    objInfo.userCurStatus = 8;
+
+                }else if(status === 4){
+                    //挂卖卖家撤销
+                    objInfo.userCurStatus = 9;
+
+                }
+            }
+        }else if(purchaseType === 1){
+            //直接下单
+            if(directType === 0){
+                //直接买
+                if(status === 0){
+                    //直接买锁定
+                    objInfo.userCurStatus = 10;
+
+                }else if(status === 1){
+                    //直接买打款
+                    objInfo.userCurStatus = 11;
+
+                }else if(status === 2){
+                    //直接买确认
+                    objInfo.userCurStatus = 12;
+
+                }else if(status === 3){
+                    //直接买买家撤销
+                    objInfo.userCurStatus = 13;
+
+                }else if(status === 4){
+                    //直接买卖家撤销
+                    objInfo.userCurStatus = 14;
+
+                }
+            }else if(directType === 1){
+                //直接卖
+                if(status === 0){
+                    //直接卖锁定
+                    objInfo.userCurStatus = 15;
+
+                }else if(status === 1){
+                    //直接卖打款
+                    objInfo.userCurStatus = 16;
+
+                }else if(status === 2){
+                    //直接卖确认
+                    objInfo.userCurStatus = 17;
+
+                }else if(status === 3){
+                    //直接卖买家撤销
+                    objInfo.userCurStatus = 18;
+
+                }else if(status === 4){
+                    //直接卖卖家撤销
+                    objInfo.userCurStatus = 19;
+                }
+            }
+        }
+
+        if((purchaseType === 0 && directType === 1) || (purchaseType === 1 && directType === 0)){
+            //买
+            $.GetBuyingInfo(recordInfo, recordDetail);
+        }else if((purchaseType === 0 && directType === 0) || (purchaseType === 1 && directType === 1)){
+            //卖
+            $.GetSalingInfo(recordInfo, recordDetail);
+        }
+
+    }
+
+    $.GetScoreBuyingUserInfo = function(orderNumber){
+        var html = "";
+        $.ajax({
+            type:"get",
+            url:"/tp5/public/index.php/etick/score/getbuyinguserinfo",
+            async:true,
+            dataType:"json",
+            data:{
+                ordernumber: orderNumber
+            },
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        var recordobject = JSON.parse(data.jsoncontent);
+                        for(var i = 0; i < recordobject.length; ++i){
+                            var recorddetail = recordobject[i];
+                            html =
+                                "<div class='container'>" +
+                                    "<div>" +
+                                        "<p>" + recorddetail.name + "</p>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<p>" + recorddetail.tel + "</p>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<p>" + recorddetail.banknum + "</p>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<p>" + recorddetail.bankname + "</p>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<p>" + recorddetail.alipaynum + "</p>" +
+                                    "</div>" +
+                                "</div>";
+                        }
+                        return html;
+                        break;
+                    default:
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
+    }
+
+    $.GetScoreSalingUserInfo = function(orderNumber){
+        var html = "";
+        $.ajax({
+            type:"get",
+            url:"/tp5/public/index.php/etick/score/getsalinguserinfo",
+            async:true,
+            dataType:"json",
+            data:{
+                ordernumber: orderNumber
+            },
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        var recordobject = JSON.parse(data.jsoncontent);
+                        for(var i = 0; i < recordobject.length; ++i){
+                            var recorddetail = recordobject[i];
+                            html =
+                                "<div class='container'>" +
+                                    "<div>" +
+                                        "<p>" + recorddetail.name + "</p>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<p>" + recorddetail.tel + "</p>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<p>" + recorddetail.banknum + "</p>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<p>" + recorddetail.bankname + "</p>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<p>" + recorddetail.alipaynum + "</p>" +
+                                    "</div>" +
+                                "</div>";
+                        }
+                        return html;
+                        break;
+                    default:
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
     }
 
     $("#scorebuyeti").click(function(){
+        //买入积分，显示所有挂卖记录
+        $.ajax({
+            type:"post",
+            url:"/tp5/public/index.php/etick/score/getentrustmentbuyingetirecord",
+            async:true,
+            dataType:"json",
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        var html = "";
 
+                        if(data.jsoncontent.length !== 0){
+                            var salingRecord = JSON.parse(data.jsoncontent);
+                            for(var i = 0; i < salingRecord.length; ++i){
+                                html += $.GetSalingRecord(salingRecord[i]);
+                            }
+                        }
+                        html += "<button class='btn btn-default' id='scoreentrustmentbuying'>挂单买入</button>" +
+                                "<script>" +
+                                    "$(function(){" +
+                                    "$('#scoreentrustmentbuying').click(function(){$.ScoreEntrustmentBuying();});});" +
+                                "</script>";
+                        $("#scorecontainer").html(html);
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
     });
+
+    $.GetSalingRecord = function(salingRecord){
+        var html =
+            "<div class='container'>" +
+                "<a href='#' id='scoresalingrecordentrustmentpurchase" + salingRecord.ordernumber + "'>" +
+                    "<div>" +
+                        "<p>" + salingRecord.username + "</p>" +
+                        "<p>" + salingRecord.rmbpereti + "</p>" +
+                        "<p>" + salingRecord.eticount + "</p>" +
+                        "<p>" + salingRecord.mineti + "~" + salingRecord.maxeti + "</p>" +
+                    "</div>" +
+                "</a>" +
+            "</div>" +
+            "<script>" +
+                "$(function(){" +
+                    "$('#scoresalingrecordentrustmentpurchase" + salingRecord.ordernumber + "').click(function(){" +
+                    "$.ScoreSalingRecordEntrustmentPurchase('" + salingRecord.ordernumber + "');});});" +
+            "</script>";
+
+
+        return html;
+    }
+
+    $.ScoreSalingRecordEntrustmentPurchase = function(ordernumber){
+        var eti = prompt("买入积分：", ""); //将输入的内容赋给变量 name ，
+        if (!eti){
+            return false;
+        }
+        $.ajax({
+            type:"get",
+            url:"/tp5/public/index.php/etick/score/directbuyinglock",
+            async:true,
+            dataType:"json",
+            data:{
+                ordernumber:ordernumber,
+                eticount:eti,
+            },
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        $.ShowMsg(data.msg);
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
+
+
+    }
+
+    $.ScoreEntrustmentBuying = function(){
+        var html =
+            "<div class='container'>" +
+                "<div>" +
+                    "<input type='text' id='scoreentrustmentbuyingrmbpereti'/> / ETI" +
+                "</div>" +
+                "<div>" +
+                    "<input type='text' id='scoreentrustmentbuyingeticount'/> ETI" +
+                "</div>" +
+                "<div>" +
+                    "<input type='text' id='scoreentrustmentbuyingmineti'/> ~ <input type='text' id='scoreentrustmentbuyingmaxeti'/>" +
+                "</div>" +
+                "<div>" +
+                    "<button type='button' class='btn btn-default' id='scoreentrustmentbuyingconfirm'>确认</button>" +
+                "</div>" +
+            "</div>" +
+            "<script>" +
+                "$(function(){" +
+                    "$('#scoreentrustmentbuyingconfirm').click(function(){$.ScoreEntrustmentBuyingConfirm();});});" +
+            "</script>";
+
+        $("#scorecontainer").html(html);
+
+    }
+
+    $.ScoreEntrustmentBuyingConfirm = function(){
+        var rmbpereti = $("#scoreentrustmentbuyingrmbpereti").val();
+        var eticount = $("#scoreentrustmentbuyingeticount").val();
+        var mineti = $("#scoreentrustmentbuyingmineti").val();
+        var maxeti = $("#scoreentrustmentbuyingmaxeti").val();
+        $.ajax({
+            type:"post",
+            url:"/tp5/public/index.php/etick/score/entrustmentbuyingeti",
+            async:true,
+            dataType:"json",
+            data:{
+                eticount:eticount,
+                rmbpereti:rmbpereti,
+                mineti:mineti,
+                maxeti:maxeti,
+            },
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
+    }
 
     $("#scoresaleeti").click(function(){
+        //卖出积分，显示所有挂买记录
+        $.ajax({
+            type:"post",
+            url:"/tp5/public/index.php/etick/score/getentrustmentsalingetirecord",
+            async:true,
+            dataType:"json",
 
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        var html = "";
+                        if(data.jsoncontent.length !== 0){
+                            var buyingRecord = JSON.parse(data.jsoncontent);
+                            for(var i = 0; i < buyingRecord.length; ++i){
+                                html += $.GetBuyingRecord(buyingRecord[i]);
+                            }
+                        }
+                        html += "<button class='btn btn-default' id='scoreentrustmentsaling'>挂单卖出</button>" +
+                            "<script>" +
+                                "$(function(){" +
+                                "$('#scoreentrustmentsaling').click(function(){$.ScoreEntrustmentSaling();});});" +
+                            "</script>";
+                        $("#scorecontainer").html(html);
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
     });
+
+    $.GetBuyingRecord = function(buyingRecord){
+        var html =
+            "<div class='container'>" +
+                "<a href='#' id='scorebuyingrecordentrustmentpurchase" + buyingRecord.ordernumber + "'>" +
+                    "<div>" +
+                        "<p>" + buyingRecord.username + "</p>" +
+                        "<p>" + buyingRecord.rmbpereti + "</p>" +
+                        "<p>" + buyingRecord.eticount + "</p>" +
+                        "<p>" + buyingRecord.mineti + "~" + buyingRecord.maxeti + "</p>" +
+                    "</div>" +
+                "</a>" +
+            "</div>" +
+            "<script>" +
+                "$(function(){" +
+                    "$('#scorebuyingrecordentrustmentpurchase" + buyingRecord.ordernumber + "').click(function(){" +
+                    "$.ScoreBuyingRecordEntrustmentPurchase('" + buyingRecord.ordernumber + "');});});" +
+            "</script>";
+
+
+        return html;
+    }
+
+    $.ScoreBuyingRecordEntrustmentPurchase = function(ordernumber){
+        var eti = prompt("卖出积分：", ""); //将输入的内容赋给变量 name ，
+        if (!eti){
+            return false;
+        }
+        $.ajax({
+            type:"get",
+            url:"/tp5/public/index.php/etick/score/directsalinglock",
+            async:true,
+            dataType:"json",
+            data:{
+                ordernumber:ordernumber,
+                eti:eti,
+            },
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        $.ShowMsg(data.msg);
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
+    }
+
+    $.ScoreEntrustmentSaling = function(){
+        var html =
+            "<div class='container'>" +
+                "<div>" +
+                    "<input type='text' id='scoreentrustmentsalingrmbpereti'/> / ETI" +
+                "</div>" +
+                "<div>" +
+                    "<input type='text' id='scoreentrustmentsalingeticount'/> ETI" +
+                "</div>" +
+                "<div>" +
+                    "<input type='text' id='scoreentrustmentsalingmineti'/> ~ <input type='text' id='scoreentrustmentsalingmaxeti'/>" +
+                "</div>" +
+                "<div>" +
+                    "<button type='button' class='btn btn-default' id='scoreentrustmentsalingconfirm'>确认</button>" +
+                "</div>" +
+            "</div>" +
+            "<script>" +
+                "$(function(){" +
+                    "$('#scoreentrustmentsalingconfirm').click(function(){$.ScoreEntrustmentSalingConfirm();});});" +
+            "</script>";
+
+        $("#scorecontainer").html(html);
+    }
+
+
+    $.ScoreEntrustmentSalingConfirm = function(){
+        var rmbpereti = $("#scoreentrustmentsalingrmbpereti").val();
+        var eticount = $("#scoreentrustmentsalingeticount").val();
+        var mineti = $("#scoreentrustmentsalingmineti").val();
+        var maxeti = $("#scoreentrustmentsalingmaxeti").val();
+        $.ajax({
+            type:"post",
+            url:"/tp5/public/index.php/etick/score/entrustmentsalingeti",
+            async:true,
+            dataType:"json",
+            data:{
+                eticount:eticount,
+                rmbpereti:rmbpereti,
+                mineti:mineti,
+                maxeti:maxeti,
+            },
+            success:function(data){
+                data = JSON.parse(data);
+                switch(data.code){
+                    case 'ERROR_STATUS_SUCCESS':
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error:function(hd, msg){
+                $.ShowMsg(msg);
+            }
+        });
+    }
+
+
 });
 
 

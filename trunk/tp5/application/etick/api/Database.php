@@ -45,7 +45,7 @@ class Database{
         $bettingrecord = new BettingRecordModel();
         $bettingrecord->userid = $userid;
 
-        $bettingrecord->ordernumber = TimesApi::GetOrderNumber($systemtime);
+        $bettingrecord->ordernumber = TimesApi::GetOrderNumber();
         $bettingrecord->etickmatchtype = $etickmatchtype;
         $bettingrecord->etickmatchtypeinfo = Database::GetMatchTypeInfo($etickmatchtype);
         $bettingrecord->guessingtype = $guessingtype;
@@ -122,7 +122,7 @@ class Database{
     static public function AddEntrustmentPurchase($userid, $eticount, $rmbpereti, $mineti, $maxeti, $entrustmentType){
 
         $systemTime = TimesApi::GetSystemTime();
-        $ordernumber = TimesApi::GetOrderNumber($systemTime);
+        $ordernumber = TimesApi::GetOrderNumber();
 
         $entrustmentPurchase = new EntrustmentPurchaseModel();
 
@@ -135,7 +135,7 @@ class Database{
         $entrustmentPurchase->successfuleti = 0;
         $entrustmentPurchase->lockedeti = 0;
         $entrustmentPurchase->remaineti = $eticount;
-        $entrustmentPurchase-> status = 0;
+        $entrustmentPurchase->status = 0;
         $entrustmentPurchase->statusinfo = '挂单中';
         $entrustmentPurchase->publishtime = $systemTime;
         $entrustmentPurchase->purchasetype = 0;
@@ -153,7 +153,7 @@ class Database{
 
     static public function AddDirectPurchase($userid, $entrustmentid, $eticount, $rmbpereti, $directType){
         $systemTiem = TimesApi::GetSystemTime();
-        $ordernumber = TimesApi::GetOrderNumber($systemTiem);
+        $ordernumber = TimesApi::GetOrderNumber();
 
         $directPurchase = new DirectPurchaseModel();
         $directPurchase->userid = $userid;
@@ -164,6 +164,7 @@ class Database{
         $directPurchase->status = 0;
         $directPurchase->statusinfo = '已锁定，等待打款';
         $directPurchase->lockedtime = $systemTiem;
+        $directPurchase->publishtime = $systemTiem;
         $directPurchase->purchasetype = 1;
         $directPurchase->directtype = $directType;
         $directPurchase->directtypeinfo = self::GetDirectTypeInfo($directType);
