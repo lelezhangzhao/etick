@@ -24,13 +24,22 @@ class UserStatus{
         return true;
     }
 
-    static public function IsUserAdmin(){
-        if(false === self::IsUserLogin()){
-            return StatusApi::ReturnErrorStatus('ERROR_STATUS_NOTLOGIN');
+    static public function TestUserAdminAndStatus(){
+        $userstatus = self::TestUserLoginAndStatus();
+        if(true !== $userstatus){
+            return $userstatus;
         }
+        if(true !== self::IsUserAdmin()){
+            return self::FrozenUser('非法访问IsUserAdmin');
+        }
+        return true;
+    }
+
+
+    static public function IsUserAdmin(){
         $user = UserModel::get(Session::get('userid'));
         if(1 !== $user->role){
-            return self::FrozenUser('非法访问IsUserAdmin');
+            return false;
         }
         return true;
     }

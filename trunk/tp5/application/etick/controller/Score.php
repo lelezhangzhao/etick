@@ -41,11 +41,11 @@ class Score extends Controller{
         $beginRecord = $request->param('beginrecord');
 
 
-        $sql = "select purchasetype, ordernumber, status, statusinfo, rmbpereti, eticount, publishtime from etick_entrustment_purchase where status in (1,2) 
+        $sql = "select purchasetype, ordernumber, status, statusinfo, rmbpereti, eticount, publishtime, entrustmenttype as type from etick_entrustment_purchase where status in (1,2) and userid = '$userid'
                 union 
-                (select purchasetype, ordernumber, status, statusinfo, rmbpereti, eticount, publishtime from etick_direct_purchase where status in (2,3,4))
-                 order by publishtime
-                 desc limit $beginRecord, 20";
+                (select purchasetype, ordernumber, status, statusinfo, rmbpereti, eticount, publishtime, directtype as type from etick_direct_purchase where status in (2,3,4) and userid = '$userid')
+                 order by publishtime desc
+                limit $beginRecord, 20";
         $purchaseRecord = Db::query($sql);
 
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $purchaseRecord);
@@ -61,9 +61,13 @@ class Score extends Controller{
         $userid = Session::get('userid');
         $beginRecord = $request->param('beginrecord');
 
-        $sql = "select purchasetype, ordernumber, status from etick_entrustment_purchase where status in (0,3) union select purchasetype, ordernumber, status from etick_direct_purchase where status in (0,1) limit $beginRecord, 20 order by publictime desc";
+        $sql = "select purchasetype, ordernumber, status, publishtime, entrustmenttype as type from etick_entrustment_purchase where status in (0,3) and userid = '$userid' 
+                union 
+                (select purchasetype, ordernumber, status, publishtime, directtype as type from etick_direct_purchase where status in (0,1) and (userid = '$userid' or anotheruserid = '$userid'))
+                order by publishtime desc
+                 limit $beginRecord, 20";
         $purchaseRecord = Db::query($sql);
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $purchaseRecord);
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($purchaseRecord));
 
     }
 
@@ -74,11 +78,12 @@ class Score extends Controller{
             return $userstatus;
         }
 
-        $purchaseType = $request->param('purchasetype');
+        $purchaseType = intval($request->param('purchasetype'));
         $orderNumber = $request->param('ordernumber');
         $userid = Session::get('userid');
 
 
+        $detailRecord = null;
         if($purchaseType === 0){
             $entrustmentPurchase = EntrustmentPurchaseModel::where('ordernumber', $orderNumber)->find();
             if(empty($entrustmentPurchase)){
@@ -92,10 +97,10 @@ class Score extends Controller{
                 return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
             }
         }else if($purchaseType === 1){
-            $detailRecord = DirectPurchaseModel::where('ordernumber', $orderNumber)->find();
+            $detailRecord = DirectPurchaseModel::where('ordernumber', $orderNumber)->select();
         }
 
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', $detailRecord);
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($detailRecord));
     }
 
     //获取卖方银行账户
@@ -124,17 +129,20 @@ class Score extends Controller{
         }
 
         //买方未完成交易，获取对方银行信息
-        if($detailRecord->userid === $userid && $detailRecord->purchasetype === 0){
+        if($detailRecord->userid === $userid && $detailRecord->directtype === 0){
             //直接买交易未完成，显示卖方信息
             $userforsaling = Db::name('User', 'name, tel, banknum, bankname, alipaynum')->where('id', $entrustmentPurchase->userid)->find();
-        }else if($detailRecord->userid !== $userid && $detailRecord->purchasetype === 1){
+        }else if($detailRecord->userid !== $userid && $detailRecord->directtype === 1){
             //挂买交易未完成，显示卖方信息
             $userforbuying = UserModel::get($entrustmentPurchase->userid);
-            if($userforbuying !== $userid){
+            if($userforbuying->id !== $userid){
                 UserStatusApi::FrozenUser('获取挂买方不是自己的卖方信息');
                 return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
             }
-            $userforsaling = Db::name('User', 'name, tel, banknum, bankname, alipaynum')->where('id', $detailRecord->userid)->find();
+            $userforsaling = Db::name('User')
+                ->field('name, tel, banknum, bankname, alipaynum')
+                ->where('id', $detailRecord->userid)
+                ->find();
         }
         if(empty($userforsaling)){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_USERISNOTEXIST');
@@ -250,7 +258,7 @@ class Score extends Controller{
         $directOrderNubmer = $request->param('ordernumber');
         $userid = Session::get('userid');
 
-        $directPurchase = DirectPurchaseModel::where($directOrderNubmer)->find();
+        $directPurchase = DirectPurchaseModel::where('ordernumber', $directOrderNubmer)->find();
         if(empty($directPurchase)){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
         }
@@ -316,7 +324,9 @@ class Score extends Controller{
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
         }
         $entrustmentPurchase = EntrustmentPurchaseModel::get($directPurchase->entrustmentid);
-        if($entrustmentPurchase->userid !== $userid){
+        if(empty($entrustmentPurchase)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_PURCHASEISNOTEXIST');
+        }else if($entrustmentPurchase->userid !== $userid){
             UserStatusApi::FrozenUser('挂卖确认不是自己的交易单');
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACK');
         }
@@ -374,8 +384,9 @@ class Score extends Controller{
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
         }
 
+        $anotheruserid = $entrustmentPurchase->userid;
         //不可买自己挂卖单
-        if($entrustmentPurchase->userid === $userid){
+        if($anotheruserid === $userid){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_CANTBUYSELFENTRUSTMENTSALING');
         }
 
@@ -387,7 +398,7 @@ class Score extends Controller{
             if(empty($transEntrustmentPurchase)){
                 throw(new \PDOException('ERROR_STATUS_PURCHASEISNOTEXIST'));
             }
-            if($transEntrustmentPurchase['remaineti'] > $eticount){
+            if($transEntrustmentPurchase['remaineti'] >= $eticount){
                 $transEntrustmentPurchase['remaineti'] -= $eticount;
 
                 if($transEntrustmentPurchase['remaineti'] === 0){
@@ -407,7 +418,7 @@ class Score extends Controller{
 
 
         //增加direct purchase
-        DatabaseApi::AddDirectPurchase($userid, $entrustmentPurchase.id, $eticount, $entrustmentPurchase->rmbpereti, 0);
+        DatabaseApi::AddDirectPurchase($userid, $anotheruserid, $entrustmentPurchase.id, $eticount, $entrustmentPurchase->rmbpereti, 0);
 
     }
 
@@ -436,9 +447,9 @@ class Score extends Controller{
 
         //改变状态
         $directPurchase->paytime = $systemTime;
-        $directPurchase->proofone = $proofone;
-        $directPurchase->prooftwo = $prooftwo;
-        $directPurchase->proofthree = $proofthree;
+//        $directPurchase->proofone = $proofone;
+//        $directPurchase->prooftwo = $prooftwo;
+//        $directPurchase->proofthree = $proofthree;
         $directPurchase->status = 1;
         $directPurchase->statusinfo = '已打款，等待确认';
         $directPurchase->allowField(true)->save();
@@ -475,8 +486,10 @@ class Score extends Controller{
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_HACKER');
         }
 
+        $anotheruserid = $entrustmentPurchase->userid;
+
         //不可卖自己的挂买单
-        if($entrustmentPurchase->userid === $userid){
+        if($anotheruserid === $userid){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_CANTSALESELFENTRUSTMENTBUYING');
         }
 
@@ -488,7 +501,7 @@ class Score extends Controller{
             if(empty($transEntrustmentPurchase)){
                 throw(new \PDOException('ERROR_STATUS_PURCHASEISNOTEXIST'));
             }
-            if($transEntrustmentPurchase['remaineti'] > $eti){
+            if($transEntrustmentPurchase['remaineti'] >= $eti){
                 $transEntrustmentPurchase['remaineti'] -= $eti;
 
                 if($transEntrustmentPurchase['remaineti'] === 0){
@@ -512,7 +525,7 @@ class Score extends Controller{
         $user->allowField(true)->save();
 
         //上大盘
-        DatabaseApi::AddDirectPurchase($userid, $entrustmentPurchase->id, $eti, $entrustmentPurchase->rmbpereti, 1);
+        DatabaseApi::AddDirectPurchase($userid, $anotheruserid, $entrustmentPurchase->id, $eti, $entrustmentPurchase->rmbpereti, 1);
 
         return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '锁定成功，等待对方打款');
 

@@ -60,7 +60,7 @@ class Login extends Controller{
         //记录session
         Session::set('userid', $user->id);
         
-        return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '登录成功');
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '登录成功', $user->id);
 
     }
 }

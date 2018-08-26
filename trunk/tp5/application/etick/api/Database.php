@@ -151,12 +151,13 @@ class Database{
         else if($entrustmentType === 1) return '挂卖';
     }
 
-    static public function AddDirectPurchase($userid, $entrustmentid, $eticount, $rmbpereti, $directType){
+    static public function AddDirectPurchase($userid, $anotheruserid, $entrustmentid, $eticount, $rmbpereti, $directType){
         $systemTiem = TimesApi::GetSystemTime();
         $ordernumber = TimesApi::GetOrderNumber();
 
         $directPurchase = new DirectPurchaseModel();
         $directPurchase->userid = $userid;
+        $directPurchase->anotheruserid = $anotheruserid;
         $directPurchase->entrustmentid = $entrustmentid;
         $directPurchase->eticount = $eticount;
         $directPurchase->rmbpereti = $rmbpereti;

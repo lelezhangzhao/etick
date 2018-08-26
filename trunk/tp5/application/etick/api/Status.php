@@ -22,6 +22,7 @@ class Status{
         'ERROR_STATUS_PASSWORDISEMPTY' => '密码为空',
         'ERROR_STATUS_PASSWORDMIN5' => '密码至少5个字符',
         'ERROR_STATUS_PASSWORDMAX30' => '密码最多30个字符',
+        'ERROR_STATUS_OLDPASSWORDISNOTRIGHT' => '旧密码不正确',
         'ERROR_STATUS_NOTLOGIN' => '未登录',
         'ERROR_STATUS_SIGNED' => '已签到',
         'ERROR_STATUS_TELLENGTHERROR' => '手机号长度不对',

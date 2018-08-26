@@ -1,17 +1,24 @@
-<div class='container'><a href='#' id='scoresalingrecordentrustmentpurchase2.0180825011931E+16'>
-    <div><p>undefined</p>
-        <p>1</p>
-        <p>100</p>
-        <p>100~100</p></div>
-</a></div>
+<div class='container'><h4>修改密码</h4>
+    <div><input type='text' placeholder='原密码' id='fixpassword_oldpassword'/></div>
+    <div><input type='text' placeholder='新密码' id='fixpassword_newpassword'/></div>
+    <div>
+        <button type='button' class='btn btn-default' id='fixpassword_get_telidentify'>获取验证码</button>
+    </div>
+    <div><input type='text' placeholder='手机验证码' id='fixpassword_telidentify'/></div>
+    <div><input type='text' placeholder='图片验证码' id='fixpassword_captcha'/>
+        <div><img id='fixpassword_captcha_img' src='{:captcha_src()}'
+                  onclick='this.src="/tp5/public/index.php/captcha?id=0.4197117518084337"'
+                  style='cursor:pointer;position:relative;left:0%;'/><br/></div>
+        <div>
+            <button type='button' class='btn btn-default' id='fixpassword_confirm'>确认修改</button>
+        </div>
+    </div>
+</div>
 <script>$(function () {
-    $('#scoresalingrecordentrustmentpurchase2.0180825011931E+16').click(function () {
-        $.ScoreSalingRecordEntrustmentPurchase([object Object]);
-    });
-});</script>
-<button class='btn btn-default' id='scoreentrustmentbuying'>挂单买入</button>
-<script>$(function () {
-    $('#scoreentrustmentbuying').click(function () {
-        $.ScoreEntrustmentBuying();
-    });
+    $('#fixpassword_get_telidentify').click(function () {
+        $.GetFixPasswordTelidentify();
+    })
+    $('#fixpassword_confirm').click(function () {
+        $.ConfirmFixPassword();
+    })
 });</script>
