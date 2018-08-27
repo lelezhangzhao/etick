@@ -19,8 +19,6 @@ use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompe
 use app\etick\model\AntiwaveFootballLeadCompetitionGuessing as AntiwaveFootballLeadCompetitionGuessingModel;
 use app\etick\model\AntiwaveFootballWelfareCompetitionGuessing as AntiwaveFootballWelfareCompetitionGuessingModel;
 use app\etick\model\AntiwaveFootballBankerCompetitionGuessing as AntiwaveFootballBankerCompetitionGuessingModel;
-use app\etick\model\FootballMatchTeam as FootballMatchTeamModel;
-use app\etick\model\FootballMatchType as FootballMatchTypeModel;
 use app\etick\model\LolMatch as LolMatchModel;
 use app\etick\model\LolCompetitionGuessing as LolCompetitionGuessingModel;
 use app\etick\model\LolLeadCometitionGuessing as LolLeadCompetitionGuessingModel;

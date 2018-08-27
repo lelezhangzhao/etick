@@ -146,6 +146,7 @@ return [
         '__IMAGE__' => '/tp5/public/static/image',
         '__LAYUI__' => '/tp5/public/static/layui',
         '__LAYER__' => '/tp5/public/static/layer',
+        '__LAYDATE__' => '/tp5/public/static/laydate',
         '__QRCODE__' => '/tp5/public/static/qrcodejs',
         '__DTREE__' => '/tp5/public/static/dtree',
         '__MD5__' => '/tp5/public/static/md5',

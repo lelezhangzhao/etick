@@ -1960,38 +1960,158 @@ $(function(){
     $("#admin_publish_match").click(function(){
         var html =
             "<div class='container'>" +
-            "<form class='layui-form' action=''>" +
-            "<div class='layui-form-item'>" +
-            "<label class='layui-form-label'>赛事类型</label>" +
-            "<div class='layui-input-block'>" +
-            "<select id='admin_publish_etick_match_type' ></select>" +
+            "<form >" +
+            "<div class='form-group'>" +
+            "<label >赛事类型</label>" +
+            "<select class='form-control' id='admin_publish_etick_match_type' ></select>" +
             "</div>" +
+            "<div class='form-group'>" +
+            "<label >赛事类别</label>" +
+            "<select class='form-control' id='admin_publish_match_type' ></select>" +
             "</div>" +
-            "<div class='layui-form-item'>" +
-            "<label class='layui-form-label'>赛事类别</label>" +
-            "<div class='layui-input-block'>" +
-            "<select id='admin_publish_match_type' ></select>" +
+            "<div class='form-group'>" +
+            "<label >主场</label>" +
+            "<select class='form-control' id='admin_publish_host_team' ></select>" +
             "</div>" +
+            "<div class='form-group'>" +
+            "<label >客场</label>" +
+            "<select class='form-control' id='admin_publish_guest_team' ></select>" +
             "</div>" +
-            "<div class='layui-form-item'>" +
-            "<label class='layui-form-label'>主场</label>" +
-            "<div class='layui-input-block'>" +
-            "<select id='admin_publish_host_team' ></select>" +
-            "</div>" +
-            "</div>" +
-            "<div class='layui-form-item'>" +
-            "<label class='layui-form-label'>客场</label>" +
-            "<div class='layui-input-block'>" +
-            "<select id='admin_publish_guest_team' ></select>" +
-            "</div>" +
-            "</div>" +
-            "<div class='layui-form-item'>" +
-            "<label class='layui-form-label'>赛事名称</label>" +
-            "<div class='layui-input-block'>" +
-            "<input type='text' class='layui-input' />" +
-            "</div>'" +
+            "<div class='form-group'>" +
+            "<label >赛事名称</label>" +
+            "<input type='text' class='form-control' />" +
             "</div>" +
             "</form>" +
-            "</div>";
+            "</div>" +
+            "<div>" +
+            "<label>比赛时间</label>" +
+            "<input type='text' id='admin_publish_match_date_time' placeholder='yyyy-MM-dd HH:mm:ss' class='layui-input'>" +
+            "</div>" +
+            "<script>" +
+                "$('#admin_publish_etick_match_type').change(function(){" +
+                    "$.AdminPublishEtickMatchTypeChange();" +
+                    "$.AdminPublishMatchTypeChange();" +
+                "});" +
+            "layui.use('laydate', function(){" +
+            "var laydate = layui.laydate;" +
+            "laydate.render({" +
+            "elem:'#admin_publish_match_date_time'" +
+            ",type:'datetime'" +
+            "})" +
+            "});" +
+            "</script>";
+
+        $("#admincontainer").html(html);
+
+        $.ajax({
+            type: "post",
+            url: "/tp5/public/index.php/etick/admin/getetickmatchtype",
+            async: true,
+            dataType: "json",
+            success: function (data) {
+                data = JSON.parse(data);
+                switch (data.code) {
+                    case 'ERROR_STATUS_SUCCESS':
+                        if(data.jsoncontent.length !== 0){
+                            var etickMatchType = JSON.parse(data.jsoncontent);
+
+                            //添加一个无用项
+                            $("#admin_publish_etick_match_type").append("<option value=-1>选择赛事类型</option>");
+
+                            for(var i = 0; i < etickMatchType.length; ++i){
+                                $("#admin_publish_etick_match_type").append("<option value=" + etickMatchType[i].id + ">" + etickMatchType[i].etickmatchtypeinfo + "</option>");
+                            }
+                        }
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error: function (hd, msg) {
+                $.ShowMsg(msg);
+            }
+        });
+
     });
+
+    $.AdminPublishEtickMatchTypeChange = function(){
+        var etickmatchtype = $("#admin_publish_etick_match_type").val();
+        if(etickmatchtype === '-1'){
+            return;
+        }
+
+        //获取赛事类别
+        $.ajax({
+            type: "post",
+            url: "/tp5/public/index.php/etick/admin/getmatchtype",
+            async: true,
+            dataType: "json",
+            data:{
+                etickmatchtype:etickmatchtype,
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                switch (data.code) {
+                    case 'ERROR_STATUS_SUCCESS':
+                        if(data.jsoncontent.length !== 0){
+                            var matchType = JSON.parse(data.jsoncontent);
+                            $("#admin_publish_match_type").empty();
+                            for(var i = 0; i < matchType.length; ++i){
+                                $("#admin_publish_match_type").append("<option value=" + matchType[i].id + ">" + matchType[i].caption + "</option>");
+                            }
+                        }
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error: function (hd, msg) {
+                $.ShowMsg(msg);
+            }
+        });
+    }
+
+    $.AdminPublishMatchTypeChange = function(){
+        var etickmatchtype = $("#admin_publish_etick_match_type").val();
+        if(etickmatchtype === '-1'){
+            return;
+        }
+        $.ajax({
+            type: "post",
+            url: "/tp5/public/index.php/etick/admin/gethostandguestteam",
+            async: true,
+            dataType: "json",
+            data:{
+                etickmatchtype:etickmatchtype,
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                switch (data.code) {
+                    case 'ERROR_STATUS_SUCCESS':
+                        if(data.jsoncontent.length !== 0){
+                            $("#admin_publish_host_team").empty();
+                            $("#admin_publish_guest_team").empty();
+                            var matchTeam = JSON.parse(data.jsoncontent);
+                            for(var i = 0; i < matchTeam.length; ++i){
+                                $("#admin_publish_host_team").append("<option value=" + matchTeam[i].id + ">" + matchTeam[i].caption + "</option>");
+                                $("#admin_publish_guest_team").append("<option value=" + matchTeam[i].id + ">" + matchTeam[i].caption + "</option>");
+                            }
+                        }
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error: function (hd, msg) {
+                $.ShowMsg(msg);
+            }
+        });
+
+    }
+
+
+
 });

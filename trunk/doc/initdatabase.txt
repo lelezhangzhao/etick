@@ -1,24 +1,28 @@
-insert into etick_match_type(etickmatchtype, etickmatchtypeinfo)
-valus
-(0, "足球返波胆"),
-(1, "英雄联盟返波胆");
 
-
-insert into etick_football_match_type(caption, zonelogo)
+insert into etick_etick_match_type(etickmatchtypeinfo)
 values
-("中超", "c:\logo");
+("足球返波胆"),
+("英雄联盟返波胆");
 
-insert into etick_football_match_team(caption, teamlogo)
-values
-("大连", "c:\logo"),
-("广州", "c:\logo");
 
-insert into etick_antiwave_football_match(caption, etickmatchtype, matchteamhostid, matchteamguestid, status, statusinfo, matchtime, displaytime, disappeartime)
+insert into etick_match_type(caption, zonelogo, etickmatchtypeid)
 values
-("大连：广州", 0, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00"),
-("大连：广州", 0, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00"),
-("大连：广州", 0, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00"),
-("大连：广州", 0, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00");
+("中超", "c:\logo", 1),
+("LPL", "c:\logo", 2);
+
+insert into etick_match_team(caption, teamlogo, etickmatchtypeid)
+values
+("大连", "c:\logo", 1),
+("广州", "c:\logo", 1),
+("RNG", "c:\logo", 2),
+("EDG", "c:\logo", 2);
+
+insert into etick_antiwave_football_match(caption, matchtypeid, matchteamhostid, matchteamguestid, status, statusinfo, matchtime, displaytime, disappeartime)
+values
+("大连：广州", 1, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00"),
+("大连：广州", 1, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00"),
+("大连：广州", 1, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00"),
+("大连：广州", 1, 1, 2, 0, "未开赛", "2018-08-30 14:00:00", "2018-08-18 23:00:00", "2018-08-30 14:00:00");
 
 insert into etick_antiwave_football_competition_guessing(caption, matchid, type, typeinfo, score, theodds, status, statusinfo, totaleti, frozeneti, remaineti)
 values
@@ -32,4 +36,7 @@ values
 ("上半场 1:1", 2, 2, "上半场", "1:1", 0.05, 0, "未结算", 100000, 20000, 80000),
 ("大连 角球 大14", 2, 3, "角球", "14", 0.05, 0, "未结算", 100000, 20000, 80000),
 ("广州 角球 大20", 2, 0, "角球", "20", 0.05, 0, "未结算", 100000, 20000, 80000);
+
+
+
 
