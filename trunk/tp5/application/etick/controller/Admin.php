@@ -4,13 +4,16 @@ namespace app\etick\controller;
 
 use think\Controller;
 use think\Request;
+use think\Db;
 
 use app\etick\api\UserStatus as UserStatusApi;
 use app\etick\api\Status as StatusApi;
+use app\etick\api\Database as DatabaseApi;
 
 use app\etick\model\EtickMatchType as EtickmatchTypeModel;
 use app\etick\model\MatchType as MatchTypeModel;
 use app\etick\model\MatchTeam as MatchTeamModel;
+use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
 
 class Admin extends Controller{
     public function Index(){
@@ -60,5 +63,44 @@ class Admin extends Controller{
         $matchteam = MatchTeamModel::where('etickmatchtypeid', $etickmatchtypeid)->select();
 
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($matchteam));
+    }
+
+    public function AddAntiwaveFootballMatch(Request $request){
+//        matchtypeid:matchtypeid,
+//                    hostteamid:hostteamid,
+//                    guestteamid:guestteamid,
+//                    matchcaption:matchcaption,
+//                    scoreHole:scoreHole,
+//                    scoreHalf:scoreHalf,
+//                    scoreAngle:scoreAngle,
+
+        $matchtypeid = $request->param('matchtypeid');
+        $hostteamid = $request->param('hostteamid');
+        $guestteamid = $request->param('guestteamid');
+        $matchcaption = $request->param('matchcaption');
+        $matchtime = $request->param('matchtime');
+        $displaytime = $request->param('displaytime');
+        $disappeartime = $request->param('disappeartime');
+        $scoreHole = $request->param('scoreHole');
+        $scoreHalf = $request->param('scoreHalf');
+        $scoreAngle = $request->param('scoreAngle');
+
+        //新增比赛
+        DatabaseApi::AddAntiwaveFootballMatch($matchtypeid, $hostteamid, $guestteamid, $matchcaption, $matchtime, $displaytime, $disappeartime);
+
+        $sql = 'select * from etick_antiwave_football_match order by id desc limit 1';
+        $match = Db::query($sql);
+        $matchid = $match[0]['id'];
+
+        //新增竞猜
+        $s = json_encode($scoreHole);
+        foreach(json_decode($scoreHole, true) as $hole){
+            $i = $hole;
+        }
+
+    }
+
+    public function AddLolMatch(Request $request){
+
     }
 }

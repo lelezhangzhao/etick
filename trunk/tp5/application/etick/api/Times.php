@@ -30,4 +30,6 @@ class Times{
 
         return preg_replace('/[ :.-]/','', $systemMicroTime) . $rands;
     }
+
+
 }

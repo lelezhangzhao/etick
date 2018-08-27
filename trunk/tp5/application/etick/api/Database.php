@@ -2,11 +2,15 @@
 
 namespace app\etick\api;
 
+use app\etick\model\AntiwaveFootballCompetitionGuessing;
 use app\etick\model\User as UserModel;
 use app\etick\model\EtiRecord as EtiRecordModel;
 use app\etick\model\BettingRecord as BettingRecordModel;
 use app\etick\model\EntrustmentPurchase as EntrustmentPurchaseModel;
 use app\etick\model\DirectPurchase as DirectPurchaseModel;
+use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
+use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
+use app\etick\model\LolMatch as LolMatchModel;
 
 
 use app\etick\api\Util as UtilApi;
@@ -177,5 +181,46 @@ class Database{
     static private function GetDirectTypeInfo($directType){
         if($directType === 0) return '直接买';
         else if($directType === 1) return '直接卖';
+    }
+
+    static public function AddAntiwaveFootballMatch($matchtypeid, $matchteamhostid, $matchteamguestid, $caption, $matchtime, $displaytime, $disappeartime){
+
+        $antiwavefootballmatch = new AntiwaveFootballMatchModel();
+        $antiwavefootballmatch->matchtypeid = $matchtypeid;
+        $antiwavefootballmatch->matchteamhostid = $matchteamhostid;
+        $antiwavefootballmatch->matchteamguestid = $matchteamguestid;
+        $antiwavefootballmatch->caption = $caption;
+        $antiwavefootballmatch->status = 0;
+        $antiwavefootballmatch->statusinfo = '未开赛';
+        $antiwavefootballmatch->matchtime = $matchtime;
+        $antiwavefootballmatch->displaytime = $displaytime;
+        $antiwavefootballmatch->disappeartime = $disappeartime;
+
+        $antiwavefootballmatch->allowField(true)->save();
+    }
+
+    static public function AddAntiwaveFootballMatchCompetitionGuessing($matchid, $caption, $type, $score, $theodds, $totaleti, $frozeneti, $remaineti){
+        $antiwavefootballmatchcompetitionguessing = new AntiwaveFootballCompetitionGuessingModel();
+        $antiwavefootballmatchcompetitionguessing->matchid = $matchid;
+        $antiwavefootballmatchcompetitionguessing->guessingtype = 0;
+        $antiwavefootballmatchcompetitionguessing->guessingtypeinfo = '正常赛事';
+        $antiwavefootballmatchcompetitionguessing->caption = $caption;
+        $antiwavefootballmatchcompetitionguessing->type = $type;
+        $antiwavefootballmatchcompetitionguessing->typeinfo = GetAntiwaveFootballMatchCompetitionGuessingTypeinfo($type);
+        $antiwavefootballmatchcompetitionguessing->score = $score;
+        $antiwavefootballmatchcompetitionguessing->theodds = $theodds;
+        $antiwavefootballmatchcompetitionguessing->status = 0;
+        $antiwavefootballmatchcompetitionguessing->statusinfo = '未开赛';
+        $antiwavefootballmatchcompetitionguessing->totaleti = $totaleti;
+        $antiwavefootballmatchcompetitionguessing->frozeneti = $frozeneti;
+        $antiwavefootballmatchcompetitionguessing->remaineti = $remaineti;
+
+        $antiwavefootballmatchcompetitionguessing->allowField(true)->save();
+
+    }
+
+    static private function GetAntiwaveFootballMatchCompetitionGuessingTypeinfo($type){
+        $typeinfo = ["未开赛", "未中奖", "中奖", "推迟", "只进行上半场", "取消"];
+        return typeinfo[$type];
     }
 }

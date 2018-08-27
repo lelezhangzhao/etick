@@ -20,6 +20,23 @@ function doLoop() {
     }
 }
 
+Date.prototype.Format = function(fmt) {
+    var o = {
+        "M+" : this.getMonth() + 1,
+        "d+" : this.getDate(),
+        "h+" : this.getHours(),
+        "m+" : this.getMinutes(),
+        "s+" : this.getSeconds(),
+        "q+" : Math.floor((this.getMonth() + 3) / 3),
+        "S" : this.getMilliseconds()
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
 
 function SetCookie(c_name, value, expiredays) {
     var exdate = new Date()
@@ -1979,25 +1996,52 @@ $(function(){
             "</div>" +
             "<div class='form-group'>" +
             "<label >赛事名称</label>" +
-            "<input type='text' class='form-control' />" +
+            "<input type='text' class='form-control' id='admin_publish_match_caption'/>" +
             "</div>" +
             "</form>" +
             "</div>" +
-            "<div>" +
+            "<div class='form-group'>" +
             "<label>比赛时间</label>" +
-            "<input type='text' id='admin_publish_match_date_time' placeholder='yyyy-MM-dd HH:mm:ss' class='layui-input'>" +
+            "<input type='text' id='admin_publish_match_date_time' placeholder='yyyy-MM-dd HH:mm:ss' class='form-control'>" +
+            "</div>" +
+            "<div class='form-group'>" +
+            "<label>显示时间</label>" +
+            "<input type='text' id='admin_publish_display_date_time' placeholder='yyyy-MM-dd HH:mm:ss' class='form-control'>" +
+            "</div>" +
+            "<div class='form-group'>" +
+            "<label>消失时间</label>" +
+            "<input type='text' id='admin_publish_disappear_date_time' placeholder='yyyy-MM-dd HH:mm:ss' class='form-control'>" +
+            "</div>" +
+            "<div class='form-group' id='admin_publish_competition_guessing'>" +
+            "</div>" +
+            "<div>" +
+            "<button type='button' class='btn btn-default' id='admin_publish_confirm'>确认发布</button>" +
             "</div>" +
             "<script>" +
                 "$('#admin_publish_etick_match_type').change(function(){" +
                     "$.AdminPublishEtickMatchTypeChange();" +
                     "$.AdminPublishMatchTypeChange();" +
                 "});" +
+            "$('#admin_publish_confirm').click(function(){" +
+            "$.AdminPublishConfirm();" +
+            "});" +
             "layui.use('laydate', function(){" +
             "var laydate = layui.laydate;" +
             "laydate.render({" +
-            "elem:'#admin_publish_match_date_time'" +
-            ",type:'datetime'" +
-            "})" +
+                "elem:'#admin_publish_match_date_time'" +
+                ",type:'datetime'" +
+                ",done:function(value, datetime){" +
+                    "$.AdminPublishMatchDatetimeDone(value, datetime);" +
+                "}" +
+            "});" +
+            "laydate.render({" +
+                "elem:'#admin_publish_display_date_time'" +
+                ",type:'datetime'" +
+            "});" +
+            "laydate.render({" +
+                "elem:'#admin_publish_disappear_date_time'" +
+                ",type:'datetime'" +
+            "});" +
             "});" +
             "</script>";
 
@@ -2032,7 +2076,6 @@ $(function(){
                 $.ShowMsg(msg);
             }
         });
-
     });
 
     $.AdminPublishEtickMatchTypeChange = function(){
@@ -2041,6 +2084,14 @@ $(function(){
             return;
         }
 
+        if(etickmatchtype === "1"){
+            //足球返波胆
+            $.AdminPublishAddAntiwaveFootballCompetitionGuessing();
+        }else if(etickmatchtype === "2"){
+            //英雄联盟返波胆
+            $.AdminPublishAddLolCompetitionGuessing();
+
+        }
         //获取赛事类别
         $.ajax({
             type: "post",
@@ -2109,9 +2160,276 @@ $(function(){
                 $.ShowMsg(msg);
             }
         });
-
     }
 
+    $.AdminPublishMatchDatetimeDone = function(value, datetime){
+        var date = new Date(value);
+        var time = date.getTime();
+        date.setTime(time - 12 * 3600 * 1000);
+        $("#admin_publish_display_date_time").val(date.Format("yyyy-MM-dd hh:mm:ss"));
+        $("#admin_publish_disappear_date_time").val(value);
+    }
 
+    $.AdminPublishAddAntiwaveFootballCompetitionGuessing = function(){
+        var scoreHole = ["3_0", "3_1", "3_2", "3_3", "2_3", "2_2", "2_1", "2_0", "1_3", "1_2", "1_1", "1_0", "0_3", "0_2", "0_1", "0_0"];
+        var scoreHalf = ["2_2", "2_1", "2_0", "1_2", "1_1", "1_0", "0_2", "0_1", "0_0"];
+        var scoreAngle = ["12", "13", "14", "15", "16", "17"];
+        var html =
+            "<div class='container'>" +
+            "<div>" +
+            "<h4>全场</h4>" +
+            "</div>";
+        for(var i = 0; i < scoreHole.length; ++i){
+            html +=
+                "<div>" +
+                scoreHole[i] +
+                "</div>" +
+                "<div>" +
+                "<input type='text' id='admin_publish_antiwave_football_hole_" + scoreHole[i] +"' value='5%' />" +
+                "</div>";
+        }
+        html += "<div><h4>上半场</h4></div>";
+        for(var i = 0; i < scoreHalf.length; ++i){
+            html +=
+                "<div>" +
+                scoreHalf[i] +
+                "</div>" +
+                "<div>" +
+                "<input type='text' id='admin_publish_antiwave_football_half_" + scoreHalf[i] +"' value='5%' />" +
+                "</div>";
+        }
+        html += "<div><h4>角球</h4></div>";
+        for(var i = 0; i < scoreAngle.length; ++i){
+            html +=
+                "<div>" +
+                scoreAngle[i] +
+                "</div>" +
+                "<div>" +
+                "<input type='text' id='admin_publish_antiwave_football_angle_" + scoreAngle[i] +"' value='5%' />" +
+                "</div>";
+        }
+
+        html += "</div>";
+
+
+        $("#admin_publish_competition_guessing").html(html);
+    }
+
+    $.AdminPublishAddLolCompetitionGuessing = function(){
+        var html =
+            "<div class='container'>" +
+            "<div>" +
+            "<h4>局数</h4>" +
+            "</div>" +
+            "<div>" +
+            "<select id='admin_publish_lol_match_times' >" +
+            "<option value='0'>选择局数</option>" +
+            "<option value='5'>5局</option>" +
+            "<option value='3'>3局</option>" +
+            "</select>" +
+            "</div>" +
+            "<div id='admin_publish_lol_match_competition'>" +
+            "</div>" +
+            "</div>" +
+            "<script>" +
+            "$(function(){" +
+            "$('#admin_publish_lol_match_times').change(function(){" +
+            "$.AdminPublishLolMatchTimesChange();" +
+            "});" +
+            "});" +
+            "</script>";
+
+        $("#admin_publish_competition_guessing").html(html);
+    }
+
+    $.AdminPublishLolMatchTimesChange = function(){
+        var matchTimes = $("#admin_publish_lol_match_times").val();
+
+        var match_3 = ["2_1", "2_0", "0_2", "1_2"];
+        var match_5 = ["3_2", "3_1", "3_0", "0_3", "1_3", "2_3"];
+
+        var html =
+            "<div class='contaienr'>";
+
+        if(matchTimes === "3"){
+            for (var i = 0; i < match_3.length; ++i){
+                html +=
+                    "<div>" +
+                    "<div>" +
+                    match_3[i] +
+                    "</div>" +
+                    "<div>" +
+                    "<input type='text' id='admin_publish_lol_match_3_score" + match_3[i] + "' value='5%' />" +
+                    "</div>" +
+                    "</div>";
+            }
+        }
+        if(matchTimes === "5"){
+            for (var i = 0; i < match_5.length; ++i){
+                html +=
+                    "<div>" +
+                    "<div>" +
+                    match_5[i] +
+                    "</div>" +
+                    "<div>" +
+                    "<input type='text' id='admin_publish_lol_match_5_score" + match_5[i] + "' value='5%' />" +
+                    "</div>" +
+                    "</div>";
+            }
+        }
+        html += "</div>";
+
+        $("#admin_publish_lol_match_competition").html(html);
+    }
+
+    $.AdminPublishConfirm = function(){
+
+        //etickmatchtype
+        var etickmatchtypeid = $("#admin_publish_etick_match_type").val();
+        var matchtypeid = $("#admin_publish_match_type").val();
+        var hostteamid = $("#admin_publish_host_team").val();
+        var guestteamid = $("#admin_publish_guest_team").val();
+        var matchcaption = $("#admin_publish_match_caption").val();
+        var matchtime = $("#admin_publish_match_date_time").val();
+        var displaytime = $("#admin_publish_display_date_time").val();
+        var disappeartime = $("#admin_publish_disappear_date_time").val();
+        if(etickmatchtypeid === "1"){
+            //足球返波胆
+            var scoreHole = ["3_0", "3_1", "3_2", "3_3", "2_3", "2_2", "2_1", "2_0", "1_3", "1_2", "1_1", "1_0", "0_3", "0_2", "0_1", "0_0"];
+            var scoreHalf = ["2_2", "2_1", "2_0", "1_2", "1_1", "1_0", "0_2", "0_1", "0_0"];
+            var scoreAngle = ["12", "13", "14", "15", "16", "17"];
+
+            var json_score_hole = "{";
+            var json_score_half = "{";
+            var json_score_angle = "{";
+
+            for(var i = 0; i < scoreHole.length; ++i){
+                json_score_hole += "'" + scoreHole[i] + "'";
+                json_score_hole += ":";
+                json_score_hole += "'" + $("#admin_publish_antiwave_football_hole_" + scoreHole[i]).val() + "'";
+                if(i !== scoreHole.length){
+                    json_score_hole += ",";
+                }
+            }
+            json_score_hole += "}";
+
+
+            for(var i = 0; i < scoreHalf.length; ++i){
+                json_score_half += "'" + scoreHalf[i] + "'";
+                json_score_half += ":";
+                json_score_half += "'" + $("#admin_publish_antiwave_football_half_" + scoreHalf[i]).val() + "'";
+                if(i !== scoreHalf.length){
+                    json_score_half += ",";
+                }
+            }
+            json_score_half += "}";
+
+            for(var i = 0; i < scoreAngle.length; ++i){
+                json_score_angle += "'" + scoreAngle[i] + "'";
+                json_score_angle += ":";
+                json_score_angle += "'" + $("#admin_publish_antiwave_football_angle_" + scoreAngle[i]).val() + "'";
+                if(i !== scoreAngle.length){
+                    json_score_angle += ",";
+                }
+            }
+            json_score_angle += "}";
+
+            $.ajax({
+                type: "post",
+                url: "/tp5/public/index.php/etick/admin/addantiwavefootballmatch",
+                async: true,
+                dataType: "json",
+                data:{
+                    matchtypeid:matchtypeid,
+                    hostteamid:hostteamid,
+                    guestteamid:guestteamid,
+                    matchcaption:matchcaption,
+                    matchtime:matchtime,
+                    displaytime:displaytime,
+                    disappeartime:disappeartime,
+                    scoreHole:json_score_hole,
+                    scoreHalf:json_score_half,
+                    scoreAngle:json_score_angle,
+                },
+                success: function (data) {
+                    data = JSON.parse(data);
+                    switch (data.code) {
+                        case 'ERROR_STATUS_SUCCESS':
+                            $.ShowMsg(data.msg);
+                            break;
+                        default:
+                            $.ShowMsg(data.msg);
+                            break;
+                    }
+                },
+                error: function (hd, msg) {
+                    $.ShowMsg(msg);
+                }
+            });
+
+        }else if(etickmatchtypeid === "2"){
+            //英雄联盟
+            var lolmatchtimes = $("#admin_publish_lol_match_times").val();
+                var match_3 = ["2_1", "2_0", "0_2", "1_2"];
+                var match_5 = ["3_2", "3_1", "3_0", "0_3", "1_3", "2_3"];
+                var json_match = "{";
+            if(lolmatchtimes === "3"){
+                //英雄联盟3局
+                for(var i = 0; i < match_3.length; ++i){
+                    json_match += "'" + match_3[i] + "'";
+                    json_match += ":";
+                    json_match += "'" + $("#admin_publish_lol_match_3_score" + match_3[i]).val() + "'";
+                    if(i !== match_3.length){
+                        json_match += ",";
+                    }
+                }
+            }else if(lolmatchtimes === "5") {
+                //英雄联盟5局
+                for (var i = 0; i < match_5.length; ++i) {
+                    json_match += "'" + match_5[i] + "'";
+                    json_match += ":";
+                    json_match += "'" + $("#admin_publish_lol_match_5_score" + match_5[i]).val() + "'";
+                    if (i !== match_5.length) {
+                        json_match += ",";
+                    }
+                }
+            }
+
+            $.ajax({
+                type: "post",
+                url: "/tp5/public/index.php/etick/admin/addlolmatch",
+                async: true,
+                dataType: "json",
+                data:{
+                    matchtypeid:matchtypeid,
+                    hostteamid:hostteamid,
+                    guestteamid:guestteamid,
+                    matchcaption:matchcaption,
+                    json_match:json_match,
+                },
+                success: function (data) {
+                    data = JSON.parse(data);
+                    switch (data.code) {
+                        case 'ERROR_STATUS_SUCCESS':
+                            $.ShowMsg(data.msg);
+                            break;
+                        default:
+                            $.ShowMsg(data.msg);
+                            break;
+                    }
+                },
+                error: function (hd, msg) {
+                    $.ShowMsg(msg);
+                }
+            });
+
+
+
+        }
+
+
+
+
+    }
 
 });
