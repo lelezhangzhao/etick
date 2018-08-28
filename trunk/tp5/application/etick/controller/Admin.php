@@ -94,9 +94,34 @@ class Admin extends Controller{
 
         //新增竞猜
         $s = json_encode($scoreHole);
-        foreach(json_decode($scoreHole, true) as $hole){
-            $i = $hole;
-        }
+//        $arr = [
+//'{"score":"3_0","theodds":"5%"}',
+//'{"score":"3_1","theodds":"5%"}',
+//'{"score":"3_2","theodds":"5%"}',
+//'{"score":"3_3","theodds":"5%"}',
+//'{"score":"2_3","theodds":"5%"}',
+//'{"score":"2_2","theodds":"5%"}',
+//'{"score":"2_1","theodds":"5%"}',
+//'{"score":"2_0","theodds":"5%"}',
+//'{"score":"1_3","theodds":"5%"}',
+//'{"score":"1_2","theodds":"5%"}',
+//'{"score":"1_1","theodds":"5%"}',
+//'{"score":"1_0","theodds":"5%"}',
+//'{"score":"0_3","theodds":"5%"}',
+//'{"score":"0_2","theodds":"5%"}',
+//'{"score":"0_1","theodds":"5%"}',
+//'{"score":"0_0","theodds":"5%"}'
+//];
+//
+//        $json_arr = json_encode($arr);
+//
+//        $a = json_decode($json_arr);
+//
+//        if(is_array($a)){
+//            foreach ($a as $hole){
+//                $i = $hole;
+//            }
+//        }
 
     }
 

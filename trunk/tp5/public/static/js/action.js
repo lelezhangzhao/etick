@@ -2299,40 +2299,40 @@ $(function(){
             var scoreHalf = ["2_2", "2_1", "2_0", "1_2", "1_1", "1_0", "0_2", "0_1", "0_0"];
             var scoreAngle = ["12", "13", "14", "15", "16", "17"];
 
-            var json_score_hole = "{";
-            var json_score_half = "{";
-            var json_score_angle = "{";
+            var json_score_hole = "[";
+            var json_score_half = "[";
+            var json_score_angle = "[";
 
             for(var i = 0; i < scoreHole.length; ++i){
-                json_score_hole += "'" + scoreHole[i] + "'";
-                json_score_hole += ":";
-                json_score_hole += "'" + $("#admin_publish_antiwave_football_hole_" + scoreHole[i]).val() + "'";
-                if(i !== scoreHole.length){
+                json_score_hole += "'{\"score\":\"" + scoreHole[i] + "\"";
+                json_score_hole += ",";
+                json_score_hole += "\"theodds\":\"" + $("#admin_publish_antiwave_football_hole_" + scoreHole[i]).val() + "\"}'";
+                if(i !== scoreHole.length - 1){
                     json_score_hole += ",";
                 }
             }
-            json_score_hole += "}";
+            json_score_hole += "]";
 
 
             for(var i = 0; i < scoreHalf.length; ++i){
-                json_score_half += "'" + scoreHalf[i] + "'";
-                json_score_half += ":";
-                json_score_half += "'" + $("#admin_publish_antiwave_football_half_" + scoreHalf[i]).val() + "'";
+                json_score_half += "{score:'" + scoreHalf[i] + "'";
+                json_score_half += ",";
+                json_score_half += "theodds:'" + $("#admin_publish_antiwave_football_half_" + scoreHalf[i]).val() + "'";
                 if(i !== scoreHalf.length){
-                    json_score_half += ",";
+                    json_score_half += "},";
                 }
             }
-            json_score_half += "}";
+            json_score_half += "]";
 
             for(var i = 0; i < scoreAngle.length; ++i){
-                json_score_angle += "'" + scoreAngle[i] + "'";
-                json_score_angle += ":";
-                json_score_angle += "'" + $("#admin_publish_antiwave_football_angle_" + scoreAngle[i]).val() + "'";
+                json_score_angle += "{score:'" + scoreAngle[i] + "'";
+                json_score_angle += ",";
+                json_score_angle += "theodds:'" + $("#admin_publish_antiwave_football_angle_" + scoreAngle[i]).val() + "'";
                 if(i !== scoreAngle.length){
-                    json_score_angle += ",";
+                    json_score_angle += "},";
                 }
             }
-            json_score_angle += "}";
+            json_score_angle += "]";
 
             $.ajax({
                 type: "post",
