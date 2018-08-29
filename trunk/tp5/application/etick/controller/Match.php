@@ -26,7 +26,7 @@ class Match extends Controller{
             return $userstatus;
         }
 
-        return $this->fetch('antiwavefootballmatch');
+        return $this->fetch();
     }
 
     public function GetAntiwaveFootballMatchList(){

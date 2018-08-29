@@ -15,19 +15,22 @@ use app\etick\model\MatchType as MatchTypeModel;
 use app\etick\model\MatchTeam as MatchTeamModel;
 use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
 
-class Admin extends Controller{
-    public function Index(){
+class Admin extends Controller
+{
+    public function Index()
+    {
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
-        if(true !== $userstatus){
+        if (true !== $userstatus) {
             return $userstatus;
         }
 
         return $this->fetch();
     }
 
-    public function GetEtickMatchType(){
+    public function GetEtickMatchType()
+    {
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
-        if(true !== $userstatus){
+        if (true !== $userstatus) {
             return $userstatus;
         }
 
@@ -38,9 +41,10 @@ class Admin extends Controller{
 
     }
 
-    public function GetMatchType(Request $request){
+    public function GetMatchType(Request $request)
+    {
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
-        if(true !== $userstatus){
+        if (true !== $userstatus) {
             return $userstatus;
         }
 
@@ -52,9 +56,10 @@ class Admin extends Controller{
 
     }
 
-    public function GetHostAndGuestTeam(Request $request){
+    public function GetHostAndGuestTeam(Request $request)
+    {
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
-        if(true !== $userstatus){
+        if (true !== $userstatus) {
             return $userstatus;
         }
 
@@ -65,7 +70,8 @@ class Admin extends Controller{
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($matchteam));
     }
 
-    public function AddAntiwaveFootballMatch(Request $request){
+    public function AddAntiwaveFootballMatch(Request $request)
+    {
 //        matchtypeid:matchtypeid,
 //                    hostteamid:hostteamid,
 //                    guestteamid:guestteamid,
@@ -85,6 +91,11 @@ class Admin extends Controller{
         $scoreHalf = $request->param('scoreHalf');
         $scoreAngle = $request->param('scoreAngle');
 
+        $hostmatchteam = MatchTeamModel::get($hostteamid);
+        $guestmatchteam = MatchTeamModel::get($guestteamid);
+
+        $hostmatchteamcaption = $hostmatchteam->caption;
+        $guestmatchteamcaption = $guestmatchteam->caption;
         //新增比赛
         DatabaseApi::AddAntiwaveFootballMatch($matchtypeid, $hostteamid, $guestteamid, $matchcaption, $matchtime, $displaytime, $disappeartime);
 
@@ -92,8 +103,13 @@ class Admin extends Controller{
         $match = Db::query($sql);
         $matchid = $match[0]['id'];
 
-        //新增竞猜
-        $s = json_encode($scoreHole);
+        $scoreHole = preg_replace('/_/', ':', $scoreHole);
+        $arr_scorehole = json_decode($scoreHole);
+
+        $scoreHalf = preg_replace('/_/', ':', $scoreHalf);
+        $arr_scorehalf = json_decode($scoreHalf);
+
+        $arr_scoreangle = json_decode($scoreAngle);
 //        $arr = [
 //'{"score":"3_0","theodds":"5%"}',
 //'{"score":"3_1","theodds":"5%"}',
@@ -116,16 +132,89 @@ class Admin extends Controller{
 //        $json_arr = json_encode($arr);
 //
 //        $a = json_decode($json_arr);
-//
-//        if(is_array($a)){
-//            foreach ($a as $hole){
-//                $i = $hole;
-//            }
-//        }
 
+        if (is_array($arr_scorehole)) {
+            foreach ($arr_scorehole as $scorehole) {
+//                $arr_hole = json_decode($json_hole);
+                $score = $scorehole->score;
+                $theodds = $scorehole->theodds;
+                $totaleti = $scorehole->totaleti;
+                $frozeneti = $scorehole->frozeneti;
+
+                $caption = $hostmatchteamcaption . ' VS ' . $guestmatchteamcaption . '全场' . $score;
+
+                //新增竞猜
+                DatabaseApi::AddAntiwaveFootballMatchCompetitionGuessing($matchid, $caption, 0, $score, $theodds, $totaleti, $frozeneti);
+            }
+        }
+
+        if (is_array($arr_scorehalf)) {
+            foreach ($arr_scorehalf as $scorehalf) {
+                $score = $scorehalf->score;
+                $theodds = $scorehalf->theodds;
+                $totaleti = $scorehalf->totaleti;
+                $frozeneti = $scorehalf->frozeneti;
+
+                $caption = $hostmatchteamcaption . 'VS' . $guestmatchteamcaption . '半场' . $score;
+                //新增竞猜
+                DatabaseApi::AddAntiwaveFootballMatchCompetitionGuessing($matchid, $caption, 1, $score, $theodds, $totaleti, $frozeneti);
+            }
+        }
+
+        if (is_array($arr_scoreangle)) {
+            foreach ($arr_scoreangle as $scoreangle) {
+                $score = $scoreangle->score;
+                $theodds = $scoreangle->theodds;
+                $totaleti = $scoreangle->totaleti;
+                $frozeneti = $scoreangle->frozeneti;
+
+                $caption = $hostmatchteamcaption . 'VS' . $guestmatchteamcaption . '角球' . $score;
+
+                DatabaseApi::AddAntiwaveFootballMatchCompetitionGuessing($matchid, $caption, 2, $score, $theodds, $totaleti, $frozeneti);
+            }
+        }
+
+        return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '添加成功');
     }
 
-    public function AddLolMatch(Request $request){
+    public function AddLolMatch(Request $request)
+    {
+        $matchtypeid = $request->param('matchtypeid');
+        $hostteamid = $request->param('hostteamid');
+        $guestteamid = $request->param('guestteamid');
+        $matchcaption = $request->param('matchcaption');
+        $matchtime = $request->param('matchtime');
+        $displaytime = $request->param('displaytime');
+        $disappeartime = $request->param('disappeartime');
+        $antiscore = $request->param('antiscore');
 
+        $hostmatchteam = MatchTeamModel::get($hostteamid);
+        $guestmatchteam = MatchTeamModel::get($guestteamid);
+
+        $hostmatchteamcaption = $hostmatchteam->caption;
+        $guestmatchteamcaption = $guestmatchteam->caption;
+        //新增比赛
+        DatabaseApi::AddLolMatch($matchtypeid, $hostteamid, $guestteamid, $matchcaption, $matchtime, $displaytime, $disappeartime);
+
+        $sql = 'select * from etick_antiwave_football_match order by id desc limit 1';
+        $match = Db::query($sql);
+        $matchid = $match[0]['id'];
+
+        $antiscore = preg_replace('/_/', ':', $antiscore);
+        $arr_antiscore = json_decode($antiscore);
+
+        if (is_array($arr_antiscore)) {
+            foreach ($arr_antiscore as $antiscore) {
+                $score = $antiscore->score;
+                $theodds = $antiscore->theodds;
+                $totaleti = $antiscore->totaleti;
+                $frozeneti = $antiscore->frozeneti;
+
+                $caption = $hostmatchteamcaption . ' VS ' . $guestmatchteamcaption . $score;
+
+                //新增反积分竞猜
+                DatabaseApi::AddLolmatchCompetitionGuessing($matchid, $caption, 8, $score, $theodds, $totaleti, $frozeneti);
+            }
+        }
     }
 }
