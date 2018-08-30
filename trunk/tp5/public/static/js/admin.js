@@ -509,7 +509,15 @@ $(function(){
             "<script>" +
             "$('#admin_balance_etick_match_type').change(function(){" +
             "$.AdminBalanceEtickMatchTypeChange();" +
+            "});" +
+            "$('#admin_balance_match_type').change(function(){" +
             "$.AdminBalanceMatchTypeChange();" +
+            "});" +
+            "$('#admin_balance_match').change(function(){" +
+            "$.AdminBalanceMatchChange();" +
+            "});" +
+            "$('#admin_balance_type').change(fucntion(){" +
+            "$.AdminBalanceTypeChange();" +
             "});" +
             "</script>";
     });
@@ -548,12 +556,268 @@ $(function(){
 
 
     $.AdminBalanceEtickMatchTypeChange = function(){
+        var etickmatchtype = $("#admin_balance_etick_match_type").val();
+        if(etickmatchtype === '-1'){
+            return;
+        }
 
+        if(etickmatchtype === "1"){
+            //足球返波胆
+            $.AdminPublishAddAntiwaveFootballCompetitionGuessing();
+        }else if(etickmatchtype === "2"){
+            //英雄联盟返波胆
+            $.AdminPublishAddLolCompetitionGuessing();
+
+        }
+        //获取赛事类别
+        $.ajax({
+            type: "post",
+            url: "/tp5/public/index.php/etick/admin/getmatchtype",
+            async: true,
+            dataType: "json",
+            data:{
+                etickmatchtype:etickmatchtype,
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                switch (data.code) {
+                    case 'ERROR_STATUS_SUCCESS':
+                        if(data.jsoncontent.length !== 0){
+                            var matchType = JSON.parse(data.jsoncontent);
+                            $("#admin_balance_match_type").empty();
+                            for(var i = 0; i < matchType.length; ++i){
+                                $("#admin_balance_match_type").append("<option value=" + matchType[i].id + ">" + matchType[i].caption + "</option>");
+                            }
+                        }
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error: function (hd, msg) {
+                $.ShowMsg(msg);
+            }
+        });
     }
 
     $.AdminBalanceMatchTypeChange = function(){
+        var etickmatchtype = $("#admin_balance_match_type").val();
+        if(etickmatchtype === '-1'){
+            return;
+        }
+        $.ajax({
+            type: "post",
+            url: "/tp5/public/index.php/etick/admin/getmatchtypeteam",
+            async: true,
+            dataType: "json",
+            data:{
+                etickmatchtype:etickmatchtype,
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                switch (data.code) {
+                    case 'ERROR_STATUS_SUCCESS':
+                        if(data.jsoncontent.length !== 0){
+                            $("#admin_balance_match").empty();
+                            var matchTeam = JSON.parse(data.jsoncontent);
+                            for(var i = 0; i < matchTeam.length; ++i){
+                                $("#admin_balance_match").append("<option value=" + matchTeam[i].id + ">" + matchTeam[i].caption + "</option>");
+                            }
+                        }
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error: function (hd, msg) {
+                $.ShowMsg(msg);
+            }
+        });
+    }
+
+    $.AdminBalanceMatchChange = function(){
+        var etickmatchtypeid = $("#admin_balance_etick_match_type").val();
+        var matchcaption = $("#admin_balance_match").text();
+
+        $("#admin_balance_type").empty();
+        $("#admin_balance_type").append("<option value='-1'>选择变更类型</option>");
+        $("#admin_balance_type").append("<option value='0'>结算</option>");
+        $("#admin_balance_type").append("<option value='1'>取消</option>");
+
+        if(matchcaption.indexOf("推迟")){
+            //已推迟 的比赛
+            if(etickmatchtypeid === "0"){
+                //已推迟 的足球
+                $("#admin_balance_type").append("<option value='3'>只结算上半场</option>");
+            }else if(eickmatchtypeid === "1"){
+                //已推迟 的英雄联盟
+            }
+        }else{
+            $("#admin_balance_type").append("<option value='2'>推迟</option>");
+
+            //正常 比赛
+            if(etickmatchtypeid === "0"){
+                //正常的足球
+                $("#admin_balance_type").append("<option value='3'>只结算上半场</option>");
+            }else if(eickmatchtypeid === "1"){
+                //正常的英雄联盟
+            }
+        }
+    }
+
+    $.AdminBalanceTypeChange = function(){
+        var etickmatchtypeid = $("#admin_balance_etick_match_type").val();
+        var matchid = $("#admin_balance_match").val();
+        var balancetype = $("#admin_balance_type").val();
+
+        var html = "<div class='container'>";
+
+        var scoreHole = ["3:0", "3:1", "3:2", "3:3", "2:3", "2:2", "2:1", "2:0", "1:3", "1:2", "1:1", "1:0", "0:3", "0:2", "0:1", "0:0"];
+        var scoreHalf = ["2:2", "2:1", "2:0", "1:2", "1:1", "1:0", "0:2", "0:1", "0:0"];
+        var scoreAngle = ["12", "13", "14", "15", "16", "17"];
+
+        if(etickmatchtypeid === '0'){
+            //足球返波胆
+            if(balancetype === '0'){
+                //结算
+
+                html +=
+                    "<div class='container'>" +
+                    "<div>" +
+                    "半场:" +
+                    "<select id='admin_balance_half' >";
+
+                //半场
+                for(var i = 0; i < scoreHalf.length; ++i){
+                    html += "<option >" +
+                        scoreHalf[i] +
+                        "</option>";
+                }
+                html += "</select></div>";
+
+
+                //全场
+                html += "<div>" +
+                    "全场:" +
+                    "<select id='admin_balance_hole' >";
+
+                for(var i = 0; i < scoreHole.length; ++i){
+                    html += "<option >" +
+                        scoreHole[i] +
+                        "</option>";
+                }
+                html += "</select></div>";
+
+                //角球
+                html += "<div>" +
+                    "角球:" +
+                    "<select id='admin_balance_angle' >";
+                for(var i = 0; i < scoreAngle.length; ++i){
+                    html += "<option >" +
+                        scoreAngle[i] +
+                        "</option>";
+                }
+                html += "</select></div>";
+                html += "</div>";
+            }else if(balancetype === '3'){
+                //只结算上半场
+                html +=
+                    "<div class='container'>" +
+                    "<div>" +
+                    "半场:" +
+                    "<select id='admin_balance_half' >";
+
+                //半场
+                for(var i = 0; i < scoreHalf.length; ++i){
+                    html += "<option >" +
+                        scoreHalf[i] +
+                        "</option>";
+                }
+                html += "</select></div>";
+                html += "</div>";
+            }
+
+        }else if(etickmatchtypeid === '1'){
+            //英雄联盟
+            var match_3 = ["2:1", "2:0", "0:2", "1:2"];
+            var match_5 = ["3:2", "3:1", "3:0", "0:3", "1:3", "2:3"];
+            if(balancetype === '0'){
+                //结算
+
+                html +=
+                    "<div class='container'>" +
+                    "<div>" +
+                    "比分:" +
+                    "<select id='admin_balance_score' >";
+
+                //比分
+                for(var i = 0; i < match_3.length; ++i){
+                    html += "<option >" +
+                        match_3[i] +
+                        "</option>";
+                }
+                for(var i = 0; i < match_5.length; ++i){
+                    html += "<option >" +
+                        match_5[i] +
+                        "</option>";
+                }
+                html += "</select></div>";
+                html += "</div>";
+            }
+
+        }
+
+        html += "<div><button type='button' class='btn btn-default' id='admin_balance_confirm'>确认</button></div></div>" +
+            "<script>" +
+            "$(functio(){" +
+            "$('#admin_balance_confirm').click=function(){" +
+            "$.AdminBalanceConfirm();" +
+            "} +
+            "});" +
+            "</script>";
+
+        $("#admin_balance_type_info").html(html);
 
     }
 
+    $.AdminBalanceConfirm = function(){
+        //matchid
+        //balance type
+        //info
 
+
+        $.ajax({
+            type:"post",
+            async:true,
+            url:"/tp5/public/index.php/etick/admin/balanceconfirm",
+            dataType:"json",
+            data:{
+                matchid:matchid,
+                balancetype:balancetype,
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                switch (data.code) {
+                    case 'ERROR_STATUS_SUCCESS':
+                        if(data.jsoncontent.length !== 0){
+                            $("#admin_balance_match").empty();
+                            var matchTeam = JSON.parse(data.jsoncontent);
+                            for(var i = 0; i < matchTeam.length; ++i){
+                                $("#admin_balance_match").append("<option value=" + matchTeam[i].id + ">" + matchTeam[i].caption + "</option>");
+                            }
+                        }
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error: function (hd, msg) {
+                $.ShowMsg(msg);
+            }
+        });
+
+    }
 });
