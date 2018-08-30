@@ -58,6 +58,7 @@ class Admin extends Controller
 
     public function GetHostAndGuestTeam(Request $request)
     {
+
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
         if (true !== $userstatus) {
             return $userstatus;
@@ -79,6 +80,10 @@ class Admin extends Controller
 //                    scoreHole:scoreHole,
 //                    scoreHalf:scoreHalf,
 //                    scoreAngle:scoreAngle,
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
 
         $matchtypeid = $request->param('matchtypeid');
         $hostteamid = $request->param('hostteamid');
@@ -179,6 +184,11 @@ class Admin extends Controller
 
     public function AddLolMatch(Request $request)
     {
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+
         $matchtypeid = $request->param('matchtypeid');
         $hostteamid = $request->param('hostteamid');
         $guestteamid = $request->param('guestteamid');
@@ -216,5 +226,66 @@ class Admin extends Controller
                 DatabaseApi::AddLolmatchCompetitionGuessing($matchid, $caption, 8, $score, $theodds, $totaleti, $frozeneti);
             }
         }
+    }
+
+    //结算
+    public function BalanceConfirm(Request $request){
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+
+        $matchid = $request->param('matchid');
+        $balancetype = $request->param('balancetype');
+        $balacnce_hole = $request->param('balance_hole');
+        $balance_half = $request->param('balance_half');
+        $balance_angle = $request->param('balance_angle');
+        $balance_lol_score = $request->param('balance_lol_score');
+
+
+    /*
+     * 0 结算
+     * 1 取消
+     * 2 推迟
+     * 3 只结算上半场
+     */
+        if(balancetype === '0'){
+            self::Balance($request);
+        }else if(balancetype === '1'){
+            self::BalanceCancel($request);
+        }else if(balancetype === '2'){
+            self::BalanceDelay($request);
+        }else if(balancetype === '3'){
+            self::BalanceFirstHalf($request);
+        }
+    }
+
+    private function BalanceCancel($request){
+        //match
+
+        //competition
+
+        //bettingrecord
+
+        //user
+
+        //etirecord
+    }
+
+    private function BalanceDelay($request){
+        //match
+
+        //competition
+
+        //bettingrecord
+
+    }
+
+    private function BalanceFirstHalf($request){
+
+    }
+
+    private function Balance($request){
+
     }
 }

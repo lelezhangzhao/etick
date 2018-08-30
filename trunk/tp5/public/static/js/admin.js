@@ -774,7 +774,7 @@ $(function(){
             "$(functio(){" +
             "$('#admin_balance_confirm').click=function(){" +
             "$.AdminBalanceConfirm();" +
-            "} +
+            "}" +
             "});" +
             "</script>";
 
@@ -784,8 +784,15 @@ $(function(){
 
     $.AdminBalanceConfirm = function(){
         //matchid
+        var matchid = $("#admin_balance_match").val();
         //balance type
+        var balancetype = $("#admin_balance_type").val();
         //info
+        var balance_hole = $("#admin_balance_hole").val();
+        var balance_half = $("#admin_balance_half").val();
+        var balance_angle = $("#admin_balance_angle").val();
+
+        var balance_lol_score = $("#admin_balance_score").val();
 
 
         $.ajax({
@@ -796,18 +803,16 @@ $(function(){
             data:{
                 matchid:matchid,
                 balancetype:balancetype,
+                balacnce_hole:balance_hole,
+                balance_half:balance_half,
+                balance_angle:balance_angle,
+                balance_lol_score:balance_lol_score,
             },
             success: function (data) {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
-                        if(data.jsoncontent.length !== 0){
-                            $("#admin_balance_match").empty();
-                            var matchTeam = JSON.parse(data.jsoncontent);
-                            for(var i = 0; i < matchTeam.length; ++i){
-                                $("#admin_balance_match").append("<option value=" + matchTeam[i].id + ">" + matchTeam[i].caption + "</option>");
-                            }
-                        }
+                        $.ShowMsg(data.msg);
                         break;
                     default:
                         $.ShowMsg(data.msg);
