@@ -86,8 +86,8 @@ class Database{
         else if($etistatus === 2) return '冻结金';
     }
 
-    static public function AddEtiRecord($userid, $type, $eti){
-        $systemtime = TimesApi::GetSystemTime();
+    static public function AddEtiRecord($userid, $type, $eti, $systemtime){
+//        $systemtime = TimesApi::GetSystemTime();
 
         $etirecord = new EtiRecordModel();
         $etirecord->userid = $userid;
@@ -119,6 +119,7 @@ class Database{
             case 14: $typeinfo = '建议采纳'; break;
             case 15: $typeinfo = '领导人分红'; break;
             case 16: $typeinfo = '仲裁'; break;
+            case 17: $typeinfo = '比赛取消'; break;
             default:break;
         }
         return $typeinfo;

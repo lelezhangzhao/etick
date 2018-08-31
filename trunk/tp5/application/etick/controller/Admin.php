@@ -9,11 +9,18 @@ use think\Db;
 use app\etick\api\UserStatus as UserStatusApi;
 use app\etick\api\Status as StatusApi;
 use app\etick\api\Database as DatabaseApi;
+use app\etick\api\Times as TimesApi;
 
 use app\etick\model\EtickMatchType as EtickmatchTypeModel;
 use app\etick\model\MatchType as MatchTypeModel;
 use app\etick\model\MatchTeam as MatchTeamModel;
 use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
+use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessing;
+use app\etick\model\LolMatch as LolMatchModel;
+use app\etick\model\LolCompetitionGuessing as LolCompetitionGuessingModel;
+use app\etick\model\BettingRecord as BettingRecordModel;
+use app\etick\model\EtiRecord as EtiRecordModel;
+use app\etick\model\User as UserModel;
 
 class Admin extends Controller
 {
@@ -235,6 +242,7 @@ class Admin extends Controller
             return $userstatus;
         }
 
+        $etickmatchtype = $request->param('etickmatchtype');
         $matchid = $request->param('matchid');
         $balancetype = $request->param('balancetype');
         $balacnce_hole = $request->param('balance_hole');
@@ -249,43 +257,506 @@ class Admin extends Controller
      * 2 推迟
      * 3 只结算上半场
      */
-        if(balancetype === '0'){
-            self::Balance($request);
-        }else if(balancetype === '1'){
+        if($balancetype === '0'){
+            if($etickmatchtype === '0'){
+                self::BalanceAntiwaveFootball($request);
+            }else if($etickmatchtype === '1'){
+                self::BalanceLol($request);
+            }
+        }else if($balancetype === '1'){
+            if($etickmatchtype === '')
             self::BalanceCancel($request);
-        }else if(balancetype === '2'){
+        }else if($balancetype === '2'){
             self::BalanceDelay($request);
-        }else if(balancetype === '3'){
+        }else if($balancetype === '3'){
             self::BalanceFirstHalf($request);
+        }else if($balancetype == 4){
+            self::BalanceMatchBegin($request);
         }
     }
 
-    private function BalanceCancel($request){
-        //match
 
-        //competition
+    public function BalanceConfirmStartAntiwaveFootball(Request $request){
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+        $matchid = $request->param('matchid');
+
+        $match = AntiwaveFootballMatch::get($matchid);
+        $match->status = 1;
+        $match->statusinfo = '比赛开始';
+        $match->allowField(true)->save();
+
+
+    }
+
+    public function BalanceConfirmDelayAntiwaveFootball(Request $request){
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+        $matchid = $request->param('matchid');
+
+        $match = AntiwaveFootballMatch::get($matchid);
+        $match->status = 2;
+        $match->statusinfo = '比赛推迟';
+        $match->allowField(true)->save();
+
+    }
+    public function BalanceConfirmCancelAntiwaveFootball(Request $request){
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+        $matchid = $request->param('matchid');
+
+
+        $match = AntiwaveFootballMatch::get($matchid);
+        $match->status = 3;
+        $match->statusinfo = '比赛取消';
+        $match->allowField(true)->save();
 
         //bettingrecord
-
-        //user
+        $sql = "update etick_betting_record set status = 2, statusinfo = '比赛取消' where matchid = '$matchid'";
+        $result = Db::execute($sql);
 
         //etirecord
+        $bettingrecords = BettingRecordModel::where('matchid', $matchid)->select();
+        foreach($bettingrecords as $bettingrecord){
+            $bettingrecordid = $bettingrecord->id;
+            $userid = $bettingrecord->userid;
+            DatabaseApi::AddEtiRecord($userid, 17, $bettingrecord->bettingeti);
+
+            //user
+            $user = UserModel::get($userid);
+            $user->eti += $bettingrecords->bettingeti;
+            $user->allowField(true)->save();
+        }
+
+
+    }
+    public function BalanceConfirmAntiwaveFootball(Request $request){
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+
+        $systemTime = TimesApi::GetSystemTime();
+
+        $matchid = $request->param('matchid');
+        $balance_hole = $request->param('balance_hole');
+        $balance_half = $request->param('balance_half');
+        $balance_angle = $request->param('balance_angle');
+
+        //match
+        //结算足球
+        $match = AntiwaveFootballMatchModel::get($matchid);
+        $match->status = 5;
+        $match->statusinfo = "结算成功";
+        $match->allowField(true)->save();
+
+
+        $isHitGuessing = false;
+        $guessingOdds = 0;
+
+        $readonlyguessings = AntiwaveFootballCompetitionGuessingModel::where('matchid', $matchid)->select();
+        //compttition guessing
+        foreach($readonlyguessings as $readonlyguessing){
+            $guessing = AntiwaveFootballCompetitionGuessingModel::get($readonlyguessing->id);
+            $guessingOdds = $guessing->theodds;
+
+            if(($guessing->type === 0 && $guessing->score !== $balance_hole) ||
+                ($guessing->type === 1 && $guessing->score !== $balance_half) ||
+                ($guessing->type === 2 && $guessing->score !== $balance_angle)){
+                //赢
+                $guessing->status = 1;
+                $guessing->statusinfo = '竞猜中奖';
+
+                $isHitGuessing = true;
+            }else if(($guessing->type === 0 && $guessing->score === $balance_hole) ||
+                ($guessing->type === 1 && $guessing->score === $balance_half) ||
+                ($guessing->type === 2 && $guessing->score === $balance_angle)){
+                //输
+                $guessing->status = 0;
+                $guessing->statusinfo = '竞猜未中奖';
+
+                $isHitGuessing = false;
+            }
+            $guessing->allowField(true)->save();
+        }
+
+
+        //betting record
+        $readonlybettingrecords = BettinRecordModel::where('matchid', $matchid)->select(0);
+        foreach($readonlybettingrecords as $readonlybettingrecord){
+            $bettingrecord = BettingRecordModel::get($readonlybettingrecord->id);
+
+            $bettingrecord->status = 1;
+            $bettingrecord->statusinfo = '已结算';
+            $bettingrecord->balancetime = $systemTime;
+
+            $userid = $bettingrecord->userid;
+            $user = UserModel::get($userid);
+
+            //中奖
+            if($isHitGuessing){
+                $profit = $bettingrecord->bettingeti * (1 + $guessingOdds);
+
+                $bettingrecord->profit = $profit;
+                $bettingrecord->bettingresult = 0;
+                $bettingrecord->bettingresultinfo = '盈利';
+
+                //eti recotd
+                DatabaseApi::AddEtiRecord($userid, 2, $profit, $systemTime);
+
+                //user
+                $user->eti += $profit;
+                $user->save();
+
+                //未中奖
+            }else{
+                $bettingrecord->bettingresult = 1;
+                $bettingrecord->bettingresultinfo = '亏损';
+            }
+            $bettingrecord->allowField(true)->save();
+        }
+    }
+
+    public function BalanceConfirmStartLol(Request $request){
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+
+    }
+    public function BalanceConfirmCancelLol(Request $request){
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+        $matchid = $request->param('matchid');
+
+    }
+    public function  BalanceConfirmDelayLol(Request $request){
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+        $matchid = $request->param('matchid');
+
+    }
+
+    public function BalanceConfirmLol(Requset $request){
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+        $matchid = $request->param('matchid');
+        $balance_lol_score = $request->param('balance_lol_score');
+
+    }
+
+
+    private function BalanceCancel($request){
+
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+
+        $etickmatchtype = $request->param('etickmatchtype');
+        $matchid = $request->param('matchid');
+        $balancetype = $request->param('balancetype');
+        $balacnce_hole = $request->param('balance_hole');
+        $balance_half = $request->param('balance_half');
+        $balance_angle = $request->param('balance_angle');
+        $balance_lol_score = $request->param('balance_lol_score');
+
+
+        //match
+        if(etickmatchtype === '0'){
+            //足球返波胆
+            $match = AntiwaveFootballMatch::get($matchid);
+            $match->status = 3;
+            $match->statusinfo = '比赛取消';
+            $match->allowField(true)->save();
+
+            //competition
+            $sql = "update etick_antiwave_football_competition_guessing set status = 4, statusinfo = '比赛取消' where matchid='$matchid'";
+            $result = Db::execute($sql);
+
+        }else if(etickmatchtype === '1'){
+            //英雄联盟
+            $match = LolMatchModel::get($matchid);
+            $match->status = 3;
+            $match->statusinfo = '比赛取消';
+            $match->allowField(true)->save();
+
+            //competition
+            $sql = "update etick_lol_competition_guessing set status = 4, statusinfo = '比赛取消' where matchid='$matchid'";
+            $result = Db::execute($sql);
+        }
+
+        //bettingrecord
+        $sql = "update etick_betting_record set status = 2, statusinfo = '比赛取消' where matchid = '$matchid'";
+        $result = Db::execute($sql);
+
+
+        //etirecord
+        $bettingrecords = BettingRecordModel::where('matchid', $matchid)->select();
+        foreach($bettingrecords as $bettingrecord){
+            $bettingrecordid = $bettingrecord->id;
+            $userid = $bettingrecord->userid;
+            DatabaseApi::AddEtiRecord($userid, 17, $bettingrecord->bettingeti);
+
+            //user
+            $user = UserModel::get($userid);
+            $user->eti += $bettingrecords->bettingeti;
+            $user->allowField(true)->save();
+        }
     }
 
     private function BalanceDelay($request){
-        //match
 
-        //competition
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+
+        $etickmatchtype = $request->param('etickmatchtype');
+        $matchid = $request->param('matchid');
+        $balancetype = $request->param('balancetype');
+        $balacnce_hole = $request->param('balance_hole');
+        $balance_half = $request->param('balance_half');
+        $balance_angle = $request->param('balance_angle');
+        $balance_lol_score = $request->param('balance_lol_score');
+
+
+        //match
+        if(etickmatchtype === '0'){
+            //足球返波胆
+            $match = AntiwaveFootballMatch::get($matchid);
+            $match->status = 2;
+            $match->statusinfo = '比赛推迟';
+            $match->allowField(true)->save();
+
+            //competition
+            $sql = "update etick_antiwave_football_competition_guessing set status = 3, statusinfo = '比赛推迟' where matchid='$matchid'";
+            $result = Db::execute($sql);
+
+        }else if(etickmatchtype === '1'){
+            //英雄联盟
+            $match = LolMatchModel::get($matchid);
+            $match->status = 2;
+            $match->statusinfo = '比赛推迟';
+            $match->allowField(true)->save();
+
+            //competition
+            $sql = "update etick_lol_competition_guessing set status = 3, statusinfo = '比赛推迟' where matchid='$matchid'";
+            $result = Db::execute($sql);
+        }
 
         //bettingrecord
-
+        $sql = "update etick_betting_record set status = 1, statusinfo = '比赛推迟' where matchid = '$matchid'";
+        $result = Db::execute($sql);
     }
 
     private function BalanceFirstHalf($request){
+        //只结算上半场
+
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+        $systemTime = TimesApi::GetSystemTime();
+
+
+        $etickmatchtype = $request->param('etickmatchtype');
+        $matchid = $request->param('matchid');
+        $balancetype = $request->param('balancetype');
+        $balance_hole = $request->param('balance_hole');
+        $balance_half = $request->param('balance_half');
+        $balance_angle = $request->param('balance_angle');
+        $balance_lol_score = $request->param('balance_lol_score');
+
+        //match
+        $match = AntiwaveFootballMatchModel::get($matchid);
+        $match->status = 4;
+        $match->statusinfo = "只结算上半场";
+        $match->allowField(true)->save();
+
+
+        $isHitGuessing = false;
+        $guessingOdds = 0;
+        $userid = '';
+
+        $readonlyguessings = AntiwaveFootballCompetitionGuessingModel::where('matchid', $matchid)->select();
+        //compttition guessing
+        foreach($readonlyguessings as $readonlyguessing){
+            $guessing = AntiwaveFootballCompetitionGuessingModel::get($readonlyguessing->id);
+            $guessingOdds = $guessing->theodds;
+
+            if(($guessing->type === 0 && $guessing->score !== $balance_hole) ||
+                ($guessing->type === 1 && $guessing->score !== $balance_half) ||
+                ($guessing->type === 2 && $guessing->score !== $balance_angle)){
+                //赢
+                $guessing->status = 2;
+                $guessing->statusinfo = '竞猜中奖';
+
+                $isHitGuessing = true;
+            }else if(($guessing->type === 0 && $guessing->score === $balance_hole) ||
+                ($guessing->type === 1 && $guessing->score === $balance_half) ||
+                ($guessing->type === 2 && $guessing->score === $balance_angle)){
+                //输
+                $guessing->status = 1;
+                $guessing->statusinfo = '竞猜未中奖';
+
+                $isHitGuessing = false;
+            }
+            $guessing->allowField(true)->save();
+        }
+
+
+        //betting record
+        $readonlybettingrecords = BettinRecordModel::where('matchid', $matchid)->select(0);
+        foreach($readonlybettingrecords as $readonlybettingrecord){
+            $bettingrecord = BettingRecordModel::get($readonlybettingrecord->id);
+
+            $bettingrecord->status = 4;
+            $bettingrecord->statusinfo = '只进行上半场';
+            $bettingrecord->balancetime = $systemTime;
+
+            $userid = $bettingrecord->userid;
+            $user = UserModel::get($userid);
+
+            //中奖
+            if($isHitGuessing){
+                $profit = $bettingrecord->bettingeti * (1 + $guessingOdds);
+
+                $bettingrecord->profit = $profit;
+                $bettingrecord->bettingresult = 0;
+                $bettingrecord->bettingresultinfo = '盈利';
+
+                //eti recotd
+                DatabaseApi::AddEtiRecord($userid, 2, $profit, $systemTime);
+
+                //user
+                $user->eti += $profit;
+                $user->save();
+
+            //未中奖
+            }else{
+                $bettingrecord->bettingresult = 1;
+                $bettingrecord->bettingresultinfo = '亏损';
+            }
+            $bettingrecord->allowField(true)->save();
+        }
+    }
+
+    //结算
+    private function Balance($request){
+
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+        $systemTime = TimesApi::GetSystemTime();
+
+
+        $etickmatchtype = $request->param('etickmatchtype');
+        $matchid = $request->param('matchid');
+        $balancetype = $request->param('balancetype');
+        $balance_hole = $request->param('balance_hole');
+        $balance_half = $request->param('balance_half');
+        $balance_angle = $request->param('balance_angle');
+        $balance_lol_score = $request->param('balance_lol_score');
+
+        //match
+        //结算足球
+        if(etickmatchtype === '0'){
+            $match = AntiwaveFootballMatchModel::get($matchid);
+            $match->status = 5;
+            $match->statusinfo = "结算成功";
+            $match->allowField(true)->save();
+        //结算英雄联盟
+        }else if(etickmatchtype === '1'){
+            $match = LolMatchModel::get($matchid);
+            $match->status = 4;
+            $match->statusinfo = "结算成功";
+            $match->save();
+        }
+
+
+        $isHitGuessing = false;
+        $guessingOdds = 0;
+        $userid = '';
+
+        $readonlyguessings = AntiwaveFootballCompetitionGuessingModel::where('matchid', $matchid)->select();
+        //compttition guessing
+        foreach($readonlyguessings as $readonlyguessing){
+            $guessing = AntiwaveFootballCompetitionGuessingModel::get($readonlyguessing->id);
+            $guessingOdds = $guessing->theodds;
+
+            if(($guessing->type === 0 && $guessing->score !== $balance_hole) ||
+                ($guessing->type === 1 && $guessing->score !== $balance_half) ||
+                ($guessing->type === 2 && $guessing->score !== $balance_angle)){
+                //赢
+                $guessing->status = 2;
+                $guessing->statusinfo = '竞猜中奖';
+
+                $isHitGuessing = true;
+            }else if(($guessing->type === 0 && $guessing->score === $balance_hole) ||
+                ($guessing->type === 1 && $guessing->score === $balance_half) ||
+                ($guessing->type === 2 && $guessing->score === $balance_angle)){
+                //输
+                $guessing->status = 1;
+                $guessing->statusinfo = '竞猜未中奖';
+
+                $isHitGuessing = false;
+            }
+            $guessing->allowField(true)->save();
+        }
+
+
+        //betting record
+        $readonlybettingrecords = BettinRecordModel::where('matchid', $matchid)->select(0);
+        foreach($readonlybettingrecords as $readonlybettingrecord){
+            $bettingrecord = BettingRecordModel::get($readonlybettingrecord->id);
+
+            $bettingrecord->status = 4;
+            $bettingrecord->statusinfo = '只进行上半场';
+            $bettingrecord->balancetime = $systemTime;
+
+            $userid = $bettingrecord->userid;
+            $user = UserModel::get($userid);
+
+            //中奖
+            if($isHitGuessing){
+                $profit = $bettingrecord->bettingeti * (1 + $guessingOdds);
+
+                $bettingrecord->profit = $profit;
+                $bettingrecord->bettingresult = 0;
+                $bettingrecord->bettingresultinfo = '盈利';
+
+                //eti recotd
+                DatabaseApi::AddEtiRecord($userid, 2, $profit, $systemTime);
+
+                //user
+                $user->eti += $profit;
+                $user->save();
+
+                //未中奖
+            }else{
+                $bettingrecord->bettingresult = 1;
+                $bettingrecord->bettingresultinfo = '亏损';
+            }
+            $bettingrecord->allowField(true)->save();
+        }
 
     }
 
-    private function Balance($request){
+    private function BalanceMatchBegin($request){
 
     }
 }
