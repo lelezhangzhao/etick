@@ -497,7 +497,7 @@ $(function () {
             "</div>" +
             "<div class='form-group'>" +
             "<label>当前赛事</label>" +
-            "<select class='form-control' id='admin_balance_match' ></select>" +
+            "<select class='form-control' id='admin_balance_cur_match' ></select>" +
             "</div>" +
             "<div class='form-group'>" +
             "<label>变更类型</label>" +
@@ -512,46 +512,50 @@ $(function () {
             "$('#admin_balance_match_type').change(function(){" +
             "$.AdminBalanceMatchTypeChange();" +
             "});" +
-            "$('#admin_balance_match').change(function(){" +
-            "$.AdminBalanceMatchChange();" +
+            "$('#admin_balance_cur_match').change(function(){" +
+            "$.AdminBalanceCurMatchChange();" +
             "});" +
-            "$('#admin_balance_type').change(fucntion(){" +
+            "$('#admin_balance_type').change(function(){" +
             "$.AdminBalanceTypeChange();" +
             "});" +
             "</script>";
-    });
 
-    $("#admincontainer").html(html);
+        $("#admincontainer").html(html);
 
-    $.ajax({
-        type: "post",
-        url: "/tp5/public/index.php/etick/admin/getetickmatchtype",
-        async: true,
-        dataType: "json",
-        success: function (data) {
-            data = JSON.parse(data);
-            switch (data.code) {
-                case 'ERROR_STATUS_SUCCESS':
-                    if (data.jsoncontent.length !== 0) {
-                        var etickMatchType = JSON.parse(data.jsoncontent);
+        $.ajax({
+            type: "post",
+            url: "/tp5/public/index.php/etick/admin/getetickmatchtype",
+            async: true,
+            dataType: "json",
+            success: function (data) {
+                data = JSON.parse(data);
+                switch (data.code) {
+                    case 'ERROR_STATUS_SUCCESS':
+                        if (data.jsoncontent.length !== 0) {
+                            var etickMatchType = JSON.parse(data.jsoncontent);
 
-                        //添加一个无用项
-                        $("#admin_publish_etick_match_type").append("<option value=-1>选择赛事类型</option>");
+                            $("#admin_balance_etick_match_type").empty();
+                            //添加一个无用项
+                            $("#admin_balance_etick_match_type").append("<option value=-1>选择赛事类型</option>");
 
-                        for (var i = 0; i < etickMatchType.length; ++i) {
-                            $("#admin_balance_etick_match_type").append("<option value=" + etickMatchType[i].id + ">" + etickMatchType[i].etickmatchtypeinfo + "</option>");
+                            for (var i = 0; i < etickMatchType.length; ++i) {
+                                $("#admin_balance_etick_match_type").append("<option value=" + etickMatchType[i].id + ">" + etickMatchType[i].etickmatchtypeinfo + "</option>");
+                            }
                         }
-                    }
-                    break;
-                default:
-                    $.ShowMsg(data.msg);
-                    break;
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error: function (hd, msg) {
+                $.ShowMsg(msg);
             }
-        },
-        error: function (hd, msg) {
-            $.ShowMsg(msg);
-        }
+        });
+
     });
+
+
 
 
     $.AdminBalanceEtickMatchTypeChange = function () {
@@ -584,6 +588,10 @@ $(function () {
                         if (data.jsoncontent.length !== 0) {
                             var matchType = JSON.parse(data.jsoncontent);
                             $("#admin_balance_match_type").empty();
+
+                            //添加一个无用项
+                            $("#admin_balance_match_type").append("<option value=-1>选择赛事类别</option>");
+
                             for (var i = 0; i < matchType.length; ++i) {
                                 $("#admin_balance_match_type").append("<option value=" + matchType[i].id + ">" + matchType[i].caption + "</option>");
                             }
@@ -602,8 +610,9 @@ $(function () {
 
     //赛事类别更改，获取当前类别的赛事
     $.AdminBalanceMatchTypeChange = function () {
-        var matchtype = $("#admin_balance_match_type").val();
-        if (matchtype === '-1') {
+        var etickmatchtypeid = $("#admin_balance_etick_match_type").val();
+        var matchtypeid = $("#admin_balance_match_type").val();
+        if (matchtypeid === '-1') {
             return;
         }
         $.ajax({
@@ -612,17 +621,22 @@ $(function () {
             async: true,
             dataType: "json",
             data: {
-                matchtype: matchtype,
+                etickmatchtypeid:etickmatchtypeid,
+                matchtypeid: matchtypeid,
             },
             success: function (data) {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         if (data.jsoncontent.length !== 0) {
-                            $("#admin_balance_match").empty();
+                            $("#admin_balance_cur_match").empty();
+
+                            //添加一个无用项
+                            $("#admin_balance_cur_match").append("<option value=-1>选择赛事</option>");
+
                             var match = JSON.parse(data.jsoncontent);
                             for (var i = 0; i < match.length; ++i) {
-                                $("#admin_balance_match").append("<option value=" + match[i].id + ">" + match[i].caption + "</option>");
+                                $("#admin_balance_cur_match").append("<option value=" + match[i].id + ">" + match[i].caption + "</option>");
                             }
                         }
                         break;
@@ -637,25 +651,29 @@ $(function () {
         });
     }
 
-    $.AdminBalanceMatchChange = function () {
+    $.AdminBalanceCurMatchChange = function () {
         var etickmatchtypeid = $("#admin_balance_etick_match_type").val();
-        var matchid = $("#admin_balance_match").val();
-        var matchcaption = $("#admin_balance_match").text();
+        var matchid = $("#admin_balance_cur_match").val();
+        var matchcaption = $("#admin_balance_cur_match").text();
 
 
-        if (etickmatchtypeid === "0") {
+        if (etickmatchtypeid === "1") {
             $.AdminBalanceSetAntiwaveFootballBalanceType();
-        } else if (etickmatchtypeid === "1") {
+        } else if (etickmatchtypeid === "2") {
             $.AdminBalanceSetLolBanalanceType();
         }
     }
 
 
     $.AdminBalanceSetAntiwaveFootballBalanceType = function () {
-        var matchid = $("#admin_balance_match").val();
-        var matchcaption = $("#admin_balance_match").text();
+        var matchid = $("#admin_balance_cur_match").val();
+        var matchcaption = $("#admin_balance_cur_match").text();
 
-        var arr_type = ["选择变更类型", "开始", "结算", "取消", "推迟", "只结算上半场"];
+        if(matchid === '-1'){
+            $("#admin_balance_type").empty();
+            return;
+        }
+        var arr_type = ["选择变更类型", "开始", "结算", "取消", "推迟"];
         var sel_type;
 
         //获取比赛状态
@@ -671,19 +689,22 @@ $(function () {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
-                        if (data.jsoncontent.length !== 0) {
-                            var matchstatus = data.jsoncontent;
-                            if (matchstatus === "0") {
-                                sel_type = [0, 1, 3, 4];
-                                //未开赛
-                            } else if (matchstatus === "1") {
-                                sel_type = [0, 2, 3, 4, 5];
-                                //已开赛
-                            } else if (matchstatus === "2") {
-                                //推迟
-                                sel_type = [0, 1, 3, 5];
-                            }
+                        var matchstatus = data.jsoncontent;
+                        if (matchstatus === 0) {
+                            sel_type = [0, 1, 3, 4];
+                            //未开赛
+                        } else if (matchstatus === 1) {
+                            sel_type = [0, 2, 3, 4];
+                            //已开赛
+                        } else if (matchstatus === 2) {
+                            //推迟
+                            sel_type = [0, 1, 3];
                         }
+                        $("#admin_balance_type").empty();
+                        for (var i = 0; i < sel_type.length; ++i) {
+                            $("#admin_balance_type").append("<option value='" + sel_type[i] + "'>" + arr_type[sel_type[i]] + "</option>");
+                        }
+
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -696,15 +717,11 @@ $(function () {
         });
 
 
-        $("#admin_balance_type").empty();
-        for (var i = 0; i < sel_type.length; ++i) {
-            $("#admin_balance_type").append("<option value='" + i + "'>" + arr_type[i] + "</option>");
-        }
     }
 
     $.AdminBalanceSetLolBanalanceType = function () {
-        var matchid = $("#admin_balance_match").val();
-        var matchcaption = $("#admin_balance_match").text();
+        var matchid = $("#admin_balance_cur_match").val();
+        var matchcaption = $("#admin_balance_cur_match").text();
 
         var arr_type = ["选择变更类型", "开始", "结算", "取消", "推迟"];
         var sel_type;
@@ -722,19 +739,22 @@ $(function () {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
-                        if (data.jsoncontent.length !== 0) {
-                            var matchstatus = data.jsoncontent;
-                            if (matchstatus === "0") {
-                                sel_type = [0, 1, 3, 4];
-                                //未开赛
-                            } else if (matchstatus === "1") {
-                                sel_type = [0, 2, 3, 4];
-                                //已开赛
-                            } else if (matchstatus === "2") {
-                                //推迟
-                                sel_type = [0, 1, 3];
-                            }
+                        var matchstatus = data.jsoncontent;
+                        if (matchstatus === 0) {
+                            sel_type = [0, 1, 3, 4];
+                            //未开赛
+                        } else if (matchstatus === 1) {
+                            sel_type = [0, 2, 3, 4];
+                            //已开赛
+                        } else if (matchstatus === 2) {
+                            //推迟
+                            sel_type = [0, 1, 3];
                         }
+                        $("#admin_balance_type").empty();
+                        for (var i = 0; i < sel_type.length; ++i) {
+                            $("#admin_balance_type").append("<option value='" + sel_type[i] + "'>" + arr_type[sel_type[i]] + "</option>");
+                        }
+
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -746,30 +766,29 @@ $(function () {
             }
         });
 
-        $("#admin_balance_type").empty();
-        for (var i = 0; i < sel_type.length; ++i) {
-            $("#admin_balance_type").append("<option value='" + i + "'>" + arr_type[i] + "</option>");
-        }
     }
 
     $.AdminBalanceTypeChange = function () {
         var etickmatchtypeid = $("#admin_balance_etick_match_type").val();
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
         var balancetype = $("#admin_balance_type").val();
 
+        // var arr_type = ["选择变更类型", "开始", "结算", "取消", "推迟"];
+        if(balancetype === '0'){
+            $("#admin_balance_type_info").html("");
+            return;
+        }
+
         var html = "<div class='container'>";
-        if (etickmatchtypeid === '0') {
+        if (etickmatchtypeid === '1') {
             //足球返波胆
-            if (balancetype === '0') {
+            if (balancetype === '2') {
                 //结算
                 html += $.AdminBalanceAddAntiwaveFootballInfo();
-            } else if (balancetype === '3') {
-                html += $.AdminBalanceAddAntiwaveFootballFirstHalfInfo();
-                //只结算上半场
             }
-        } else if (etickmatchtypeid === '1') {
+        } else if (etickmatchtypeid === '2') {
             //英雄联盟
-            if (balancetype === '0') {
+            if (balancetype === '2') {
                 //结算
                 html += $.AdminBalanceAddLolInfo();
             }
@@ -778,9 +797,9 @@ $(function () {
             "</div>" +
             "<script>" +
             "$(function(){" +
-            "$('#admin_balance_confirm').click=function(){" +
+            "$('#admin_balance_confirm').click(function(){" +
             "$.AdminBalanceConfirm();" +
-            "}" +
+            "});" +
             "});" +
             "</script>";
 
@@ -790,12 +809,12 @@ $(function () {
 
     $.AdminBalanceConfirm = function () {
         //etickmatchtype
-        var etickmatchtype = $("admin_balance_etick_match_type").val();
+        var etickmatchtype = $("#admin_balance_etick_match_type").val();
         //balance type
         var balancetype = $("#admin_balance_type").val();
         /*
          //matchid
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
         //info
         var balance_hole = $("#admin_balance_hole").val();
         var balance_half = $("#admin_balance_half").val();
@@ -808,7 +827,7 @@ $(function () {
 
         // var arr_type = ["选择变更类型", "开始", "结算", "取消", "推迟"];
 
-        if (etickmatchtype === '0') {
+        if (etickmatchtype === '1') {
             if (balancetype === '1') {
                 $.AdminBalanceStartConfirmAntiwaveFootball();
             }else if(balancetype === '2'){
@@ -817,10 +836,8 @@ $(function () {
                 $.AdminBalanceCancelConfirmAntiwaveFootball();
             }else if(balancetype === '4'){
                 $.AdminBalanceDelayConfirmAntiwaveFootball();
-            }else if(balancetype === '5'){
-                $.AdminBalanceConfirmAntiwaveFootballFirstHalf();
             }
-        } else if (etickmatchtype === '1') {
+        } else if (etickmatchtype === '2') {
             if(balancetype === '1'){
                 $.AdminBalanceStartConfirmLol();
             }else if(balancetype === '2'){
@@ -835,7 +852,7 @@ $(function () {
 
     $.AdminBalanceStartConfirmAntiwaveFootball = function(){
         //matchid
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
 
 
         $.ajax({
@@ -866,7 +883,7 @@ $(function () {
 
     $.AdminBalanceCancelConfirmAntiwaveFootball = function () {
         //matchid
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
 
 
         $.ajax({
@@ -896,7 +913,7 @@ $(function () {
     }
     $.AdminBalanceDelayConfirmAntiwaveFootball = function () {
         //matchid
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
 
 
         $.ajax({
@@ -923,63 +940,9 @@ $(function () {
             }
         });
     }
-    $.AdminBalanceAddAntiwaveFootballFirstHalfInfo = function(){
-        var scoreHalf = ["2:2", "2:1", "2:0", "1:2", "1:1", "1:0", "0:2", "0:1", "0:0"];
-        var html = "";
-
-        html +=
-            "<div class='container'>" +
-            "<div>" +
-            "半场:" +
-            "<select id='admin_balance_half' >";
-
-        //半场
-        for (var i = 0; i < scoreHalf.length; ++i) {
-            html += "<option >" +
-                scoreHalf[i] +
-                "</option>";
-        }
-        html += "</select></div>";
-        html += "</div>";
-
-        return html;
-
-    }
-    $.AdminBalanceConfirmAntiwaveFootballFirstHalf = function () {
-        //matchid
-        var matchid = $("#admin_balance_match").val();
-
-        //info
-        var balance_half = $("#admin_balance_half").val();
-
-        $.ajax({
-            type: "post",
-            async: true,
-            url: "/tp5/public/index.php/etick/admin/balanceconfirmantiwavefootballfirsthalf",
-            dataType: "json",
-            data: {
-                matchid: matchid,
-                balance_half: balance_half,
-            },
-            success: function (data) {
-                data = JSON.parse(data);
-                switch (data.code) {
-                    case 'ERROR_STATUS_SUCCESS':
-                        $.ShowMsg(data.msg);
-                        break;
-                    default:
-                        $.ShowMsg(data.msg);
-                        break;
-                }
-            },
-            error: function (hd, msg) {
-                $.ShowMsg(msg);
-            }
-        });
-    }
     $.AdminBalanceAddAntiwaveFootballInfo = function(){
         var etickmatchtypeid = $("#admin_balance_etick_match_type").val();
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
         var balancetype = $("#admin_balance_type").val();
 
 
@@ -1032,17 +995,17 @@ $(function () {
     }
     $.AdminBalanceConfirmAntiwaveFootball = function () {
         //matchid
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
 
         //info
-        var balance_hole = $('#admin_balance_hole').al();
+        var balance_hole = $('#admin_balance_hole').val();
         var balance_half = $("#admin_balance_half").val();
         var balance_angle = $("#admin_balance_angle").val();
 
         $.ajax({
             type: "post",
             async: true,
-            url: "/tp5/public/index.php/etick/admin/balanceconfirmantiwavefootballfirsthalf",
+            url: "/tp5/public/index.php/etick/admin/balanceconfirmantiwavefootball",
             dataType: "json",
             data: {
                 matchid: matchid,
@@ -1069,7 +1032,7 @@ $(function () {
     }
 
     $.AdminBalanceStartConfirmLol = function(){
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
 
 
         $.ajax({
@@ -1099,7 +1062,7 @@ $(function () {
     }
 
     $.AdminBalanceDelayConfirmLol = function () {
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
 
 
         $.ajax({
@@ -1127,7 +1090,7 @@ $(function () {
         });
     }
     $.AdminBalanceCancelConfirmLol = function () {
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
 
 
         $.ajax({
@@ -1185,7 +1148,7 @@ $(function () {
         return html;
     }
     $.AdminBalanceConfirmLol = function () {
-        var matchid = $("#admin_balance_match").val();
+        var matchid = $("#admin_balance_cur_match").val();
         var lol_score = $("#admin_balance_score").val();
 
 

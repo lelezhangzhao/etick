@@ -31,32 +31,6 @@ function MatchRecordDetailInfo(ordernumber) {
     });
 }
 
-function MatchRecordRevert(ordernumber) {
-    $.ajax({
-        type: "get",
-        url: "/tp5/public/index.php/etick/match_record/matchrecordrevert",
-        async: true,
-        dataType: "json",
-        data: {
-            ordernumber: ordernumber
-        },
-        success: function (data) {
-            data = JSON.parse(data);
-            switch (data.code) {
-                case 'ERROR_STATUS_SUCCESS':
-                    $.ShowMsg(data.msg);
-                    //隐藏当前btn
-                    $('#matchrecordrevert' + ordernumber).css('display', 'none');
-                    break;
-                default:
-                    break;
-            }
-        },
-        error: function (hd, msg) {
-            $.ShowMsg(msg);
-        }
-    });
-}
 
 $(function () {
     $.GetMatchRecord = function () {
@@ -141,6 +115,7 @@ $(function () {
     }
 
 
+
     $.AddMatchRecordDetailInfo = function (recorddetail) {
         var ordernumber = recorddetail.ordernumber;
         var guessingcaption = recorddetail.guessingcaption;
@@ -151,14 +126,37 @@ $(function () {
         var canceltime = recorddetail.canceltime;
         var matchstatus = recorddetail.matchstatus; //推迟状态比赛可取消
         var theodds = recorddetail.theodds;
-        var bettingrecordstatus = recorddetail.status;
+        var bettingstatus = recorddetail.status;
 
 
         //是否显示button，及button内容
         var displaystatus = "";
         var displaycontent = "";
-        switch (bettingrecordstatus) {
-            case 0: //未开赛
+
+        //matchstatus
+        /*
+         比赛状态：
+         0 未开赛
+         1 已开赛
+         2 比赛推迟
+         3 比赛取消
+         4 结算成功
+
+         */
+
+        if(matchstatus === 0 && bettingstatus === 0){ //未开赛,未撤单
+            var now = new Date();
+            var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
+            //开赛前，并且下注五分钟内可撤销
+            if (now < new Date(matchtime) && bettingDiffMinutes >= 0 && bettingDiffMinutes <= 5) {
+                displaystatus = "";
+                displaycontent = "撤销";
+            } else {
+                displaystatus = "none";
+            }
+        }
+        switch (bettingstatus) {
+            case 0: //未结算
                 var now = new Date();
                 var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
                 //开赛前，并且下注五分钟内可撤销
@@ -169,17 +167,14 @@ $(function () {
                     displaystatus = "none";
                 }
                 break;
-            case 1: //比赛推迟
+            case 1: //已结算
+            case 3: //撤单
+            case 4: //比赛取消
+                displaystatus = "none";
+                break;
+            case 2:
                 displaystatus = "";
                 displaycontent = "撤销";
-                break;
-            case 2: //比赛取消
-            case 3: //已开赛 未结算
-            case 4: //只进行上半场
-            case 5: //比赛结束，盈利
-            case 6: //比赛结束，亏损
-            case 7: //撤销
-                displaystatus = "none";
                 break;
             default:
                 return;
@@ -188,13 +183,13 @@ $(function () {
 
 
         var matchrecordtimescontent = "";
-        if (bettingrecordstatus === 0 || bettingrecordstatus === 1 || bettingrecordstatus === 3) {
+        if (bettingstatus === 0 || bettingstatus === 2) {
             matchrecordtimescontent = "<span>比赛时间：" + matchtime + "</span>";
-        } else if (bettingrecordstatus === 2) {
+        } else if (bettingrecordstatus === 4) {
             matchrecordtimescontent = "<span>取消时间：" + canceltime + "</span>";
-        } else if (bettingrecordstatus === 4 || bettingrecordstatus === 5) {
+        } else if (bettingrecordstatus === 1) {
             matchrecordtimescontent = "<div>比赛时间：" + matchtime + "</div><div>结算时间：" + balancetime + "</div>";
-        } else if (bettingrecordstatus === 6) {
+        } else if (bettingrecordstatus === 3) {
             matchrecordtimescontent = "<span>撤销时间：" + reverttime + "</span>";
         }
 
@@ -208,7 +203,7 @@ $(function () {
             "</div>" +
             "<div class='container'>" +
             "<span>赔率：" + theodds + "</span>" +
-            "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber + "' onclick='MatchRecordRevert(" + ordernumber.toString() + ")'>" + displaycontent + "</button>" +
+            "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber + "'>" + displaycontent + "</button>" +
             "</div>" +
             "<div class='container'>" +
             "<span>下注时间：" + bettingtime + "</span>" +
@@ -223,6 +218,9 @@ $(function () {
             "</div>" +
             "<script>" +
             "$(function(){" +
+            "$('#matchrecordrevert" + ordernumber + "').click(function(){" +
+            "$.MatchRecordRevert('" + ordernumber.toString() + "');" +
+            "});" +
             "$('#matchrecordrevert" + ordernumber + "').css('display', '" + displaystatus + "');" +
             "$('#matchrecordtimes" + ordernumber + "').html('" + matchrecordtimescontent + "');" +
             "});" +
@@ -231,4 +229,32 @@ $(function () {
 
         return html;
     }
+
+    $.MatchRecordRevert = function(ordernumber) {
+        $.ajax({
+            type: "get",
+            url: "/tp5/public/index.php/etick/match_record/matchrecordrevert",
+            async: true,
+            dataType: "json",
+            data: {
+                ordernumber: ordernumber
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                switch (data.code) {
+                    case 'ERROR_STATUS_SUCCESS':
+                        $.ShowMsg(data.msg);
+                        //隐藏当前btn
+                        $('#matchrecordrevert' + ordernumber).css('display', 'none');
+                        break;
+                    default:
+                        break;
+                }
+            },
+            error: function (hd, msg) {
+                $.ShowMsg(msg);
+            }
+        });
+    }
+
 });

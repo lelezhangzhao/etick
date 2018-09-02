@@ -1,4 +1,19 @@
 
+insert into etick_team_profit(teamcount, profitrate)
+values
+(5, 0.00),
+(10, 0.01),
+(50, 0.02),
+(100, 0.03),
+(500, 0.04),
+(1000, 0.05),
+(5000, 0.06),
+(10000, 0.07),
+(50000, 0.08),
+(100000, 0.09),
+(1000000, 0.1);
+
+
 insert into etick_etick_match_type(etickmatchtypeinfo)
 values
 ("足球返波胆"),

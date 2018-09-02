@@ -358,8 +358,8 @@ class Score extends Controller{
 
 
         //eti record
-        DatabaseApi::AddEtiRecord($userid, 11, -$eti);
-        DatabaseApi::AddEtiRecord($directPurchase->userid, 10, $eti);
+        DatabaseApi::AddEtiRecord($userid, 11, -$eti, $systemTime);
+        DatabaseApi::AddEtiRecord($directPurchase->userid, 10, $eti, $systemTime);
 
         return StatusApi::ReturnJson('ERROR_STATUS_SECCESS', '交易成功');
     }
@@ -580,8 +580,8 @@ class Score extends Controller{
 
 
         //eti record
-        DatabaseApi::AddEtiRecord($userid, 11, -$eti);
-        DatabaseApi::AddEtiRecord($directPurchase->userid, 10, $eti);
+        DatabaseApi::AddEtiRecord($userid, 11, -$eti, $systemTime);
+        DatabaseApi::AddEtiRecord($directPurchase->userid, 10, $eti, $systemTime);
 
         return StatusApi::ReturnJson('ERROR_STATUS_SECCESS', '交易成功');
 

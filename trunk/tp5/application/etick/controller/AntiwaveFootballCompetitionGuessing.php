@@ -32,6 +32,8 @@ class AntiwaveFootballCompetitionGuessing extends Controller{
             return $userstatus;
         }
 
+        $systemTime = TimesApi::GetSystemTime();
+
         //获取参数
         $matchid = $request->param('matchid');
         $guessingid = $request->param('guessingid');
@@ -98,7 +100,7 @@ class AntiwaveFootballCompetitionGuessing extends Controller{
         $user->allowField(true)->save();
 
         //插入etirecord
-        DatabaseApi::AddEtiRecord($userid, 1, -$eti);
+        DatabaseApi::AddEtiRecord($userid, 1, -$eti, $systemTime);
 
         //插入bettingrecord
         DatabaseApi::AddBettingRecord($userid, 0, 0, $matchid, $guessingid, $eti, 0);

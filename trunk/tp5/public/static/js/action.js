@@ -20,15 +20,15 @@ function doLoop() {
     }
 }
 
-Date.prototype.Format = function(fmt) {
+Date.prototype.Format = function (fmt) {
     var o = {
-        "M+" : this.getMonth() + 1,
-        "d+" : this.getDate(),
-        "h+" : this.getHours(),
-        "m+" : this.getMinutes(),
-        "s+" : this.getSeconds(),
-        "q+" : Math.floor((this.getMonth() + 3) / 3),
-        "S" : this.getMilliseconds()
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S": this.getMilliseconds()
     };
     if (/(y+)/.test(fmt))
         fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -95,6 +95,154 @@ $(function () {
         window.location.href = url;
     };
 
+    $("#header_nav_match").click(function () {
+        $.ShowMatchInfo();
+    });
+    $("#header_nav_record").click(function () {
+        $.ShowMatchRecordInfo();
+    });
+    $("#header_nav_score").click(function () {
+        $.ShowScoreInfo();
+
+    });
+    $("#header_nav_mine").click(function () {
+        $.ShowMineInfo();
+
+    });
+
+    $.ToggleNavbar = function () {
+        $("#header_nav_match").removeClass("active");
+        $("#header_nav_record").removeClass("active");
+        $("#header_nav_score").removeClass("active");
+        $("#header_nav_mine").removeClass("active");
+    }
+
+    $.ShowMatchInfo = function () {
+        $.ToggleNavbar();
+        $("#header_nav_match").addClass("active");
+
+        var html = $.AddMatchInfo();
+
+        $("#header_content").html(html);
+        $.GetAntiwaveFootballMatch();
+
+    }
+
+
+    $.AddMatchInfo = function () {
+        var html =
+            '<div class="container" >' +
+            '<div class="layui-tab layui-tab-card" lay-filter="etickmatch">' +
+            '<ul class="layui-tab-title">' +
+            '<li class="layui-this">反波胆</li>' +
+            '<li>正波胆</li>' +
+            '<li>英雄联盟</li>' +
+            '</ul>' +
+            '<div class="layui-tab-content">' +
+            '<div class="layui-tab-item layui-show">' +
+            '<div class="panel-group" id="antiwavefootballmatchcontainer"></div>' +
+            '</div>' +
+            '<div class="layui-tab-item">正在开发中。。。</div>' +
+            '<div class="layui-tab-item">正在开发中。。。</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+
+        return html;
+    }
+
+    $.ShowMatchRecordInfo = function () {
+        $.ToggleNavbar();
+        $("#header_nav_record").addClass("active");
+
+        var html = $.AddMatchRecordInfo();
+        $("#header_content").html(html);
+
+        $.GetMatchRecord();
+
+    }
+    $.AddMatchRecordInfo = function () {
+        var html =
+            '<div class="container">' +
+            '<div id = "matchrecordcontainer">' +
+            '</div>' +
+            '</div>';
+
+        return html;
+    }
+
+    $.ShowScoreInfo = function () {
+        $.ToggleNavbar();
+        $("#header_nav_score").addClass("active");
+
+
+        var html = $.AddScoreInfo();
+
+        $("#header_content").html(html);
+        $.GetScoreFinished(0);
+
+    }
+
+    $.AddScoreInfo = function () {
+        var html =
+            '<div class="container" >' +
+            '<div class="layui-tab" lay-filter="scoretab" id="scorecontainer">' +
+            '<ul class="layui-tab-title">' +
+            '<li class="layui-this">已完成</li>' +
+            '<li>进行中</li>' +
+            '</ul>' +
+            '<div class="layui-tab-content">' +
+            '<div class="layui-tab-item layui-show" id="scorecontainerfinished"></div>' +
+            '<div class="layui-tab-item" id="scorecontainerrunning"></div>' +
+            '</div>' +
+            '</div>' +
+
+            '<div class = "container">' +
+            '<button type="button" class="btn btn-default" id="scorebuyeti">买积分</button>' +
+            '<button type="button" class="btn btn-default" id="scoresaleeti">卖积分</button>' +
+            '</div>' +
+            '</div>' +
+
+            '<script>' +
+            'layui.use("element", function(){' +
+            'var $ = layui.jquery' +
+            ',element = layui.element;' +
+            'element.on("tab(scoretab)", function(elem){' +
+            'if(elem.index === 0){' +
+            '$.GetScoreFinished(0);' +
+            '}else if(elem.index === 1){' +
+            '$.GetScoreRunning(0);' +
+            '}' +
+            '});' +
+            '});' +
+            '</script>';
+
+        return html;
+    }
+
+    $.ShowMineInfo = function () {
+        $.ToggleNavbar();
+        $("#header_nav_mine").addClass("active");
+
+
+        var html = $.AddMineInfo();
+
+        $("#header_content").html(html);
+
+    }
+
+    $.AddMineInfo = function () {
+        var html =
+            '<div class="container" id="minecontainer">' +
+
+            '<div><a href="#" id="minefixpassword">修改密码</a></div>' +
+            '<div><a href="#" id="mineaccountinfo">账户信息</a></div>' +
+            '<div><a href="#" id="minelogout">退出</a></div>' +
+
+            '</div>';
+
+        return html;
+    }
 
 });
 

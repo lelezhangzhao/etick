@@ -36,7 +36,7 @@ class Match extends Controller{
         }
 
         //获取可显示比赛
-        $antiFootballMatchList = AntiwaveFootballMatch::where('status', 0)
+        $antiFootballMatchList = AntiwaveFootballMatchModel::where('status', 0)
             ->whereTime('displaytime', '<=', date('Y-m-d H:i:s'))
             ->whereTime('disappeartime', '>=', date('Y-m-d H:i:s'))
             ->select();

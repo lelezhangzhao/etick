@@ -2,6 +2,7 @@
 namespace app\etick\controller;
 
 use app\etick\validate\LolCompetitionGuessing;
+
 use think\Controller;
 use think\Session;
 use think\Request;
@@ -44,14 +45,14 @@ class MatchRecord extends Controller{
         $userid = Session::get('userid');
 
         $sql = "select betting_record.*, 
-football_match_team_host.caption as hostcaption, 
-football_match_team_guest.caption as guestcaption,
+match_team_host.caption as hostcaption, 
+match_team_guest.caption as guestcaption,
 antiwave_football_match.caption as matchcaption,
 antiwave_football_competition_guessing.caption as guessingcaption
-from (select * from etick_betting_record where userid = $userid and etickmatchtype = 0) as betting_record
+from (select * from etick_betting_record where userid = '$userid' and etickmatchtype = 0) as betting_record
                 join etick_antiwave_football_match as antiwave_football_match on antiwave_football_match.id = betting_record.matchid
-                join etick_football_match_team as football_match_team_host on football_match_team_host.id = antiwave_football_match.matchteamhostid
-                join etick_football_match_team as football_match_team_guest on football_match_team_guest.id = antiwave_football_match.matchteamguestid
+                join etick_match_team as match_team_host on match_team_host.id = antiwave_football_match.matchteamhostid
+                join etick_match_team as match_team_guest on match_team_guest.id = antiwave_football_match.matchteamguestid
                 join etick_antiwave_football_competition_guessing as antiwave_football_competition_guessing on antiwave_football_competition_guessing.id = betting_record.guessingid";
 
 
@@ -79,17 +80,17 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
 
 
         $sql = "select betting_record.*,
- football_match_team_host.caption as hostcaption,
- football_match_team_guest.caption as guestcaption,
+match_team_host.caption as hostcaption,
+match_team_guest.caption as guestcaption,
  antiwave_football_match.caption as matchcaption,
  antiwave_football_match.status as matchstatus,
  antiwave_football_match.matchtime as matchtime,
  antiwave_football_competition_guessing.theodds as theodds,
  antiwave_football_competition_guessing.caption as guessingcaption
-   from (select * from etick_betting_record where ordernumber = $orderNumber) as betting_record
+   from (select * from etick_betting_record where ordernumber = '$orderNumber') as betting_record
                 join etick_antiwave_football_match as antiwave_football_match on antiwave_football_match.id = betting_record.matchid
-                join etick_football_match_team as football_match_team_host on football_match_team_host.id = antiwave_football_match.matchteamhostid
-                join etick_football_match_team as football_match_team_guest on football_match_team_guest.id = antiwave_football_match.matchteamguestid
+                join etick_match_team as match_team_host on match_team_host.id = antiwave_football_match.matchteamhostid
+                join etick_match_team as match_team_guest on match_team_guest.id = antiwave_football_match.matchteamguestid
                 join etick_antiwave_football_competition_guessing as antiwave_football_competition_guessing on antiwave_football_competition_guessing.id = betting_record.guessingid";
 
         $bettingRecordDetail = Db::query($sql);
@@ -136,10 +137,17 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
 
         //撤销
         //标注撤销状态
-        $bettingrecord->status = 6;
-        $bettingrecord->statusinfo = '撤销';
-        $bettingrecord->revertstatus = 0;
-        $bettingrecord->revertstatusinfo = '正常撤销';
+//        $bettingrecord->status = 3;
+//        $bettingrecord->statusinfo = '撤单';
+
+        if($match->status === 2){
+            $bettingrecord->revertstatus = 3;
+            $bettingrecord->revertstatusinfo = '比赛推迟撤销';
+        }else if($match->status === 0){
+            $bettingrecord->revertstatus = 2;
+            $bettingrecord->revertstatusinfo = '正常撤销';
+        }
+
         $bettingrecord->reverttime = $systemTime;
         $bettingrecord->allowField(true)->save();
 
@@ -191,7 +199,7 @@ from (select * from etick_betting_record where userid = $userid and etickmatchty
         }
         //记录etirecord
         $userid = Session::get('userid');
-        DataBaseApi::AddEtiRecord($userid, 3, $bettingrecord->bettingeti);
+        DataBaseApi::AddEtiRecord($userid, 3, $bettingrecord->bettingeti, $systemTime);
 
         //返钱
         $user = UserModel::get($userid);
