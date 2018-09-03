@@ -61,9 +61,9 @@ class Score extends Controller{
         $userid = Session::get('userid');
         $beginRecord = $request->param('beginrecord');
 
-        $sql = "select purchasetype, ordernumber, status, publishtime, entrustmenttype as type from etick_entrustment_purchase where status in (0,3) and userid = '$userid' 
+        $sql = "select purchasetype, ordernumber, status, statusinfo, publishtime, entrustmenttype as type, rmbpereti, eticount from etick_entrustment_purchase as a where a.status in (0,3) and userid = '$userid' 
                 union 
-                (select purchasetype, ordernumber, status, publishtime, directtype as type from etick_direct_purchase where status in (0,1) and (userid = '$userid' or anotheruserid = '$userid'))
+                (select purchasetype, ordernumber, status, statusinfo, publishtime, directtype as type, rmbpereti, eticount from etick_direct_purchase as b where b.status in (0,1) and (userid = '$userid' or anotheruserid = '$userid'))
                 order by publishtime desc
                  limit $beginRecord, 20";
         $purchaseRecord = Db::query($sql);
@@ -207,8 +207,10 @@ class Score extends Controller{
             return $userstatus;
         }
 
-        $record = EntrustmentPurchaseModel::where('entrustmenttype', 0)
-            ->where('status', 0)
+        $record = Db::view('entrustment_purchase')
+            ->view('user', 'username', 'user.id = entrustment_purchase.userid')
+            ->where('entrustmenttype', 0)
+            ->where('entrustment_purchase.status', 0)
             ->select();
 
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($record));
@@ -222,6 +224,7 @@ class Score extends Controller{
         }
 
         $record = EntrustmentPurchaseModel::where('entrustmenttype', 1)
+            ->view('user', 'username', 'user.id = entrustmenttype.userid')
             ->where('status', 0)
             ->select();
 

@@ -1,8 +1,8 @@
 //mine
 $(function () {
-    $("#minefixpassword").click(function () {
+    $.FixPassword = function(){
         html =
-            "<div class='container'>" +
+            "<div>" +
             "<h4>修改密码</h4>" +
             "<div>" +
             "<input type='text' placeholder='原密码' id='fixpassword_oldpassword'/>" +
@@ -39,7 +39,7 @@ $(function () {
 
         $("#minecontainer").html(html);
 
-    });
+    };
 
     $.GetFixPasswordTelidentify = function(){
         $.ajax({
@@ -101,9 +101,9 @@ $(function () {
 
     }
 
-    $("#mineaccountinfo").click(function () {
+    $.AccountInfo = function () {
         html =
-            "<div class='container'>" +
+            "<div>" +
             "<h4>账户信息</h4>" +
             "<div>" +
             "<input type='text' placeholder='姓名' id='account_name' />" +
@@ -156,7 +156,7 @@ $(function () {
                 $.ShowMsg(msg);
             }
         });
-    });
+    };
 
 
     $.AccountConfirm = function(){
@@ -193,7 +193,7 @@ $(function () {
         });
     }
 
-    $("#minelogout").click(function () {
+    $.Logout = function () {
         $.ajax({
             type: "post",
             url: "/tp5/public/index.php/etick/mine/logout",
@@ -214,6 +214,6 @@ $(function () {
                 $.ShowMsg(msg);
             }
         });
-    });
+    };
 });
 

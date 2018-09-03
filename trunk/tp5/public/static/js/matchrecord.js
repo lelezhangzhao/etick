@@ -44,6 +44,10 @@ $(function () {
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         var recordobject = JSON.parse(data.jsoncontent);
+                        if(recordobject.length === 0){
+                            $("#matchrecordcontainer").html('当前无记录');
+                            return;
+                        }
                         var html = "";
                         for (var i = 0; i < recordobject.length; ++i) {
                             var record = recordobject[i];
@@ -67,7 +71,14 @@ $(function () {
         var ordernumber = record.ordernumber;
         var matchcaption = record.matchcaption;
         var bettingeti = record.bettingeti;
-        var statusinfo = record.statusinfo;
+        var bettingstatus = record.status;
+        var bettingstatusinfo = record.statusinfo;
+        var matchstatus = record.matchstatus;
+        var matchstatusinfo = record.matchstatusinfo;
+
+
+        var matchrecordstatus = $.GetMatchRecordStatus(bettingstatus, bettingstatusinfo, matchstatus, matchstatusinfo);
+
         var html =
             "<div class='panel panel-default' >" +
             "<div class='panel-heading' >" +
@@ -77,7 +88,7 @@ $(function () {
             "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 match-div' >" +
             "<p>" + etickmatchtypeinfo + "</p>" +
             "</div>" +
-            "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10 match-div' >" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 match-div' >" +
             "<p>" + matchcaption + "</p>" +
             "</div>" +
             "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10 match-div' >" +
@@ -87,7 +98,7 @@ $(function () {
             "<span class='glyphicon glyphicon-chevron-down' id='matchrecordglyphicon" + ordernumber + "'></span>" +
             "</div>" +
             "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 match-div' >" +
-            "<p>" + statusinfo + "</p>" +
+            matchrecordstatus +
             "</div>" +
             "</a>" +
             "</div>" +
@@ -114,7 +125,15 @@ $(function () {
         return html;
     }
 
-
+    $.GetMatchRecordStatus = function(bettingstatus, bettingstatusinfo, matchstatus, matchstatusinfo){
+        var html = "";
+        if(bettingstatus === 1 || bettingstatus === 2){ //已结算、撤单
+            html = bettingstatusinfo;
+        }else if(bettingstatus === 0){ //未结算
+            html = matchstatusinfo;
+        }
+        return html;
+    }
 
     $.AddMatchRecordDetailInfo = function (recorddetail) {
         var ordernumber = recorddetail.ordernumber;
@@ -152,19 +171,21 @@ $(function () {
          2 撤单  --正常撤销
          3 撤单  --比赛推迟撤销
          */
-        if(matchstatus === 0 && bettingstatus === 0){ //未开赛,未结算
-            var now = new Date();
-            var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
-            //开赛前，并且下注五分钟内可撤销
-            if (now < new Date(matchtime) && bettingDiffMinutes >= 0 && bettingDiffMinutes <= 5) {
+        if(bettingstatus === 0){ //未结算
+            if(matchstatus === 0){ //未开赛
+                var now = new Date();
+                var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
+                //开赛前，并且下注五分钟内可撤销
+                if (now < new Date(matchtime) && bettingDiffMinutes >= 0 && bettingDiffMinutes <= 5) {
+                    displaystatus = "";
+                    displaycontent = "撤销";
+                }else {
+                    displaystatus = "none";
+                }
+            }else if(matchstatus === 2){ //比赛推迟
                 displaystatus = "";
                 displaycontent = "撤销";
-            } else {
-                displaystatus = "none";
             }
-        }else if(matchstatus === 2){ //比赛推迟
-            displaystatus = "";
-            displaycontent = "撤销";
         }else{
             displaystatus = "none";
         }
@@ -215,8 +236,14 @@ $(function () {
             "<span>下注类型：" + guessingcaption + "</span>" +
             "</div>" +
             "<div class='match-info-div'>" +
-            "<span>赔率：" + theodds + "</span>" +
-            "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber + "'>" + displaycontent + "</button>" +
+            "<div class='row'>" +
+            "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10'>" +
+            "<span>赔率：" + parseFloat(theodds) * 100  + "%</span>" +
+            "</div>" +
+            "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2'>" +
+            "<button type='button' class='btn btn-default btn-xs' id='matchrecordrevert" + ordernumber + "'>" + displaycontent + "</button>" +
+            "</div>" +
+            "</div>" +
             "</div>" +
 
 

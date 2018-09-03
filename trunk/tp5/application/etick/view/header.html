@@ -6,16 +6,16 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <script type="text/javascript" src="__LAYUI__/layui.js"></script>
     <link rel="stylesheet" href="__LAYUI__/css/layui.css" media="all" />
-    <link rel="stylesheet" href="__CSS__/style.css?version=8" type="text/css" />
+    <link rel="stylesheet" href="__CSS__/style.css?version=9" type="text/css" />
     <link rel="stylesheet" href="__DTREE__/dtree.css?version=4" type="text/css" />
     <script type="text/babel" src="__JS__/etick.js?version=9"></script>
-    <script type="text/javascript" src="__JS__/action.js?version=30"></script>
+    <script type="text/javascript" src="__JS__/action.js?version=39"></script>
     <script type="text/javascript" src="__QRCODE__/qrcode.min.js"></script>
     <script type="text/javascript" src="__DTREE__/dtree.js?version=4"></script>
     <script type="text/javascript" src="__MD5__/md5.js?version=4"></script>
@@ -32,20 +32,29 @@
         <p class="text-center" >eTick</p>
     </div>
     <div>
-        <span class="text-left" id="header_username" >
-            <span class="glyphicon glyphicon-user"></span>username
+        <span class="text-left" >
+            <span class="glyphicon glyphicon-user"></span>
+            <span id="header_username"></span>
         </span>
-        <span class="text-right" id="header_eti" >
-            <span class="glyphicon glyphicon-euro"></span>5000
+        <span class="text-right">
+            <span class="glyphicon glyphicon-euro"></span>
+            <span id="header_eti"></span>
         </span>
     </div>
     <div>
         <nav class="navbar navbar-default" >
             <div class="container-fluid">
                 <div class="navbar-header">
-
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#etick-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">eTick</a>
                 </div>
-                <div>
+                <div class="collapse navbar-collapse" id="etick-navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active" id="header_nav_match"><a href="#">赛事</a></li>
                         <li id="header_nav_record"><a href="#" >记录</a></li>

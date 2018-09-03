@@ -35,6 +35,7 @@ class Match extends Controller{
         if(true !== $userstatus){
             return $userstatus;
         }
+        $systemTime = TimesApi::GetSystemTime();
 
 
         /*
@@ -57,7 +58,7 @@ match_team_guest.caption as guestcaption,
         $sql = "select a.*,
             b.caption as hostcaption,
             c.caption as guestcaption
-   from (select * from etick_antiwave_football_match where status = '0') as a 
+   from (select * from etick_antiwave_football_match where status = '0' and disappeartime > '$systemTime') as a 
                 join etick_match_team as b on b.id = a.matchteamhostid
                 join etick_match_team as c on c.id = a.matchteamguestid";
         $antiFootballMatchList = Db::query($sql);

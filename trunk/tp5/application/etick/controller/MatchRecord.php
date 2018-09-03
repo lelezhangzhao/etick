@@ -48,7 +48,9 @@ class MatchRecord extends Controller{
 match_team_host.caption as hostcaption, 
 match_team_guest.caption as guestcaption,
 antiwave_football_match.caption as matchcaption,
-antiwave_football_competition_guessing.caption as guessingcaption
+antiwave_football_competition_guessing.caption as guessingcaption,
+antiwave_football_match.status as matchstatus,
+antiwave_football_match.statusinfo as matchstatusinfo
 from (select * from etick_betting_record where userid = '$userid' and etickmatchtype = 0) as betting_record
                 join etick_antiwave_football_match as antiwave_football_match on antiwave_football_match.id = betting_record.matchid
                 join etick_match_team as match_team_host on match_team_host.id = antiwave_football_match.matchteamhostid

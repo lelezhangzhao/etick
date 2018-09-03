@@ -88,22 +88,22 @@ $(function () {
             "<div class='panel panel-default' >" +
             "<div class='panel-heading' >" +
             "<div class='panel-title' >" +
-            "<div class='row' style='background-color:#ccc'>" +
+            "<div class='row'>" +
             "<a data-toggle='collapse' data-parent='#" + parent + "' href='#scorerecordcollapse" + orderNumber + "'>" +
             "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
             "<p>" + purchaseCaption + "</p>" +
             "</div>" +
             "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10' >" +
-            "<p>" + rmbpereti + " : 1</p>" +
+            "<p>RMB：ETI " + rmbpereti + " ： 1</p>" +
             "</div>" +
             "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10' >" +
-            "<p>" + eticount + "</p>" +
+            "<p>购买数量：" + eticount + "</p>" +
             "</div>" +
             "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' >" +
             "<span class='glyphicon glyphicon-chevron-down' id='scorerecordglyphicon" + orderNumber + "'></span>" +
             "</div>" +
             "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
-            "<p>" + statusinfo + "</p>" +
+            "<p>挂单状态：" + statusinfo + "</p>" +
             "</div>" +
             "</a>" +
             "</div>" +
@@ -186,16 +186,16 @@ $(function () {
 
         var html =
             "<div class='panel-body' >" +
-            "<div class='container'>" +
-            "<div class='container' id='scorerecordbasicinfo" + orderNumber + "'></div>" +
+            "<div>" +
+            "<div id='scorerecordbasicinfo" + orderNumber + "'></div>" +
             "</div>" +
-            "<div class='container'>" +
+            "<div>" +
             "<button class='btn btn-default' id='scorerecordoperator" + orderNumber + "' style='display:none;'></button>" +
             "</div>" +
-            "<div class='container'>" +
+            "<div>" +
             "<button type='button' class='btn btn-default' id='scorerecordproof" + orderNumber + "' style='display:none;'>上传凭证</button>" +
             "</div>" +
-            "<div class='container' id='scorerecorduserinfo" + orderNumber + "' style='display:none;'></div>" +
+            "<div id='scorerecorduserinfo" + orderNumber + "' style='display:none;'></div>" +
             "</div>" +
             "<script>" +
             "$(function(){" +
@@ -402,7 +402,7 @@ $(function () {
         var status = recordDetail.status;
         var orderNumber = recordDetail.ordernumber;
         basicInfo =
-            "<div class='container'>" +
+            "<div>" +
             "<div>" +
             "<p>" + orderNumber + "</p>" +
             "</div>" +
@@ -480,7 +480,7 @@ $(function () {
         var status = recordDetail.status;
         var orderNumber = recordDetail.ordernumber;
         basicInfo =
-            "<div class='container'>" +
+            "<div>" +
             "<div>" +
             "<p>" + orderNumber + "</p>" +
             "</div>" +
@@ -681,7 +681,7 @@ $(function () {
                     case 'ERROR_STATUS_SUCCESS':
                         var recorddetail = data.jsoncontent;
                         html =
-                            "<div class='container'>" +
+                            "<div>" +
                             "<div>" +
                             "<p>" + recorddetail.name + "</p>" +
                             "</div>" +
@@ -728,7 +728,7 @@ $(function () {
                         // for(var i = 0; i < recordobject.length; ++i){
                         //     var recorddetail = recordobject[i];
                         html =
-                            "<div class='container'>" +
+                            "<div>" +
                             "<div>" +
                             "<p>" + recorddetail.name + "</p>" +
                             "</div>" +
@@ -760,7 +760,7 @@ $(function () {
     }
 
     //买入积分
-    $("#scorebuyeti").click(function () {
+    $.BuyEti = function(){
         //买入积分，显示所有挂卖记录
         $.ajax({
             type: "post",
@@ -795,12 +795,12 @@ $(function () {
                 $.ShowMsg(msg);
             }
         });
-    });
+    };
 
     //买入积分列表--挂单卖出列表
     $.GetSalingRecord = function (salingRecord) {
         var html =
-            "<div class='container'>" +
+            "<div>" +
             "<a href='#' id='scoresalingrecordentrustmentpurchase" + salingRecord.ordernumber + "'>" +
             "<div>" +
             "<p>" + salingRecord.username + "</p>" +
@@ -857,7 +857,7 @@ $(function () {
     //挂单买入
     $.ScoreEntrustmentBuying = function () {
         var html =
-            "<div class='container'>" +
+            "<div>" +
             "<div>" +
             "<input type='text' id='scoreentrustmentbuyingrmbpereti'/> / ETI" +
             "</div>" +
@@ -914,7 +914,7 @@ $(function () {
     }
 
     //卖出积分
-    $("#scoresaleeti").click(function () {
+    $.SaleEti = function(){
         //卖出积分，显示所有挂买记录
         $.ajax({
             type: "post",
@@ -949,18 +949,18 @@ $(function () {
                 $.ShowMsg(msg);
             }
         });
-    });
+    };
 
     //卖出积分列表--挂单买入列表
     $.GetBuyingRecord = function (buyingRecord) {
         var html =
-            "<div class='container'>" +
-            "<a href='#' id='scorebuyingrecordentrustmentpurchase" + buyingRecord.ordernumber + "'>" +
+            "<div>" +
+            "<a href='#' id='scorebuyingrecordentrustmentpurchase" + buyingRecord.ordernumber + "' style='text-decoration:none;'>" +
             "<div>" +
             "<p>" + buyingRecord.username + "</p>" +
-            "<p>" + buyingRecord.rmbpereti + "</p>" +
-            "<p>" + buyingRecord.eticount + "</p>" +
-            "<p>" + buyingRecord.mineti + "~" + buyingRecord.maxeti + "</p>" +
+            "<p>RMB：ETI " + buyingRecord.rmbpereti + "： 1</p>" +
+            "<p>购买数量：" + buyingRecord.eticount + "</p>" +
+            "<p>购买区间" + buyingRecord.mineti + "~" + buyingRecord.maxeti + "</p>" +
             "</div>" +
             "</a>" +
             "</div>" +
@@ -1009,7 +1009,7 @@ $(function () {
     //挂单卖出
     $.ScoreEntrustmentSaling = function () {
         var html =
-            "<div class='container'>" +
+            "<div>" +
             "<div>" +
             "<input type='text' id='scoreentrustmentsalingrmbpereti'/> / ETI" +
             "</div>" +

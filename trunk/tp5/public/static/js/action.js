@@ -163,7 +163,7 @@ $(function () {
     }
     $.AddMatchRecordInfo = function () {
         var html =
-            '<div class="container">' +
+            '<div>' +
             '<div id = "matchrecordcontainer">' +
             '</div>' +
             '</div>';
@@ -202,6 +202,14 @@ $(function () {
             '<button type="button" class="btn btn-default" id="scoresaleeti">卖积分</button>' +
             '</div>' +
             '</div>' +
+            '<script>' +
+            '$("#scorebuyeti").click(function(){' +
+            '$.BuyEti();' +
+            '});' +
+            '$("#scoresaleeti").click(function(){' +
+            '$.SaleEti();' +
+            '});' +
+            '</script>' +
 
             '<script>' +
             'layui.use("element", function(){' +
@@ -233,17 +241,47 @@ $(function () {
 
     $.AddMineInfo = function () {
         var html =
-            '<divid="minecontainer">' +
+            '<div id="minecontainer">' +
 
-            '<div><a href="#" id="minefixpassword">修改密码</a></div>' +
-            '<div><a href="#" id="mineaccountinfo">账户信息</a></div>' +
-            '<div><a href="#" id="minelogout">退出</a></div>' +
+            '<a href="#" id="minefixpassword" class="list-group-item">修改密码</a>' +
+            '<a href="#" id="mineaccountinfo" class="list-group-item">账户信息</a>' +
+            '<a href="#" id="minelogout" class="list-group-item">退出</a>' +
 
-            '</div>';
+
+            '</div>' +
+            '<script>' +
+            '$(function(){' +
+            '$("#minefixpassword").click(function(){' +
+            '$.FixPassword();' +
+            '});' +
+            '$("#mineaccountinfo").click(function(){' +
+            '$.AccountInfo();' +
+            '});' +
+            '$("#minelogout").click(function(){' +
+            '$.Logout();' +
+            '});' +
+            '});' +
+            '</script>';
 
         return html;
     }
 
+    $.GetUserInfo = function(){
+        $.ajax({
+
+            type:"get",
+            url:"/tp5/public/index.php/etick/user/getuserinfo",
+            dataType:"json",
+            success:function(data){
+                data = JSON.parse(data);
+                if(data.jsoncontent.length !== 0){
+                    userinfo = JSON.parse(data.jsoncontent);
+                    $("#header_username").html(userinfo.username);
+                    $("#header_eti").html(userinfo.eti);
+                }
+            }
+        });
+    }
 });
 
 
