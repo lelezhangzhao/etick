@@ -3,11 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="904b672e-d366-4f02-94f6-ed9b79b335c2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/doc/etick.pdb" afterPath="$PROJECT_DIR$/trunk/doc/etick.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/doc/etick.pdm" afterPath="$PROJECT_DIR$/trunk/doc/etick.pdm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/doc/crebas.sql" afterPath="$PROJECT_DIR$/trunk/doc/crebas.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Admin.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/public/static/js/admin.js" afterPath="$PROJECT_DIR$/trunk/tp5/public/static/js/admin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/MatchRecord.php" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/controller/MatchRecord.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/view/index/index.html" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/view/index/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/view/login/index.html" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/view/login/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/view/match_record/index.html" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/view/match_record/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/application/etick/view/register/index.html" afterPath="$PROJECT_DIR$/trunk/tp5/application/etick/view/register/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/public/static/css/style.css" afterPath="$PROJECT_DIR$/trunk/tp5/public/static/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/public/static/js/action.js" afterPath="$PROJECT_DIR$/trunk/tp5/public/static/js/action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/public/static/js/login.js" afterPath="$PROJECT_DIR$/trunk/tp5/public/static/js/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/public/static/js/match.js" afterPath="$PROJECT_DIR$/trunk/tp5/public/static/js/match.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trunk/tp5/public/static/js/matchrecord.js" afterPath="$PROJECT_DIR$/trunk/tp5/public/static/js/matchrecord.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,92 +68,102 @@
       <file leaf-file-name="action.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/action.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1836">
-              <caret line="68" column="43" lean-forward="false" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
+            <state relative-caret-position="403">
+              <caret line="203" column="22" lean-forward="true" selection-start-line="203" selection-start-column="22" selection-end-line="203" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/mine/index.html">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/index/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="16" column="72" lean-forward="false" selection-start-line="16" selection-start-column="72" selection-end-line="16" selection-end-column="72" />
+            <state relative-caret-position="324">
+              <caret line="12" column="68" lean-forward="false" selection-start-line="12" selection-start-column="68" selection-end-line="12" selection-end-column="68" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Admin.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Admin.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Admin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2735">
-              <caret line="421" column="53" lean-forward="true" selection-start-line="421" selection-start-column="53" selection-end-line="421" selection-end-column="53" />
+            <state relative-caret-position="453">
+              <caret line="346" column="47" lean-forward="true" selection-start-line="346" selection-start-column="47" selection-end-line="346" selection-end-column="47" />
               <folding>
-                <element signature="e#40#61#0#PHP" expanded="true" />
-                <marker date="1535706422538" expanded="true" signature="3920:3988" ph="select * fro... etick_antiwave_football_match" />
-                <marker date="1535706422538" expanded="true" signature="7892:7960" ph="select * fro... etick_antiwave_football_match" />
-                <marker date="1535706422538" expanded="true" signature="11352:11442" ph="update etick... " />
-                <marker date="1535706422538" expanded="true" signature="17110:17222" ph="update etick... " />
-                <marker date="1535706422538" expanded="true" signature="17545:17643" ph="update etick... " />
-                <marker date="1535706422538" expanded="true" signature="17738:17828" ph="update etick... " />
-                <marker date="1535706422538" expanded="true" signature="19276:19388" ph="update etick... " />
-                <marker date="1535706422538" expanded="true" signature="19711:19809" ph="update etick... " />
-                <marker date="1535706422538" expanded="true" signature="19904:19994" ph="update etick... " />
+                <marker date="1535962260359" expanded="true" signature="4918:4986" ph="select * fro... etick_antiwave_football_match" />
+                <marker date="1535962260359" expanded="true" signature="8842:8910" ph="select * fro... etick_antiwave_football_match" />
+                <marker date="1535962260359" expanded="true" signature="11205:11295" ph="update etick... " />
+                <marker date="1535962260359" expanded="true" signature="17517:17607" ph="update etick... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="database.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/database.php">
+      <file leaf-file-name="header.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="243">
+              <caret line="9" column="60" lean-forward="false" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Times.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Times.php">
+      <file leaf-file-name="footer.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/footer.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="728">
-              <caret line="27" column="44" lean-forward="false" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
+            <state relative-caret-position="108">
+              <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Db.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Db.php">
+      <file leaf-file-name="match.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/match.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="39" column="3" lean-forward="false" selection-start-line="39" selection-start-column="3" selection-end-line="39" selection-end-column="3" />
+            <state relative-caret-position="405">
+              <caret line="205" column="22" lean-forward="true" selection-start-line="205" selection-start-column="22" selection-end-line="205" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Database.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="88" column="27" lean-forward="false" selection-start-line="88" selection-start-column="27" selection-end-line="88" selection-end-column="27" />
+            <state relative-caret-position="389">
+              <caret line="89" column="19" lean-forward="false" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="matchrecord.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/matchrecord.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="213" column="31" lean-forward="true" selection-start-line="213" selection-start-column="31" selection-end-line="213" selection-end-column="31" />
               <folding>
-                <element signature="e#33#89#0#PHP" expanded="true" />
+                <marker date="1535965379415" expanded="true" signature="2664:2685" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Error.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Error.php">
+      <file leaf-file-name="MatchRecord.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/MatchRecord.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2025">
-              <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="453">
+              <caret line="87" column="40" lean-forward="true" selection-start-line="87" selection-start-column="40" selection-end-line="87" selection-end-column="40" />
+              <folding>
+                <element signature="e#39#85#0#PHP" expanded="true" />
+                <marker date="1535962627619" expanded="true" signature="1799:2689" ph="select betti... *" />
+                <marker date="1535962627619" expanded="true" signature="2029:2111" ph="select * fro... etick_betting_record" />
+                <marker date="1535962627619" expanded="true" signature="4077:5296" ph="select betti... *" />
+                <marker date="1535962627619" expanded="true" signature="4649:4718" ph="select * fro... etick_betting_record" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,21 +171,13 @@
       <file leaf-file-name="admin.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7462">
-              <caret line="808" column="61" lean-forward="true" selection-start-line="808" selection-start-column="61" selection-end-line="808" selection-end-column="61" />
+            <state relative-caret-position="-426">
+              <caret line="347" column="18" lean-forward="false" selection-start-line="347" selection-start-column="18" selection-end-line="347" selection-end-column="18" />
               <folding>
                 <element signature="e#14812#14882#0" expanded="false" />
+                <marker date="1535937000403" expanded="true" signature="20670:21273" ph="{...}" />
+                <marker date="1535937000403" expanded="true" signature="42719:43556" ph="{...}" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/admin/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="19" column="71" lean-forward="false" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="71" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -174,36 +186,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>footballmatch</find>
-      <find>footballmatchtyp</find>
-      <find>footballmatchtype</find>
-      <find>getetickmatchtype</find>
-      <find>getetick</find>
-      <find>$admin_publish_match_date_time</find>
-      <find>//admin</find>
-      <find>//.</find>
-      <find>//</find>
-      <find>half</find>
-      <find>5%</find>
-      <find>admin_publish_match</find>
-      <find>EtickMatchTypeChange</find>
-      <find>MatchTypeChange</find>
-      <find>admin_balance_match_type</find>
-      <find>_</find>
-      <find>admin_balance_type</find>
-      <find>b</find>
-      <find>bett</find>
-      <find>bettin</find>
-      <find>betting</find>
-      <find>bettingre</find>
-      <find>bettingres</find>
-      <find>bettingresul</find>
-      <find>bettingresult</find>
-      <find>bettingresultin</find>
-      <find>bettingresultinfo</find>
-      <find>AdminBalanceStartConfirmAntiwavefootball</find>
-      <find>cancle</find>
-      <find>admin_balance_score</find>
+      <find>Betting</find>
+      <find>BettingR</find>
+      <find>BettingRec</find>
+      <find>BettingRecor</find>
+      <find>BettingRecord</find>
+      <find>BettingRecordM</find>
+      <find>BettingRecordMo</find>
+      <find>BettingRecordMoel</find>
+      <find>BettingRecordMoed</find>
+      <find>BettingRecordMoe</find>
+      <find>BettingRecordMod</find>
+      <find>BettingRecordMode</find>
+      <find>BettingRecordModel</find>
+      <find>BettingRecordModel:</find>
+      <find>BettingRecordModel::</find>
+      <find>addmatchre</find>
+      <find>getantiwavefootballmatchlist</find>
+      <find>.Format</find>
+      <find>Format</find>
+      <find>layu</find>
+      <find>class=&quot;container&quot;</find>
+      <find>publish</find>
+      <find>antiwavefootballmatchcompetitionguessing</find>
+      <find>adminpublishconrim</find>
+      <find>class='container'</find>
+      <find>container</find>
+      <find>class = &quot;container&quot;</find>
+      <find>balanceconfirmantiwav</find>
+      <find>getbettingrecorddetailinfo</find>
+      <find>AddMatchRecordDetailInfo</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -225,8 +237,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/trunk/tp5/application/index/validate/user.php" />
-        <option value="$PROJECT_DIR$/trunk/tp5/application/index/view/index.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/index/view/index/index.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/index/controller/Index.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Login.php" />
@@ -246,36 +256,38 @@
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/api/Util.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/match_record/matchrecord.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/AntiwaveFootballCompetitionGuessing.php" />
-        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/match/antiwavefootballmatch.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Score.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/api/Times.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/model/MatchType.php" />
-        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/MatchRecord.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/model/MatchTeam.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/model/EtickMatchType.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/config.php" />
-        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/register.js" />
-        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/register/index.html" />
-        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/login.js" />
-        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/login/index.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/forgetpassword.js" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/forget_password/index.html" />
-        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/match.js" />
-        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/matchrecord.js" />
-        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/match/index.html" />
-        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/match_record/index.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/score.js" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/score/index.html" />
-        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/action.js" />
         <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/mine.js" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/mine/index.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/admin/index.html" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php" />
         <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/admin.js" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/register/index.html" />
+        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/login.js" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/login/index.html" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/match_record/index.html" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php" />
+        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/match.js" />
+        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/action.js" />
         <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/Admin.php" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/controller/MatchRecord.php" />
+        <option value="$PROJECT_DIR$/trunk/tp5/public/static/css/style.css" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html" />
+        <option value="$PROJECT_DIR$/trunk/tp5/public/static/js/matchrecord.js" />
+        <option value="$PROJECT_DIR$/trunk/tp5/application/etick/view/index/index.html" />
       </list>
     </option>
   </component>
@@ -303,10 +315,10 @@
   </component>
   <component name="PhpXdebugProxy" ide_key="phpStrom" host="localetick.xyz" port="80" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="2576" />
-    <option name="height" value="1416" />
+    <option name="x" value="509" />
+    <option name="y" value="53" />
+    <option name="width" value="1903" />
+    <option name="height" value="1291" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -472,6 +484,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etick" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etick" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trunk" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tp5" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="index" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -841,8 +879,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -970,11 +1008,12 @@
       <workItem from="1535505388672" duration="16863000" />
       <workItem from="1535612215692" duration="6978000" />
       <workItem from="1535684181811" duration="18033000" />
+      <workItem from="1535937267464" duration="24267000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="176052000" />
+    <option name="totallyTimeSpent" value="200319000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -986,10 +1025,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <frame x="509" y="53" width="1903" height="1291" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15131056" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19186991" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19185424" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -999,7 +1038,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37898687" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16881998" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1022,36 +1061,26 @@
           <line>12</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Admin.php</url>
+          <line>348</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/trunk/tp5/public/static/js/matchrecord.js</url>
+          <line>19</line>
+          <properties />
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="68" />
+      <option name="time" value="74" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/match/lolmatch.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/match/antiwavefootballmatchtpl.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/model/BettingRecord.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/model/AntiwaveFootballMatch.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1118,24 +1147,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/AntiwaveFootballCompetitionGuessing.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="88" column="66" lean-forward="false" selection-start-line="88" selection-start-column="66" selection-end-line="88" selection-end-column="66" />
-          <folding>
-            <element signature="e#40#67#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1269">
-          <caret line="47" column="45" lean-forward="false" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/score/score.html" />
     <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/match/antiwavefootballmatch.html" />
     <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/App.php">
@@ -1149,13 +1160,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2295">
           <caret line="86" column="11" lean-forward="false" selection-start-line="86" selection-start-column="11" selection-end-line="86" selection-end-column="11" />
-          <folding>
-            <marker date="1535332475619" expanded="true" signature="20365:20525" ph="..." />
-            <marker date="1535332475619" expanded="true" signature="20365:24715" ph="..." />
-            <marker date="1535332475619" expanded="true" signature="20695:20736" ph="..." />
-            <marker date="1535332475619" expanded="true" signature="21024:21117" ph="..." />
-            <marker date="1535332475619" expanded="true" signature="21163:21298" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1175,19 +1180,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/validate/LolMatchType.php" />
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/MatchRecord.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="17" column="37" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
-          <folding>
-            <marker date="1535345094773" expanded="true" signature="1798:2758" ph="select betti... *" />
-            <marker date="1535345094773" expanded="true" signature="2046:2126" ph="select * fro... etick_betting_record" />
-            <marker date="1535345094773" expanded="true" signature="4146:5255" ph="select betti... *" />
-            <marker date="1535345094773" expanded="true" signature="4556:4611" ph="select * fro... etick_betting_record" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/model/MatchTeam.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -1219,41 +1211,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="18" column="35" lean-forward="true" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/register/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="30" column="11" lean-forward="true" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/register.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="49" column="14" lean-forward="true" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="991">
-          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/login/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="21" column="64" lean-forward="false" selection-start-line="21" selection-start-column="64" selection-end-line="21" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/forgetpassword.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="991">
@@ -1268,54 +1225,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/match.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="991">
-          <caret line="168" column="0" lean-forward="true" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="25" column="28" lean-forward="false" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
-          <folding>
-            <element signature="e#39#81#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/match/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="19" column="73" lean-forward="false" selection-start-line="19" selection-start-column="73" selection-end-line="19" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/match_record/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="70" lean-forward="false" selection-start-line="6" selection-start-column="70" selection-end-line="6" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/matchrecord.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="218" column="18" lean-forward="true" selection-start-line="218" selection-start-column="18" selection-end-line="218" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/score.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28863">
           <caret line="1069" column="0" lean-forward="false" selection-start-line="1069" selection-start-column="0" selection-end-line="1069" selection-end-column="0" />
-          <folding>
-            <marker date="1535506290139" expanded="true" signature="3286:3307" ph="..." />
-            <marker date="1535506290139" expanded="true" signature="7781:7794" ph="..." />
-            <marker date="1535506290139" expanded="true" signature="7979:7992" ph="..." />
-            <marker date="1535506290139" expanded="true" signature="8121:8134" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1323,7 +1236,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
           <caret line="21" column="73" lean-forward="false" selection-start-line="21" selection-start-column="73" selection-end-line="21" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1345,22 +1257,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="68" column="43" lean-forward="false" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Error.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2025">
-          <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/admin/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
@@ -1371,27 +1267,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Db.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
+        <state relative-caret-position="810">
           <caret line="39" column="3" lean-forward="false" selection-start-line="39" selection-start-column="3" selection-end-line="39" selection-end-column="3" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Times.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="728">
-          <caret line="27" column="44" lean-forward="false" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="88" column="27" lean-forward="false" selection-start-line="88" selection-start-column="27" selection-end-line="88" selection-end-column="27" />
-          <folding>
-            <element signature="e#33#89#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1403,32 +1281,206 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="46" column="33" lean-forward="false" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
+          <folding>
+            <element signature="e#33#89#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/AntiwaveFootballCompetitionGuessing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="872">
+          <caret line="105" column="21" lean-forward="false" selection-start-line="105" selection-start-column="21" selection-end-line="105" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Status.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="46" column="56" lean-forward="false" selection-start-line="46" selection-start-column="56" selection-end-line="46" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/register.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="38" lean-forward="true" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/register/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="14" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="26" column="80" lean-forward="true" selection-start-line="26" selection-start-column="80" selection-end-line="26" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/match_record/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="9" column="18" lean-forward="false" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/match/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="13" column="18" lean-forward="true" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/login/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="21" column="11" lean-forward="false" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/thinkphp/library/think/Error.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Match.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="57" column="36" lean-forward="false" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="36" />
+          <folding>
+            <element signature="e#39#81#0#PHP" expanded="true" />
+            <marker date="1535944975625" expanded="true" signature="2530:2695" ph="select a.*, *" />
+            <marker date="1535944975625" expanded="true" signature="2530:2767" ph="select a.*, *" />
+            <marker date="1535944975625" expanded="true" signature="2530:2839" ph="select match... *" />
+            <marker date="1535944975625" expanded="true" signature="2530:2892" ph="select match... *" />
+            <marker date="1535944975625" expanded="true" signature="2627:2686" ph="select * fro... etick_antiwave_football_match" />
+            <marker date="1535944975625" expanded="true" signature="2627:2689" ph="select * fro... etick_antiwave_football_match" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/api/Times.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/footer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7462">
-          <caret line="808" column="61" lean-forward="true" selection-start-line="808" selection-start-column="61" selection-end-line="808" selection-end-column="61" />
+        <state relative-caret-position="-426">
+          <caret line="347" column="18" lean-forward="false" selection-start-line="347" selection-start-column="18" selection-end-line="347" selection-end-column="18" />
           <folding>
             <element signature="e#14812#14882#0" expanded="false" />
+            <marker date="1535937000403" expanded="true" signature="20670:21273" ph="{...}" />
+            <marker date="1535937000403" expanded="true" signature="42719:43556" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="203" column="22" lean-forward="true" selection-start-line="203" selection-start-column="22" selection-end-line="203" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/Admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2735">
-          <caret line="421" column="53" lean-forward="true" selection-start-line="421" selection-start-column="53" selection-end-line="421" selection-end-column="53" />
+        <state relative-caret-position="453">
+          <caret line="346" column="47" lean-forward="true" selection-start-line="346" selection-start-column="47" selection-end-line="346" selection-end-column="47" />
           <folding>
-            <element signature="e#40#61#0#PHP" expanded="true" />
-            <marker date="1535706422538" expanded="true" signature="3920:3988" ph="select * fro... etick_antiwave_football_match" />
-            <marker date="1535706422538" expanded="true" signature="7892:7960" ph="select * fro... etick_antiwave_football_match" />
-            <marker date="1535706422538" expanded="true" signature="11352:11442" ph="update etick... " />
-            <marker date="1535706422538" expanded="true" signature="17110:17222" ph="update etick... " />
-            <marker date="1535706422538" expanded="true" signature="17545:17643" ph="update etick... " />
-            <marker date="1535706422538" expanded="true" signature="17738:17828" ph="update etick... " />
-            <marker date="1535706422538" expanded="true" signature="19276:19388" ph="update etick... " />
-            <marker date="1535706422538" expanded="true" signature="19711:19809" ph="update etick... " />
-            <marker date="1535706422538" expanded="true" signature="19904:19994" ph="update etick... " />
+            <marker date="1535962260359" expanded="true" signature="4918:4986" ph="select * fro... etick_antiwave_football_match" />
+            <marker date="1535962260359" expanded="true" signature="8842:8910" ph="select * fro... etick_antiwave_football_match" />
+            <marker date="1535962260359" expanded="true" signature="11205:11295" ph="update etick... " />
+            <marker date="1535962260359" expanded="true" signature="17517:17607" ph="update etick... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/controller/MatchRecord.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="87" column="40" lean-forward="true" selection-start-line="87" selection-start-column="40" selection-end-line="87" selection-end-column="40" />
+          <folding>
+            <element signature="e#39#85#0#PHP" expanded="true" />
+            <marker date="1535962627619" expanded="true" signature="1799:2689" ph="select betti... *" />
+            <marker date="1535962627619" expanded="true" signature="2029:2111" ph="select * fro... etick_betting_record" />
+            <marker date="1535962627619" expanded="true" signature="4077:5296" ph="select betti... *" />
+            <marker date="1535962627619" expanded="true" signature="4649:4718" ph="select * fro... etick_betting_record" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="89" column="19" lean-forward="false" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/match.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="205" column="22" lean-forward="true" selection-start-line="205" selection-start-column="22" selection-end-line="205" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="9" column="60" lean-forward="false" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/public/static/js/matchrecord.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="213" column="31" lean-forward="true" selection-start-line="213" selection-start-column="31" selection-end-line="213" selection-end-column="31" />
+          <folding>
+            <marker date="1535965379415" expanded="true" signature="2664:2685" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trunk/tp5/application/etick/view/index/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="68" lean-forward="false" selection-start-line="12" selection-start-column="68" selection-end-line="12" selection-end-column="68" />
+          <folding />
         </state>
       </provider>
     </entry>

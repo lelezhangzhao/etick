@@ -85,6 +85,10 @@ match_team_guest.caption as guestcaption,
  antiwave_football_match.caption as matchcaption,
  antiwave_football_match.status as matchstatus,
  antiwave_football_match.matchtime as matchtime,
+ antiwave_football_match.score as score,
+ antiwave_football_match.firsthalfscore as firsthalfscore,
+ antiwave_football_match.angle as angle,
+ antiwave_football_match.total as total,
  antiwave_football_competition_guessing.theodds as theodds,
  antiwave_football_competition_guessing.caption as guessingcaption
    from (select * from etick_betting_record where ordernumber = '$orderNumber') as betting_record
@@ -123,28 +127,27 @@ match_team_guest.caption as guestcaption,
         }
 
 
-        if($bettingrecord->status === 0){
-            //比赛已开始或下注超过五分钟
-            if($match->matchtime < $systemTime){
-                return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHHASALREADYBEGINING');
-            }else if($systemTime - $bettingrecord->bettingtime > 5 * 60){
-                return StatusApi::ReturnErrorStatus('ERROR_STATUS_FIVEMINUTESOVERBETTINGTIME');
-            }
-        }else if($bettingrecord->status !== 1){
-            //比赛不可撤销状态
-            return StatusApi::ReturnErrorStatus('ERROR_STATUS_CANTREVERT');
+        //不可撤销状态
+        if($match->status === 0 && $systemTime - $bettingrecord->bettingtime > 5 * 60){ //未开赛，下注超过五分钟
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_FIVEMINUTESOVERBETTINGTIME');
+        }else if($match->status === 1){ //已开赛
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHHASALREADYBEGINING');
+        } else if($match->status === 3){ //比赛已取消
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHHASALREADYCANCELED');
+        } else if($bettingrecord->status === 2){ //比赛已撤销
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHHASALREADYREVERTED');
         }
 
         //撤销
         //标注撤销状态
-//        $bettingrecord->status = 3;
-//        $bettingrecord->statusinfo = '撤单';
+        $bettingrecord->status = 2;
+        $bettingrecord->statusinfo = '撤单';
 
         if($match->status === 2){
-            $bettingrecord->revertstatus = 3;
+            $bettingrecord->revertstatus = 1;
             $bettingrecord->revertstatusinfo = '比赛推迟撤销';
         }else if($match->status === 0){
-            $bettingrecord->revertstatus = 2;
+            $bettingrecord->revertstatus = 0;
             $bettingrecord->revertstatusinfo = '正常撤销';
         }
 

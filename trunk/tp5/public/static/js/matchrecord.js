@@ -72,21 +72,21 @@ $(function () {
             "<div class='panel panel-default' >" +
             "<div class='panel-heading' >" +
             "<div class='panel-title' >" +
-            "<div class='row' style='background-color:#ccc'>" +
-            "<a data-toggle='collapse' data-parent='#matchrecordcontainer' href='#matchrecordcollapse" + ordernumber + "'>" +
-            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
+            "<div class='row' >" +
+            "<a data-toggle='collapse' data-parent='#matchrecordcontainer' href='#matchrecordcollapse" + ordernumber + "' style='text-decoration:none;'>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 match-div' >" +
             "<p>" + etickmatchtypeinfo + "</p>" +
             "</div>" +
-            "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10' >" +
+            "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10 match-div' >" +
             "<p>" + matchcaption + "</p>" +
             "</div>" +
-            "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10' >" +
+            "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10 match-div' >" +
             "<p>下注金额：" + bettingeti + "</p>" +
             "</div>" +
-            "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' >" +
+            "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2 ' >" +
             "<span class='glyphicon glyphicon-chevron-down' id='matchrecordglyphicon" + ordernumber + "'></span>" +
             "</div>" +
-            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 match-div' >" +
             "<p>" + statusinfo + "</p>" +
             "</div>" +
             "</a>" +
@@ -127,6 +127,7 @@ $(function () {
         var matchstatus = recorddetail.matchstatus; //推迟状态比赛可取消
         var theodds = recorddetail.theodds;
         var bettingstatus = recorddetail.status;
+        var bettingrevertstatus = recorddetail.revertstatus;
 
 
         //是否显示button，及button内容
@@ -141,10 +142,17 @@ $(function () {
          2 比赛推迟
          3 比赛取消
          4 结算成功
-
          */
-
-        if(matchstatus === 0 && bettingstatus === 0){ //未开赛,未撤单
+        
+        //bettingstatus
+        /*
+         注单状态
+         0 未结算
+         1 已结算
+         2 撤单  --正常撤销
+         3 撤单  --比赛推迟撤销
+         */
+        if(matchstatus === 0 && bettingstatus === 0){ //未开赛,未结算
             var now = new Date();
             var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
             //开赛前，并且下注五分钟内可撤销
@@ -154,65 +162,68 @@ $(function () {
             } else {
                 displaystatus = "none";
             }
-        }
-        switch (bettingstatus) {
-            case 0: //未结算
-                var now = new Date();
-                var bettingDiffMinutes = GetDiffMinutes(new Date(bettingtime), now);
-                //开赛前，并且下注五分钟内可撤销
-                if (now < new Date(matchtime) && bettingDiffMinutes >= 0 && bettingDiffMinutes <= 5) {
-                    displaystatus = "";
-                    displaycontent = "撤销";
-                } else {
-                    displaystatus = "none";
-                }
-                break;
-            case 1: //已结算
-            case 3: //撤单
-            case 4: //比赛取消
-                displaystatus = "none";
-                break;
-            case 2:
-                displaystatus = "";
-                displaycontent = "撤销";
-                break;
-            default:
-                return;
-                break;
+        }else if(matchstatus === 2){ //比赛推迟
+            displaystatus = "";
+            displaycontent = "撤销";
+        }else{
+            displaystatus = "none";
         }
 
 
+        /*
+         0x01 下注
+         0x02 比赛
+         0x04 取消
+         0x08 撤销
+         0x10 结算
+         */
         var matchrecordtimescontent = "";
-        if (bettingstatus === 0 || bettingstatus === 2) {
-            matchrecordtimescontent = "<span>比赛时间：" + matchtime + "</span>";
-        } else if (bettingrecordstatus === 4) {
-            matchrecordtimescontent = "<span>取消时间：" + canceltime + "</span>";
-        } else if (bettingrecordstatus === 1) {
-            matchrecordtimescontent = "<div>比赛时间：" + matchtime + "</div><div>结算时间：" + balancetime + "</div>";
-        } else if (bettingrecordstatus === 3) {
-            matchrecordtimescontent = "<span>撤销时间：" + reverttime + "</span>";
+
+        if(bettingstatus === 2){ //撤销
+            matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02 | 0x08, recorddetail)
+        }else if(matchstatus === 0 || matchstatus === 1 || matchstatus === 2){ //未开赛，已开赛，推迟
+            matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02, recorddetail)
+        }else if(matchstatus === 3){ //取消
+            matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02 | 0x04, recorddetail)
+        }else if(matchstatus === 4){ //结算
+            matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02 | 0x10, recorddetail)
+        }
+
+
+        // //结算
+        // if (matchstatus === 0 || matchstatus === 1 || matchstatus === 2) { //未开赛，已开赛，比赛推迟
+        //     matchrecordtimescontent = "<span>比赛时间：" + matchtime + "</span>";
+        // } else if (matchstatus === 3) { //比赛取消
+        //     matchrecordtimescontent = "<span>取消时间：" + canceltime + "</span>";
+        // } else if (bettingstatus === 4) { //结算成功
+        //     matchrecordtimescontent = "<div>比赛时间：" + matchtime + "</div><div>结算时间：" + balancetime + "</div>";
+        // }
+
+        var matchrecordresult = "";
+
+        if(matchstatus === 4){ //比赛结束，显示比分
+            matchrecordresult = $.AddMatchRecordResult(recorddetail);
         }
 
         var html =
             "<div class='panel-body' >" +
-            "<div class='container'>" +
+            "<div class='match-info-div'>" +
             "<span>订单号：" + ordernumber + "</span>" +
             "</div>" +
-            "<div class='container'>" +
-            "<span>比分：" + guessingcaption + "</span>" +
+            "<div class='match-info-div'>" +
+            matchrecordresult +
+            "<span>下注类型：" + guessingcaption + "</span>" +
             "</div>" +
-            "<div class='container'>" +
+            "<div class='match-info-div'>" +
             "<span>赔率：" + theodds + "</span>" +
             "<button type='button' class='btn btn-default' id='matchrecordrevert" + ordernumber + "'>" + displaycontent + "</button>" +
             "</div>" +
-            "<div class='container'>" +
-            "<span>下注时间：" + bettingtime + "</span>" +
-            "</div>" +
+
 
             //比赛时间
             //撤销时间
             //结算时间
-            "<div class='container' id='matchrecordtimes" + ordernumber + "'>" +
+            "<div id='matchrecordtimes" + ordernumber + "'>" +
             // "<span>比赛时间：" + matchtime + "</span>" +
             "</div>" +
             "</div>" +
@@ -226,6 +237,56 @@ $(function () {
             "});" +
             "</script>" +
             "<br />";
+
+        return html;
+    }
+
+    $.AddMatchRecordResult = function(recorddetail){
+        var score = recorddetail.score;
+        var firsthalfscore = recorddetail.firsthalfscore;
+        var angle = recorddetail.angle;
+        var total = recorddetail.total;
+
+
+        var html =
+            "<div class='match-info-div'>" +
+            "<span>角球：" + angle + "</span>" +
+            "</div>" +
+            "<div class='match-info-div'>" +
+            "<span>全场比分：" + score + "</span>" +
+            "</div>" +
+            "<div class='match-info-div'>" +
+            "<span>上半场比分：" + firsthalfscore + "</span>" +
+            "</div>";
+
+        return html;
+    }
+
+    //增加比赛时间信息
+    $.AddBettingTimeInfo = function(status, recorddetail){
+        /*
+        0x01 下注
+        0x02 比赛
+        0x04 取消
+        0x08 撤销
+        0x10 结算
+         */
+        var html = "";
+        if(status & 0x01){
+            html += '<div class="match-info-div">下注时间：' + recorddetail.bettingtime + '</div>';
+        }
+        if(status & 0x02){
+            html += '<div class="match-info-div">比赛时间：' + recorddetail.matchtime + '</div>';
+        }
+        if(status & 0x04){
+            html += '<div class="match-info-div">取消时间：' + recorddetail.canceltime + '</div>';
+        }
+        if(status & 0x08){
+            html += '<div class="match-info-div">撤销时间：' + recorddetail.reverttime + '</div>';
+        }
+        if(status & 0x10){
+            html += '<div class="match-info-div">结算时间：' + recorddetail.balancetime + '</div>';
+        }
 
         return html;
     }

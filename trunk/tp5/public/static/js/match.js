@@ -1,5 +1,77 @@
 //match
 function GetAntiwaveFootballMatchCompetitionGuessing(matchid) {
+    var html =
+        "<div class='panel-body'>" +
+        "<div>" +
+        "<table class='table table-hover table-striped'>" +
+        "<caption class='text-center'>全场</caption>" +
+        "<thead>" +
+        "<tr>" +
+        "<th>竞猜</th>" +
+        "<th>波胆</th>" +
+        "<th>赔率</th>" +
+        "<th>额度</th>" +
+        "<th>操作</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody id='antiwavefootballcompetitionguessinghole" + matchid + "'>" +
+        "</tbody>" +
+        "</table>" +
+        "</div>" +
+        "<div>" +
+        "<table class='table table-hover table-striped'>" +
+        "<caption class='text-center'>半场</caption>" +
+        "<thead>" +
+        "<tr>" +
+        "<th>竞猜</th>" +
+        "<th>波胆</th>" +
+        "<th>赔率</th>" +
+        "<th>额度</th>" +
+        "<th>操作</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody id='antiwavefootballcompetitionguessinghalf" + matchid + "'>" +
+        "</tbody>" +
+        "</table>" +
+        "</div>" +
+        "<div>" +
+        "<table class='table table-hover table-striped'>" +
+        "<caption class='text-center'>角球</caption>" +
+        "<thead>" +
+        "<tr>" +
+        "<th>竞猜</th>" +
+        "<th>角球</th>" +
+        "<th>赔率</th>" +
+        "<th>额度</th>" +
+        "<th>操作</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody id='antiwavefootballcompetitionguessingangle" + matchid + "'>" +
+        "</tbody>" +
+        "</table>" +
+        "</div>" +
+        "<div>" +
+        "<table class='table table-hover table-striped'>" +
+        "<caption class='text-center'>总进球</caption>" +
+        "<thead>" +
+        "<tr>" +
+        "<th>竞猜</th>" +
+        "<th>进球</th>" +
+        "<th>赔率</th>" +
+        "<th>额度</th>" +
+        "<th>操作</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody id='antiwavefootballcompetitionguessingtotal" + matchid + "'>" +
+        "</tbody>" +
+        "</table>" +
+        "</div>" +
+        "</div>";
+
+    $("#antiwavefootballmatchcompetitionguessingcollapse" + matchid).html(html);
+
+
+
     $.ajax({
         type: "get",
         url: "/tp5/public/index.php/etick/match/getantiwavefootballmatchcompetitionguessing",
@@ -13,12 +85,26 @@ function GetAntiwaveFootballMatchCompetitionGuessing(matchid) {
             switch (data.code) {
                 case 'ERROR_STATUS_SUCCESS':
                     var matchobject = JSON.parse(data.jsoncontent);
-                    var html = "";
+                    var htmlhole = "";
+                    var htmlhalf = "";
+                    var htmlangle = "";
+                    var htmltotal = "";
                     for (var i = 0; i < matchobject.length; ++i) {
                         var match = matchobject[i];
-                        html += $.AddAntiwaveFootballMatchCompetitionGuessing(match);
+                        if(match.type === 0){
+                            htmlhole += $.AddAntiwaveFootballMatchCompetitionGuessing(match);
+                        }else if(match.type === 1){
+                            htmlhalf += $.AddAntiwaveFootballMatchCompetitionGuessing(match);
+                        }else if(match.type === 2){
+                            htmlangle += $.AddAntiwaveFootballMatchCompetitionGuessing(match);
+                        }else if(match.type === 3){
+                            htmltotal += $.AddAntiwaveFootballMatchCompetitionGuessing(match);
+                        }
                     }
-                    $("#antiwavefootballmatchcompetitionguessingcollapse" + matchid).html(html);
+                    $("#antiwavefootballcompetitionguessinghole" + matchid).html(htmlhole);
+                    $("#antiwavefootballcompetitionguessinghalf" + matchid).html(htmlhalf);
+                    $("#antiwavefootballcompetitionguessingangle" + matchid).html(htmlangle);
+                    $("#antiwavefootballcompetitionguessingtotal" + matchid).html(htmltotal);
                     break;
                 case 'ERROR_STATUS_MATCHCANTCOMPETITION':
                     $.ShowMsg(data.msg);
@@ -102,30 +188,40 @@ $(function () {
         var html =
             "<div class='panel panel-default' >" +
             "<div class='panel-heading' >" +
+
             "<div class='panel-title' >" +
-            "<div class='row' style='background-color:#ccc'>" +
+
+            "<div class='row'>" +
+
             "<a data-toggle='collapse' data-parent='#antiwavefootballmatchcontainer' href='#antiwavefootballmatchcompetitionguessingcollapse" + match.id + "'>" +
-            "<div class='col-xs-10 col-sm-10 col-md-10' >" +
-            "<p>" + match.caption + "</p>" +
+
+            "<div class='col-xs-12 col-sm-12 col-md-12 match-div' >" +
+            "<span class='match-caption-info'>" + match.caption + "</span>" +
             "</div>" +
-            "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' >" +
+
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 match-div' >" +
+            "<div class='row'>" +
+            "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10'>" +
+            "<p class='match-caption-info'>" + match.hostcaption + "  VS  " + match.guestcaption + "</p>" +
+            "</div>" +
+            "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2'>" +
             "<span class='glyphicon glyphicon-chevron-down' id='antiwavefootballmatchglyphicon" + match.id + "'></span>" +
             "</div>" +
-            "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' >" +
-            "<p>" + match.matchteamhostid + "</p>" +
             "</div>" +
-            "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' >" +
-            "<p>VS</p>" +
             "</div>" +
-            "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' >" +
-            "<p>" + match.matchteamguestid + "</p>" +
+
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 match-div' >" +
+            "<span class='match-caption'>比赛时间：</span>" +
+            "<span class='match-caption-info'>" + new Date(match.matchtime).Format("MM/dd hh:mm") + "</span>" +
             "</div>" +
-            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
-            "<p>" + match.matchtime + "</p>" +
-            "</div>" +
+
             "</a>" +
+
+
             "</div>" +
+
             "</div>" +
+
             "</div>" +
             "<div id='antiwavefootballmatchcompetitionguessingcollapse" + match.id + "' class='panel-collapse collapse'>" +
             "</div>" +
@@ -150,19 +246,16 @@ $(function () {
     };
     //添加反波胆下注赛事
     $.AddAntiwaveFootballMatchCompetitionGuessing = function (competitionGuessing) {
+
         var html =
-            "<div class='panel-body' id='antiwavefootballmatchcompetitionguessing" + competitionGuessing.id + "' " +
-            "onclick='BettingCompetitionGuessing(" + competitionGuessing.matchid + ", " + competitionGuessing.id + ")'>" +
-            "<a class='' href='#' >" +
-            "<div class='container'>" +
-            "<span>" + competitionGuessing.caption + "</span>" +
-            "<span>赔率：" + competitionGuessing.theodds * 100 + "%</span>" +
-            "<span>剩余额度：" + competitionGuessing.remaineti + "</span>" +
-            "</div>" +
-            "</a>" +
-            "</div><br />";
+            "<tr>" +
+            "<td>" + competitionGuessing.caption + "</td>" +
+            "<td>" + competitionGuessing.score + "</td>" +
+            "<td>" + competitionGuessing.theodds * 100 + "%</td>" +
+            "<td>" + competitionGuessing.remaineti + "</td>" +
+            "<td><button class='btn btn-default' onclick='BettingCompetitionGuessing(" + competitionGuessing.matchid + ", " + competitionGuessing.id + ")'>下注</button></td>" +
+            "</tr>";
 
         return html;
     };
-
 });

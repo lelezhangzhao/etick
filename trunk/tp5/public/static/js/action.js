@@ -131,7 +131,7 @@ $(function () {
 
     $.AddMatchInfo = function () {
         var html =
-            '<div class="container" >' +
+            '<div>' +
             '<div class="layui-tab layui-tab-card" lay-filter="etickmatch">' +
             '<ul class="layui-tab-title">' +
             '<li class="layui-this">反波胆</li>' +
@@ -185,7 +185,7 @@ $(function () {
 
     $.AddScoreInfo = function () {
         var html =
-            '<div class="container" >' +
+            '<div>' +
             '<div class="layui-tab" lay-filter="scoretab" id="scorecontainer">' +
             '<ul class="layui-tab-title">' +
             '<li class="layui-this">已完成</li>' +
@@ -197,7 +197,7 @@ $(function () {
             '</div>' +
             '</div>' +
 
-            '<div class = "container">' +
+            '<div>' +
             '<button type="button" class="btn btn-default" id="scorebuyeti">买积分</button>' +
             '<button type="button" class="btn btn-default" id="scoresaleeti">卖积分</button>' +
             '</div>' +
@@ -233,7 +233,7 @@ $(function () {
 
     $.AddMineInfo = function () {
         var html =
-            '<div class="container" id="minecontainer">' +
+            '<divid="minecontainer">' +
 
             '<div><a href="#" id="minefixpassword">修改密码</a></div>' +
             '<div><a href="#" id="mineaccountinfo">账户信息</a></div>' +

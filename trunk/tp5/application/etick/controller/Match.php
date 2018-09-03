@@ -5,6 +5,7 @@ use app\etick\model\AntiwaveFootballMatch;
 use think\Controller;
 use think\Session;
 use think\Request;
+use think\Db;
 
 use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
 use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
@@ -35,11 +36,38 @@ class Match extends Controller{
             return $userstatus;
         }
 
+
+        /*
+         *         $sql = "select betting_record.*,
+match_team_host.caption as hostcaption,
+match_team_guest.caption as guestcaption,
+ antiwave_football_match.caption as matchcaption,
+ antiwave_football_match.status as matchstatus,
+ antiwave_football_match.matchtime as matchtime,
+ antiwave_football_competition_guessing.theodds as theodds,
+ antiwave_football_competition_guessing.caption as guessingcaption
+   from (select * from etick_betting_record where ordernumber = '$orderNumber') as betting_record
+                join etick_antiwave_football_match as antiwave_football_match on antiwave_football_match.id = betting_record.matchid
+                join etick_match_team as match_team_host on match_team_host.id = antiwave_football_match.matchteamhostid
+                join etick_match_team as match_team_guest on match_team_guest.id = antiwave_football_match.matchteamguestid
+                join etick_antiwave_football_competition_guessing as antiwave_football_competition_guessing on antiwave_football_competition_guessing.id = betting_record.guessingid";
+
+         */
         //获取可显示比赛
-        $antiFootballMatchList = AntiwaveFootballMatchModel::where('status', 0)
-            ->whereTime('displaytime', '<=', date('Y-m-d H:i:s'))
-            ->whereTime('disappeartime', '>=', date('Y-m-d H:i:s'))
-            ->select();
+        $sql = "select a.*,
+            b.caption as hostcaption,
+            c.caption as guestcaption
+   from (select * from etick_antiwave_football_match where status = '0') as a 
+                join etick_match_team as b on b.id = a.matchteamhostid
+                join etick_match_team as c on c.id = a.matchteamguestid";
+        $antiFootballMatchList = Db::query($sql);
+
+
+
+//        $antiFootballMatchList = AntiwaveFootballMatchModel::where('status', 0)
+//            ->whereTime('displaytime', '<=', date('Y-m-d H:i:s'))
+//            ->whereTime('disappeartime', '>=', date('Y-m-d H:i:s'))
+//            ->select();
 
         if(count($antiFootballMatchList) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_NOMATCHMATCH');

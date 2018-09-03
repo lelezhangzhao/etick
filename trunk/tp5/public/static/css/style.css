@@ -84,6 +84,20 @@ body {
         background-color: #cdf;
     }
 
+    .match-div{
+        padding:5px;
+    }
+    .match-info-div{
+        padding:1px;
+    }
+    .match-caption{
+        color:rgb(155,155,155);
+
+    }
+    .match-caption-info{
+        color:rgb(74,74,74);
+    }
+
 
 
 

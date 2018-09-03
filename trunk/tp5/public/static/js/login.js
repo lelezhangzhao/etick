@@ -24,7 +24,7 @@ $(function () {
                         SetCookie('password', password);
                         localStorage.setItem('userid', data.jsoncontent);
                         $.ShowMsg(data.msg);
-                        $.OpenNewUrl("/tp5/public/index.php/etick/match/index");
+                        $.OpenNewUrl("/tp5/public/index.php/etick/index/index");
                         break;
                     default:
                         $.ShowMsg(data.msg);

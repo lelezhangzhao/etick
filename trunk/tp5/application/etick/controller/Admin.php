@@ -175,7 +175,7 @@ class Admin extends Controller
                 $totaleti = $scorehole->totaleti;
                 $frozeneti = $scorehole->frozeneti;
 
-                $caption = $hostmatchteamcaption . ' VS ' . $guestmatchteamcaption . '全场' . $score;
+                $caption = $hostmatchteamcaption . ' VS ' . $guestmatchteamcaption;
 
                 //新增竞猜
                 DatabaseApi::AddAntiwaveFootballMatchCompetitionGuessing($matchid, $caption, 0, $score, $theodds, $totaleti, $frozeneti);
@@ -189,7 +189,7 @@ class Admin extends Controller
                 $totaleti = $scorehalf->totaleti;
                 $frozeneti = $scorehalf->frozeneti;
 
-                $caption = $hostmatchteamcaption . 'VS' . $guestmatchteamcaption . '半场' . $score;
+                $caption = $hostmatchteamcaption . 'VS' . $guestmatchteamcaption;
                 //新增竞猜
                 DatabaseApi::AddAntiwaveFootballMatchCompetitionGuessing($matchid, $caption, 1, $score, $theodds, $totaleti, $frozeneti);
             }
@@ -202,7 +202,7 @@ class Admin extends Controller
                 $totaleti = $scoreangle->totaleti;
                 $frozeneti = $scoreangle->frozeneti;
 
-                $caption = $hostmatchteamcaption . 'VS' . $guestmatchteamcaption . '角球' . $score;
+                $caption = $hostmatchteamcaption . 'VS' . $guestmatchteamcaption;
 
                 DatabaseApi::AddAntiwaveFootballMatchCompetitionGuessing($matchid, $caption, 2, $score, $theodds, $totaleti, $frozeneti);
             }
@@ -337,11 +337,16 @@ class Admin extends Controller
         $balance_half = $request->param('balance_half');
         $balance_angle = $request->param('balance_angle');
 
+
         //match
         //结算足球
         $match = AntiwaveFootballMatchModel::get($matchid);
         $match->status = 4;
         $match->statusinfo = "结算成功";
+        $match->score = $balance_hole;
+        $match->firsthalfscore = $balance_half;
+        $match->angle = $balance_angle;
+        $match->total = (int)substr($balance_hole, 0, 1) + (int)substr($balance_hole, 2, 1);
         $match->allowField(true)->save();
 
 
