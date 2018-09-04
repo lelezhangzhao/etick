@@ -191,16 +191,17 @@ $(function () {
             '<li class="layui-this">已完成</li>' +
             '<li>进行中</li>' +
             '</ul>' +
+            '<div>' +
+            '<button type="button" class="btn btn-default" id="scorebuyeti">买积分</button>' +
+            '<button type="button" class="btn btn-default" id="scoresaleeti">卖积分</button>' +
+            '</div>' +
+
             '<div class="layui-tab-content">' +
             '<div class="layui-tab-item layui-show" id="scorecontainerfinished"></div>' +
             '<div class="layui-tab-item" id="scorecontainerrunning"></div>' +
             '</div>' +
             '</div>' +
 
-            '<div>' +
-            '<button type="button" class="btn btn-default" id="scorebuyeti">买积分</button>' +
-            '<button type="button" class="btn btn-default" id="scoresaleeti">卖积分</button>' +
-            '</div>' +
             '</div>' +
             '<script>' +
             '$("#scorebuyeti").click(function(){' +
