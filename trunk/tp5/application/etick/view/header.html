@@ -11,9 +11,9 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="__LAYUI__/layui.js"></script>
-    <link rel="stylesheet" href="__LAYUI__/css/layui.css" media="all" />
-    <link rel="stylesheet" href="__CSS__/style.css?version=9" type="text/css" />
-    <link rel="stylesheet" href="__DTREE__/dtree.css?version=4" type="text/css" />
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="__CSS__/style.css?version=9" type="text/css"/>
+    <link rel="stylesheet" href="__DTREE__/dtree.css?version=4" type="text/css"/>
     <script type="text/babel" src="__JS__/etick.js?version=9"></script>
     <script type="text/javascript" src="__JS__/action.js?version=39"></script>
     <script type="text/javascript" src="__QRCODE__/qrcode.min.js"></script>
@@ -30,30 +30,34 @@
 <div class="container">
     <div>
         <p class="text-center">eTick
-        <span class="fa fa-soccer-ball-o"></span>
+            <span class="fa fa-soccer-ball-o fa-fw"></span>
         </p>
     </div>
-    <div class="rot">
+    <br/>
+    <div class="row">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <p>
-            <span class="glyphicon glyphicon-user"></span>
-            <span id="header_username"></span>
-        </p>
+            <p>
+                <span class="fa fa-user fa-fw"></span>
+                <span id="header_username"></span>
+            </p>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <p>
-            <span class="glyphicon glyphicon-euro"></span>
-            <span id="header_eti"></span>
-        </p>
+            <p>
+                <span class="fa fa-cc fa-fw"></span>
+                <span id="header_eti"></span>
+            </p>
         </div>
-        <div class="col-xs-offset-9 col-sm-offset-9 col-md-offset-9 col-lg-offset-9 col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <p>
-            <span id="header_refresh" class="glyphicon glyphicon-refresh"></span>
-        </p>
+        <div class="col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <a href="#" id="header_refresh">
+                <p>
+                    <span id="header_refresh_span" class="fa fa-refresh fa-fw"></span>
+                </p>
+            </a>
         </div>
     </div>
+    <br/>
     <div>
-        <nav class="navbar navbar-default" >
+        <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -68,9 +72,9 @@
                 <div class="collapse navbar-collapse" id="etick-navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active" id="header_nav_match"><a href="#">赛事</a></li>
-                        <li id="header_nav_record"><a href="#" >记录</a></li>
-                        <li id="header_nav_score"><a href="#" >积分</a></li>
-                        <li id="header_nav_mine"><a href="#" >我的</a></li>
+                        <li id="header_nav_record"><a href="#">记录</a></li>
+                        <li id="header_nav_score"><a href="#">积分</a></li>
+                        <li id="header_nav_mine"><a href="#">我的</a></li>
                     </ul>
                 </div>
             </div>

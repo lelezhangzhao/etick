@@ -98,6 +98,19 @@ body {
         color:rgb(74,74,74);
     }
 
+    .login_div{
+        width:300px;
+    }
+
+    .div-center{
+        margin:0 auto;
+    }
+
+    .div-footer{
+        height:100px;
+        margin:0 auto;
+        border:1px solid #E6E6E6;
+    }
 
 
 

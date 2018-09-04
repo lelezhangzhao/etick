@@ -283,6 +283,11 @@ $(function () {
             }
         });
     }
+
+    $("#header_refresh").click(function(){
+
+        $("#header_refresh_span").addClass("fa-spin");
+    });
 });
 
 
