@@ -12,6 +12,7 @@ use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
 use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
 use app\etick\model\LolMatch as LolMatchModel;
 use app\etick\model\LolCompetitionGuessing as LolCompetitionGuessingModel;
+use app\etick\model\AntiwaveLolCompetitionGuessing as AntiwaveLolCmpetititonGuessingModel;
 
 
 use app\etick\api\Util as UtilApi;
@@ -69,8 +70,9 @@ class Database{
     }
 
     static private function GetMatchTypeInfo($etickmatchtype){
-        if($etickmatchtype === 0) return '足球反波胆';
-        else if($etickmatchtype === 1) return '英雄联盟';
+        $typeinfo = ["", "足球反波胆", "英雄联盟正积分", "英雄联盟反积分", "英雄联单场"];
+
+        return $typeinfo[$etickmatchtype];
     }
 
     static private function GetGuessingTypeInfo($guessingtype){
@@ -226,7 +228,7 @@ class Database{
         return $typeinfo[$type];
     }
 
-    static public function AddLolMatch($matchtypeid, $matchteamhostid, $matchteamguestid, $caption, $matchtime, $displaytime, $disappeartime){
+    static public function AddLolMatch($matchtypeid, $matchteamhostid, $matchteamguestid, $caption, $matchtime, $displaytime, $disappeartime, $matchformat){
         $lolmatch = new LolMatchModel();
         $lolmatch->caption = $caption;
         $lolmatch->matchtypeid = $matchtypeid;
@@ -237,29 +239,35 @@ class Database{
         $lolmatch->matchtime = $matchtime;
         $lolmatch->displaytime = $displaytime;
         $lolmatch->disappeartime = $disappeartime;
+        $lolmatch->matchformat = $matchformat;
+        $lolmatch->matchformatinfo = GetFormatInofByMatch($matchformat);
 
         $lolmatch->allowField(true)->save();
     }
-
-    static public function AddLolmatchCompetitionGuessing($matchid, $caption, $type, $score, $theodds, $totaleti, $frozeneti){
-        $lolcompetitionguessing = new LolCompetitionGuessingModel();
-        $lolcompetitionguessing->caption = $caption;
-        $lolcompetitionguessing->guessingtype = 0;
-        $lolcompetitionguessing->guessingtypeinfo = '正常赛事';
-        $lolcompetitionguessing->matchid = $matchid;
-        $lolcompetitionguessing->type = $type;
-        $lolcompetitionguessing->typeinfo = self::GetLolMatchTypeinfo($type);
-        $lolcompetitionguessing->theodds = $theodds;
-        $lolcompetitionguessing->status = 0;
-        $lolcompetitionguessing->statusinfo = "未开奖";
-        $lolcompetitionguessing->totaleti = $totaleti;
-        $lolcompetitionguessing->frozeneti = $frozeneti;
-        $lolcompetitionguessing->remaineti = $totaleti - $frozeneti;
-        $lolcompetitionguessing->score = $score;
-
-        $lolcompetitionguessing->allowField(true)->save();
+    
+    static private function GetFormatInofByMatch($matchformat){
+        $matchformatinfo = ["一局", "三局", "五局"];
+        return $matchformatinfo[$matchformat];
     }
 
+    static public function AddAntiwaveLolmatchCompetitionGuessing($matchid, $caption, $score, $theodds, $totaleti, $frozeneti){
+        $antiwavelolcompetitionguessing = new AntiwaveLolCompetitionGuessingModel();
+        $antiwavelolcompetitionguessing->caption = $caption;
+        $antiwavelolcompetitionguessing->guessingtype = 1;
+        $antiwavelolcompetitionguessing->guessingtypeinfo = '反比分';
+        $antiwavelolcompetitionguessing->matchid = $matchid;
+        $antiwavelolcompetitionguessing->theodds = $theodds;
+        $antiwavelolcompetitionguessing->status = 0;
+        $antiwavelolcompetitionguessing->statusinfo = "未开奖";
+        $antiwavelolcompetitionguessing->totaleti = $totaleti;
+        $antiwavelolcompetitionguessing->frozeneti = $frozeneti;
+        $antiwavelolcompetitionguessing->remaineti = $totaleti - $frozeneti;
+        $antiwavelolcompetitionguessing->score = $score;
+
+        $antiwavelolcompetitionguessing->allowField(true)->save();
+    }
+
+    //暂时没用
     static private function GetLolMatchTypeinfo($type){
         $typeinfo = ["输赢竞猜", "一血", "一塔", "一小龙", "峡谷先锋", "一大龙", "总人头数", "比赛时长", "反比分"];
         return $typeinfo[$type];

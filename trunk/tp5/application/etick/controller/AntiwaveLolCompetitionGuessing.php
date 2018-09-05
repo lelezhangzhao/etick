@@ -2,29 +2,19 @@
 
 namespace app\etick\controller;
 
-use app\etick\api\Database;
-use app\etick\api\UserStatus;
+use app\etick\api\Status as StatusApi;
+use app\etick\api\Times as TimesApi;
+use app\etick\api\UserStatus as UserStatusApi;
+use app\etick\api\Database as DatabaseApi;
 
 use think\Controller;
 use think\Session;
 use think\Request;
-use think\Validate;
-use think\Db;
+
+use app\etick\model\AntiwaveLolCompetitionGuessing as AntiwaveLolCompetitionGuessingModel;
 
 
-
-use app\etick\model\User as UserModel;
-use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
-use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
-use app\etick\model\BettingRecord as BettingRecordModel;
-
-use app\etick\api\Status as StatusApi;
-use app\etick\api\Database as DatabaseApi;
-use app\etick\api\Times as TimesApi;
-use app\etick\api\UserStatus as UserStatusApi;
-use app\etick\api\Util as UtilApi;
-
-class AntiwaveFootballCompetitionGuessing extends Controller{
+class AntiwaveLolCompetitionGuessing extends Controller{
     public function BettingCompetitionGuessing(Request $request){
         //用户状态
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
@@ -46,12 +36,12 @@ class AntiwaveFootballCompetitionGuessing extends Controller{
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_USERISNOTEXIST');
         }
 
-        $match = AntiwaveFootballMatchModel::get($matchid);
+        $match = AntiwaveLolMatchModel::get($matchid);
         if(empty($match)){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_NOMATCHMATCH');
         }
 
-        $guessing = AntiwaveFootballCompetitionGuessingModel::get($guessingid);
+        $guessing = AntiwaveLolCompetitionGuessingModel::get($guessingid);
         if(empty($guessing)){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_COMPETITIONGUESSINGISNOTEXIST');
         }
@@ -74,13 +64,13 @@ class AntiwaveFootballCompetitionGuessing extends Controller{
         //改变竞猜剩余额度
         Db::startTrans(); //启动事务
         try {
-            $transGuessing = Db::name('AntiwaveFootballCompetitionGuessing')->lock(true)->where('id', $guessingid)->find();
+            $transGuessing = Db::name('AntiwaveLolCompetitionGuessing')->lock(true)->where('id', $guessingid)->find();
             if(empty($transGuessing)){
                 throw(new \PDOException('ERROR_STATUS_COMPETITIONGUESSINGISNOTEXIST'));
             }
             if($transGuessing['remaineti'] > $eti){
                 $transGuessing['remaineti'] -= $eti;
-                Db::name('AntiwaveFootballCompetitionGuessing')->update($transGuessing);
+                Db::name('AntiwaveLolCompetitionGuessing')->update($transGuessing);
             }else{
                 throw(new \PDOException('ERROR_STATUS_GUESSINGREMAINETINOTENOUGH'));
             }
@@ -102,10 +92,8 @@ class AntiwaveFootballCompetitionGuessing extends Controller{
         DatabaseApi::AddEtiRecord($userid, 1, -$eti, $systemTime);
 
         //插入bettingrecord
-        DatabaseApi::AddBettingRecord($userid, 1, 0, $matchid, $guessingid, $eti, 0);
+        DatabaseApi::AddBettingRecord($userid, 3, 0, $matchid, $guessingid, $eti, 0);
         return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '下注成功');
 
     }
 }
-
-

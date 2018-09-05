@@ -11,6 +11,8 @@ use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
 use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
 use app\etick\model\AntiwaveFootballLeadCompetitionGuessing as AntiwaveFootballLeadCompetitionGuessingModel;
 use app\etick\model\AntiwaveFootballWelfareCompetitionGuessing as AntiwaveFootballWelfareCompetitionGuessingModel;
+use app\etick\model\AntiwaveLolMatch as AntiwaveLolMatchModel;
+use app\etick\model\AntiwaveLolCompetitionGuessing as AntiwaveLolCompetitionGuessingModel;
 use app\etick\model\LolMatch as LolMatchModel;
 use app\etick\model\LolCompetitionGuessing as LolCompetitionGuessingModel;
 use app\etick\model\LolLeadCometitionGuessing as LolLeadCompetitionGuessingModel;
@@ -174,18 +176,23 @@ match_team_guest.caption as guestcaption,
         if(true !== $userstatus){
             return $userstatus;
         }
+        $systemTime = TimesApi::GetSystemTime();
+
 
         //获取可显示比赛
-        $LolMatchList = LolMatchModel::where('status', 0)
-            ->whereTime('displaytime', '<=', date('Y-m-d H:i:s'))
-            ->whereTime('disappeartime', '>=', date('Y-m-d H:i:s'))
-            ->select();
+        $sql = "select a.*,
+            b.caption as hostcaption,
+            c.caption as guestcaption
+   from (select * from etick_lol_match where status = '0' and disappeartime > '$systemTime') as a 
+                join etick_match_team as b on b.id = a.matchteamhostid
+                join etick_match_team as c on c.id = a.matchteamguestid";
+        $lolMatchList = Db::query($sql);
 
-        if(count($LolMatchList) === 0){
+        if(count($lolMatchList) === 0){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_NOMATCHMATCH');
         }
 
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($LolMatchList));
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($lolMatchList));
 
     }
 
@@ -194,6 +201,7 @@ match_team_guest.caption as guestcaption,
         if(true !== $userstatus){
             return $userstatus;
         }
+        $systemTime = TimesApi::GetSystemTime();
 
         //matchid对应match是否存在
         $matchid = $request->param('matchid');
@@ -203,8 +211,7 @@ match_team_guest.caption as guestcaption,
 
         //当前match是否可竞猜
         $match = LolMatchModel::get($matchid);
-        $systemTimestamp = TimesApi::GetSystemTime();
-        if($match->displaytime > $systemTimestamp || $match->disappeartime < $systemTimestamp){
+        if($match->displaytime > $systemTime || $match->disappeartime < $systemTime){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
 
@@ -276,5 +283,62 @@ match_team_guest.caption as guestcaption,
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
         }
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($Lolwelfarecompetitionguessing));
+    }
+
+    public function GetAntiwaveLolMatchList(){
+        $userstatus = UserStatusApi::TestUserLoginAndStatus();
+        if(true !== $userstatus){
+            return $userstatus;
+        }
+
+        $systemTime = TimesApi::GetSystemTime();
+
+
+        //获取可显示比赛
+        $sql = "select a.*,
+            b.caption as hostcaption,
+            c.caption as guestcaption
+   from (select * from etick_antiwave_lol_match where status = '0' and disappeartime > '$systemTime') as a 
+                join etick_match_team as b on b.id = a.matchteamhostid
+                join etick_match_team as c on c.id = a.matchteamguestid";
+        $antiwavelolMatchList = Db::query($sql);
+
+        if(count($antiwavelolMatchList) === 0){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_NOMATCHMATCH');
+        }
+
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($antiwavelolMatchList));
+
+    }
+
+    public function GetAntiwaveLolCompetitionGuessing(Request $request){
+        $userstatus = UserStatusApi::TestUserLoginAndStatus();
+        if(true !== $userstatus){
+            return $userstatus;
+        }
+
+        $systemTime = TimesApi::GetSystemTime();
+
+        //matchid对应match是否存在
+        $matchid = $request->param('matchid');
+        if(empty($matchid)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_PARAMERROR');
+        }
+
+        //当前match是否可竞猜
+        $match = AntiwaveLolMatchModel::get($matchid);
+        if($match->displaytime > $systemTime || $match->disappeartime < $systemTime){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
+        }
+
+
+
+        //获取对应matchid的竞猜
+        $antiwaveLolcompetitionguessing = AntiwaveLolCompetitionGuessingModel::where('matchid', $matchid)->select();
+        if(count($antiwaveLolcompetitionguessing) === 0){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_MATCHCANTCOMPETITION');
+        }
+
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($antiwaveLolcompetitionguessing));
     }
 }

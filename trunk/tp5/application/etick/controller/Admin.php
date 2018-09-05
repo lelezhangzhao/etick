@@ -225,7 +225,8 @@ class Admin extends Controller
         $matchtime = $request->param('matchtime');
         $displaytime = $request->param('displaytime');
         $disappeartime = $request->param('disappeartime');
-        $antiscore = $request->param('antiscore');
+        $json_antiscore = $request->param('antiscore');
+        $matchformat = $request->param('matchformat');
 
         $hostmatchteam = MatchTeamModel::get($hostteamid);
         $guestmatchteam = MatchTeamModel::get($guestteamid);
@@ -233,14 +234,15 @@ class Admin extends Controller
         $hostmatchteamcaption = $hostmatchteam->caption;
         $guestmatchteamcaption = $guestmatchteam->caption;
         //新增比赛
-        DatabaseApi::AddLolMatch($matchtypeid, $hostteamid, $guestteamid, $matchcaption, $matchtime, $displaytime, $disappeartime);
+        DatabaseApi::AddLolMatch($matchtypeid, $hostteamid, $guestteamid, $matchcaption, $matchtime, $displaytime, $disappeartime, $matchformat);
 
-        $sql = 'select * from etick_antiwave_football_match order by id desc limit 1';
+        //找id
+        $sql = 'select * from etick_antiwave_lol_match order by id desc limit 1';
         $match = Db::query($sql);
         $matchid = $match[0]['id'];
 
-        $antiscore = preg_replace('/_/', ':', $antiscore);
-        $arr_antiscore = json_decode($antiscore);
+        $json_antiscore = preg_replace('/_/', ':', $json_antiscore);
+        $arr_antiscore = json_decode($json_antiscore);
 
         if (is_array($arr_antiscore)) {
             foreach ($arr_antiscore as $antiscore) {
@@ -252,7 +254,35 @@ class Admin extends Controller
                 $caption = $hostmatchteamcaption . ' VS ' . $guestmatchteamcaption . $score;
 
                 //新增反积分竞猜
-                DatabaseApi::AddLolmatchCompetitionGuessing($matchid, $caption, 8, $score, $theodds, $totaleti, $frozeneti);
+                DatabaseApi::AddAntiwaveLolmatchCompetitionGuessing($matchid, $caption, $score, $theodds, $totaleti, $frozeneti);
+            }
+        }
+    }
+
+    public function AddAntiwaveLolCompetitionGuessing(Request $request){
+        $userstatus = UserStatusApi::TestUserAdminAndStatus();
+        if (true !== $userstatus) {
+            return $userstatus;
+        }
+        $systemTime = TimesApi::GetSystemTime();
+
+        $matchid = $request->param('matchid');
+        $json_antiscore = $request->param('antiscore');
+
+        $json_antiscore = preg_replace('/_/', ':', $json_antiscore);
+        $arr_antiscore = json_decode($json_antiscore);
+
+        if (is_array($arr_antiscore)) {
+            foreach ($arr_antiscore as $antiscore) {
+                $score = $antiscore->score;
+                $theodds = $antiscore->theodds;
+                $totaleti = $antiscore->totaleti;
+                $frozeneti = $antiscore->frozeneti;
+
+                $caption = $score;
+
+                //新增反积分竞猜
+                DatabaseApi::AddAntiwaveLolmatchCompetitionGuessing($matchid, $caption, $score, $theodds, $totaleti, $frozeneti);
             }
         }
     }

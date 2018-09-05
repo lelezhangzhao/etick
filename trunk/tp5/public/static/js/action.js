@@ -132,21 +132,34 @@ $(function () {
     $.AddMatchInfo = function () {
         var html =
             '<div>' +
-            '<div class="layui-tab layui-tab-card" lay-filter="etickmatch">' +
+            '<div class="layui-tab layui-tab-card" lay-filter="matchtab">' +
             '<ul class="layui-tab-title">' +
             '<li class="layui-this">反波胆</li>' +
-            '<li>正波胆</li>' +
             '<li>英雄联盟</li>' +
             '</ul>' +
             '<div class="layui-tab-content">' +
             '<div class="layui-tab-item layui-show">' +
             '<div class="panel-group" id="antiwavefootballmatchcontainer"></div>' +
             '</div>' +
-            '<div class="layui-tab-item">正在开发中。。。</div>' +
-            '<div class="layui-tab-item">正在开发中。。。</div>' +
+            '<div class="layui-tab-item">' +
+            '<div class="panel-group" id="antiwavelolmatchcontainer"></div>' +
             '</div>' +
             '</div>' +
-            '</div>';
+            '</div>' +
+            '</div>' +
+            '<script>' +
+            'layui.use("element", function(){' +
+            'var $ = layui.jquery' +
+            ',element = layui.element;' +
+            'element.on("tab(matchtab)", function(elem){' +
+            'if(elem.index === 0){' + //反波胆
+            '$.GetAntiwaveFootballMatch();' +
+            '}else if(elem.index === 1){' + //英雄联盟
+            '$.GetLolMatch();' +
+            '}' +
+            '});' +
+            '});' +
+            '</script>';
 
         return html;
     }
@@ -267,15 +280,15 @@ $(function () {
         return html;
     }
 
-    $.GetUserInfo = function(){
+    $.GetUserInfo = function () {
         $.ajax({
 
-            type:"get",
-            url:"/tp5/public/index.php/etick/user/getuserinfo",
-            dataType:"json",
-            success:function(data){
+            type: "get",
+            url: "/tp5/public/index.php/etick/user/getuserinfo",
+            dataType: "json",
+            success: function (data) {
                 data = JSON.parse(data);
-                if(data.jsoncontent.length !== 0){
+                if (data.jsoncontent.length !== 0) {
                     userinfo = JSON.parse(data.jsoncontent);
                     $("#header_username").html(userinfo.username);
                     $("#header_eti").html(userinfo.eti);
@@ -284,7 +297,7 @@ $(function () {
         });
     }
 
-    $("#header_refresh").click(function(){
+    $("#header_refresh").click(function () {
 
         $("#header_refresh_span").addClass("fa-spin");
     });
