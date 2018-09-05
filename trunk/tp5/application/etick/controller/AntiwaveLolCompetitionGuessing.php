@@ -15,7 +15,7 @@ use app\etick\model\AntiwaveLolCompetitionGuessing as AntiwaveLolCompetitionGues
 
 
 class AntiwaveLolCompetitionGuessing extends Controller{
-    public function BettingCompetitionGuessing(Request $request){
+    public function BettingAntiwaveLolCompetitionGuessing(Request $request){
         //用户状态
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){

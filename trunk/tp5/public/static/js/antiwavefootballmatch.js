@@ -226,7 +226,7 @@ $(function () {
             "<div id='antiwavefootballmatchcompetitionguessingcollapse" + match.id + "' class='panel-collapse collapse'>" +
             "</div>" +
             "</div>" +
-            "<script tepe='text/javascript'>" +
+            "<script type='text/javascript'>" +
             "$(function () {" +
             "var antiwavefootballmatchcompetitionguessingcollapse = $('#antiwavefootballmatchcompetitionguessingcollapse" + match.id + "');" +
             "antiwavefootballmatchcompetitionguessingcollapse.on('show.bs.collapse', function () {" +

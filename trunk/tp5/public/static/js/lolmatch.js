@@ -104,7 +104,7 @@ $(function(){
             "<div id='antiwavelolmatchcompetitionguessingcollapse" + matchid + "' class='panel-collapse collapse'>" +
             "</div>" +
             "</div>" +
-            "<script tepe='text/javascript'>" +
+            "<script type='text/javascript'>" +
             "$(function () {" +
             "var antiwavelolmatchcompetitionguessingcollapse = $('#antiwavelolmatchcompetitionguessingcollapse" + matchid + "');" +
             "antiwavelolmatchcompetitionguessingcollapse.on('show.bs.collapse', function () {" +
@@ -165,7 +165,7 @@ $(function(){
 
                         for (var i = 0; i < matchobject.length; ++i) {
                             var match = matchobject[i];
-                            html += $.AddantiwavelolMatchCompetitionGuessing(match);
+                            html += $.AddAntiwaveLolCompetitionGuessing(match);
                         }
                         $("#antiwavelolcompetitionguessing" + matchid).html(html);
 
@@ -183,7 +183,7 @@ $(function(){
         });
     }
 
-    $.AddantiwavelolMatchCompetitionGuessing = function(competitionGuessing){
+    $.AddAntiwaveLolCompetitionGuessing = function(competitionGuessing){
         var html =
             "<tr>" +
             "<td>" + competitionGuessing.caption + "</td>" +
