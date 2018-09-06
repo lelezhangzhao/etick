@@ -209,11 +209,13 @@ $(function () {
             '<button type="button" class="btn-sm btn-default" id="scorebuyeti">买积分</button>' +
             '<button type="button" class="btn-sm btn-default" id="scoresaleeti">卖积分</button>' +
             '</div>' +
-
-            '<div class="layui-tab-content">' +
-            '<div class="layui-tab-item layui-show" id="scorecontainerfinished"></div>' +
-            '<div class="layui-tab-item" id="scorecontainerrunning"></div>' +
+            '<div id="score_content">' +
             '</div>' +
+
+            // '<div class="layui-tab-content">' +
+            // '<div class="layui-tab-item" id="scorecontainerfinished"></div>' +
+            // '<div class="layui-tab-item" id="scorecontainerrunning"></div>' +
+            // '</div>' +
             '</div>' +
 
             '</div>' +

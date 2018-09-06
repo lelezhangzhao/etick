@@ -53,11 +53,11 @@
         </div>
         <br/>
         <div class="input-group margin-bottom-sm">
-            <span class="input-group-addon"><i class="fa fa-file-picture-o fa-fw"></i></span>
+            <span class="input-group-addon"><i class="fa fa-shield fa-fw"></i></span>
             <input type="text" class="form-control" id="register_captcha" placeholder="图片验证码" />
         </div>
         <br/>
-        <div class="input-group margin-bottom-sm div-center">
+        <div class="input-group margin-bottom-sm div-center div-captcha">
             <img id="register_captcha_img" src="{:captcha_src()}" onclick="this.src='/tp5/public/index.php/captcha?id='+Math.random()" style="cursor: pointer;position:relative;left:0%;" /><br />
         </div>
         <br/>

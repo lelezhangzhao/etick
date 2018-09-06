@@ -120,7 +120,42 @@ body {
         border-radius:5px;
     }
 
+    .div-border{
+        margin:5px;
+        border:1px solid #E6E6E6;
+        border-radius:5px;
+    }
 
+    .div-single-line{
+        padding:5px;
+        margin:1px;
+    }
+
+    .input-text-100{
+        width:100px;
+    }
+
+    .input-text-50{
+        width:50px;
+    }
+
+    .input-text-100-bottom{
+        width:100px;
+        border-bottom: black 1px solid;
+        border-top-style: none;
+        border-right-style: none;
+        border-left-style: none;
+        background-color: transparent;
+    }
+
+    .input-text-50-bottom{
+        width:50px;
+        border-bottom: black 1px solid;
+        border-top-style: none;
+        border-right-style: none;
+        border-left-style: none;
+        background-color: transparent;
+    }
 
 
 
