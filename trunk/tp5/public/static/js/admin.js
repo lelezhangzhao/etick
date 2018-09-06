@@ -2,7 +2,7 @@
 $(function () {
     $("#admin_publish_match").click(function () {
         var html =
-            "<div class='container'>" +
+            "<div>" +
             "<form >" +
             "<div class='form-group'>" +
             "<label >赛事类型</label>" +
@@ -131,9 +131,10 @@ $(function () {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
+                        $("#admin_publish_match_type").empty();
+
                         if (data.jsoncontent.length !== 0) {
                             var matchType = JSON.parse(data.jsoncontent);
-                            $("#admin_publish_match_type").empty();
                             for (var i = 0; i < matchType.length; ++i) {
                                 $("#admin_publish_match_type").append("<option value=" + matchType[i].id + ">" + matchType[i].caption + "</option>");
                             }
@@ -167,9 +168,10 @@ $(function () {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
+                        $("#admin_publish_host_team").empty();
+                        $("#admin_publish_guest_team").empty();
+
                         if (data.jsoncontent.length !== 0) {
-                            $("#admin_publish_host_team").empty();
-                            $("#admin_publish_guest_team").empty();
                             var matchTeam = JSON.parse(data.jsoncontent);
                             for (var i = 0; i < matchTeam.length; ++i) {
                                 $("#admin_publish_host_team").append("<option value=" + matchTeam[i].id + ">" + matchTeam[i].caption + "</option>");
@@ -201,7 +203,7 @@ $(function () {
         var scoreHalf = ["2_2", "2_1", "2_0", "1_2", "1_1", "1_0", "0_2", "0_1", "0_0"];
         var scoreAngle = ["12", "13", "14", "15", "16", "17"];
         var html =
-            "<div class='container'>" +
+            "<div>" +
             "<div>" +
             "<h4>全场</h4>" +
             "</div>";
@@ -249,12 +251,12 @@ $(function () {
 
     $.AdminPublishAddLolCompetitionGuessing = function () {
         var html =
-            "<div class='container'>" +
+            "<div>" +
             "<div>" +
             "<h4>局数</h4>" +
             "</div>" +
             "<div>" +
-            "<select id='admin_publish_lol_match_times' >" +
+            "<select id='admin_publish_lol_match_format' >" +
             "<option value='0'>选择局数</option>" +
             "<option value='5'>5局</option>" +
             "<option value='3'>3局</option>" +
@@ -265,8 +267,8 @@ $(function () {
             "</div>" +
             "<script>" +
             "$(function(){" +
-            "$('#admin_publish_lol_match_times').change(function(){" +
-            "$.AdminPublishLolMatchTimesChange();" +
+            "$('#admin_publish_lol_match_format').change(function(){" +
+            "$.AdminPublishLolMatchFormatChange();" +
             "});" +
             "});" +
             "</script>";
@@ -274,8 +276,8 @@ $(function () {
         $("#admin_publish_competition_guessing").html(html);
     }
 
-    $.AdminPublishLolMatchTimesChange = function () {
-        var matchTimes = $("#admin_publish_lol_match_times").val();
+    $.AdminPublishLolMatchFormatChange = function () {
+        var MatchFormat = $("#admin_publish_lol_match_format").val();
 
         var match_3 = ["2_1", "2_0", "0_2", "1_2"];
         var match_5 = ["3_2", "3_1", "3_0", "0_3", "1_3", "2_3"];
@@ -283,7 +285,7 @@ $(function () {
         var html =
             "<div class='contaienr'>";
 
-        if (matchTimes === "3") {
+        if (MatchFormat === "3") {
             for (var i = 0; i < match_3.length; ++i) {
                 html +=
                     "<div>" +
@@ -298,7 +300,7 @@ $(function () {
                     "</div>";
             }
         }
-        if (matchTimes === "5") {
+        if (MatchFormat === "5") {
             for (var i = 0; i < match_5.length; ++i) {
                 html +=
                     "<div>" +
@@ -320,6 +322,18 @@ $(function () {
 
     $.AdminPublishConfirm = function () {
 
+        //etickmatchtype
+        var etickmatchtypeid = $("#admin_publish_etick_match_type").val();
+        if (etickmatchtypeid === "1") {
+            //足球
+            $.AdminAddFootballCompetitionGuessingToServer();
+        } else if (etickmatchtypeid === "2") {
+            //英雄联盟
+            $.AdminAddLolCompetitionGuessingToServer();
+        }
+    }
+
+    $.AdminAddFootballCompetitionGuessingToServer = function(){
         //etickmatchtype
         var etickmatchtypeid = $("#admin_publish_etick_match_type").val();
         var matchtypeid = $("#admin_publish_match_type").val();
@@ -346,13 +360,6 @@ $(function () {
                 one_score_hole["totaleti"] = $("#admin_publish_antiwave_football_hole_totaleti_" + scoreHole[i]).val();
                 one_score_hole["frozeneti"] = $("#admin_publish_antiwave_football_hole_frozeneti_" + scoreHole[i]).val();
                 score_hole.push(one_score_hole);
-
-                // json_score_hole += "\"{\\\"score\\\":\\\"" + scoreHole[i] + "\\\"";
-                // json_score_hole += ",";
-                // json_score_hole += "\\\"theodds\\\":\\\"" + $("#admin_publish_antiwave_football_hole_" + scoreHole[i]).val() + "\\\"}\"";
-                // if(i !== scoreHole.length - 1){
-                //     json_score_hole += ",";
-                // }
             }
             // json_score_hole += "]";
             var json_score_hole = JSON.stringify(score_hole);
@@ -380,7 +387,7 @@ $(function () {
 
             $.ajax({
                 type: "post",
-                url: "/tp5/public/index.php/etick/admin/addantiwavefootballmatch",
+                url: "/tp5/public/index.php/etick/admin/addfootballmatch",
                 async: true,
                 dataType: "json",
                 data: {
@@ -410,76 +417,92 @@ $(function () {
                     $.ShowMsg(msg);
                 }
             });
-
-        } else if (etickmatchtypeid === "2") {
-            //英雄联盟
-            var lolmatchtimes = $("#admin_publish_lol_match_times").val();
-            var match_3 = ["2_1", "2_0", "0_2", "1_2"];
-            var match_5 = ["3_2", "3_1", "3_0", "0_3", "1_3", "2_3"];
-
-            var score = [];
-
-            if (lolmatchtimes === "3") {
-                //英雄联盟3局
-                for (var i = 0; i < match_3.length; ++i) {
-                    var one_score = {};
-
-                    one_score["score"] = match_3[i];
-                    one_score["theodds"] = $("#admin_publish_lol_match_3_score_theodds_" + match_3[i]).val();
-                    one_score["totaleti"] = $("#admin_publish_lol_match_3_score_totaleti_" + match_3[i]).val();
-                    one_score["frozeneti"] = $("#admin_publish_lol_match_3_score_frozeneti_" + match_3[i]).val();
-                    score.push(one_score);
-                }
-            } else if (lolmatchtimes === "5") {
-                //英雄联盟5局
-                for (var i = 0; i < match_5.length; ++i) {
-                    var one_score = {};
-
-                    one_score["score"] = match_5[i];
-                    one_score["theodds"] = $("#admin_publish_lol_match_5_score_theodds_" + match_5[i]).val();
-                    one_score["totaleti"] = $("#admin_publish_lol_match_5_score_totaleti_" + match_5[i]).val();
-                    one_score["frozeneti"] = $("#admin_publish_lol_match_5_score_frozeneti_" + match_5[i]).val();
-                    score.push(one_score);
-
-                }
-            }
-
-            var json_score = JSON.stringify(score);
-
-            $.ajax({
-                type: "post",
-                url: "/tp5/public/index.php/etick/admin/addlolmatch",
-                async: true,
-                dataType: "json",
-                data: {
-                    matchtypeid: matchtypeid,
-                    hostteamid: hostteamid,
-                    guestteamid: guestteamid,
-                    matchcaption: matchcaption,
-                    matchtime: matchtime,
-                    displaytime: displaytime,
-                    disappeartime: disappeartime,
-                    score: json_score,
-                },
-                success: function (data) {
-                    data = JSON.parse(data);
-                    switch (data.code) {
-                        case 'ERROR_STATUS_SUCCESS':
-                            $.ShowMsg(data.msg);
-                            break;
-                        default:
-                            $.ShowMsg(data.msg);
-                            break;
-                    }
-                },
-                error: function (hd, msg) {
-                    $.ShowMsg(msg);
-                }
-            });
         }
     }
 
-    $
+    //向服务器添加lol比赛,正反积分同时发布
+    $.AdminAddLolCompetitionGuessingToServer = function(){
+        var etickmatchtypeid = $("#admin_publish_etick_match_type").val();
+        var matchtypeid = $("#admin_publish_match_type").val();
+        var hostteamid = $("#admin_publish_host_team").val();
+        var guestteamid = $("#admin_publish_guest_team").val();
+        var matchcaption = $("#admin_publish_match_caption").val();
+        var matchtime = $("#admin_publish_match_date_time").val();
+        var displaytime = $("#admin_publish_display_date_time").val();
+        var disappeartime = $("#admin_publish_disappear_date_time").val();
+
+        var matchformat = 0;
+
+
+        //英雄联盟
+        var lolMatchFormat = $("#admin_publish_lol_match_format").val();
+        var match_3 = ["2_1", "2_0", "0_2", "1_2"];
+        var match_5 = ["3_2", "3_1", "3_0", "0_3", "1_3", "2_3"];
+
+        var score = [];
+
+
+        if (lolMatchFormat === "3") {
+            matchformat = 1;
+            //英雄联盟3局
+            for (var i = 0; i < match_3.length; ++i) {
+                var one_score = {};
+
+                one_score["score"] = match_3[i];
+                one_score["theodds"] = $("#admin_publish_lol_match_3_score_theodds_" + match_3[i]).val();
+                one_score["totaleti"] = $("#admin_publish_lol_match_3_score_totaleti_" + match_3[i]).val();
+                one_score["frozeneti"] = $("#admin_publish_lol_match_3_score_frozeneti_" + match_3[i]).val();
+                score.push(one_score);
+            }
+        } else if (lolMatchFormat === "5") {
+            matchformat = 2;
+            //英雄联盟5局
+            for (var i = 0; i < match_5.length; ++i) {
+                var one_score = {};
+
+                one_score["score"] = match_5[i];
+                one_score["theodds"] = $("#admin_publish_lol_match_5_score_theodds_" + match_5[i]).val();
+                one_score["totaleti"] = $("#admin_publish_lol_match_5_score_totaleti_" + match_5[i]).val();
+                one_score["frozeneti"] = $("#admin_publish_lol_match_5_score_frozeneti_" + match_5[i]).val();
+                score.push(one_score);
+
+            }
+        }
+
+        var json_score = JSON.stringify(score);
+
+        $.ajax({
+            type: "post",
+            url: "/tp5/public/index.php/etick/admin/addlolmatch",
+            async: true,
+            dataType: "json",
+            data: {
+                matchtypeid: matchtypeid,
+                hostteamid: hostteamid,
+                guestteamid: guestteamid,
+                matchcaption: matchcaption,
+                matchtime: matchtime,
+                displaytime: displaytime,
+                disappeartime: disappeartime,
+                antiscore: json_score,
+                matchformat:matchformat,
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                switch (data.code) {
+                    case 'ERROR_STATUS_SUCCESS':
+                        $.ShowMsg(data.msg);
+                        break;
+                    default:
+                        $.ShowMsg(data.msg);
+                        break;
+                }
+            },
+            error: function (hd, msg) {
+                $.ShowMsg(msg);
+            }
+        });
+    }
 
 });
 
@@ -488,7 +511,7 @@ $(function () {
     $("#admin_balance_match").click(function () {
 
         var html =
-            "<div class='container'>" +
+            "<div>" +
             "<form >" +
             "<div class='form-group'>" +
             "<label >赛事类型</label>" +
@@ -534,10 +557,11 @@ $(function () {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
+                        $("#admin_balance_etick_match_type").empty();
+
                         if (data.jsoncontent.length !== 0) {
                             var etickMatchType = JSON.parse(data.jsoncontent);
 
-                            $("#admin_balance_etick_match_type").empty();
                             //添加一个无用项
                             $("#admin_balance_etick_match_type").append("<option value=-1>选择赛事类型</option>");
 
@@ -567,14 +591,14 @@ $(function () {
             return;
         }
 
-        if (etickmatchtype === "1") {
-            //足球返波胆
-            $.AdminPublishAddAntiwaveFootballCompetitionGuessing();
-        } else if (etickmatchtype === "2") {
-            //英雄联盟返波胆
-            $.AdminPublishAddLolCompetitionGuessing();
-
-        }
+        // if (etickmatchtype === "1") {
+        //     //足球
+        //     $.AdminPublishAddAntiwaveFootballCompetitionGuessing();
+        // } else if (etickmatchtype === "2") {
+        //     //英雄联盟
+        //     $.AdminPublishAddLolCompetitionGuessing();
+        //
+        // }
         //获取赛事类别
         $.ajax({
             type: "post",
@@ -588,9 +612,10 @@ $(function () {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
+                        $("#admin_balance_match_type").empty();
+
                         if (data.jsoncontent.length !== 0) {
                             var matchType = JSON.parse(data.jsoncontent);
-                            $("#admin_balance_match_type").empty();
 
                             //添加一个无用项
                             $("#admin_balance_match_type").append("<option value=-1>选择赛事类别</option>");
@@ -631,8 +656,8 @@ $(function () {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
+                        $("#admin_balance_cur_match").empty();
                         if (data.jsoncontent.length !== 0) {
-                            $("#admin_balance_cur_match").empty();
 
                             //添加一个无用项
                             $("#admin_balance_cur_match").append("<option value=-1>选择赛事</option>");
@@ -689,21 +714,19 @@ $(function () {
                 matchid: matchid,
             },
             success: function (data) {
+                $("#admin_balance_type").empty();
+
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         var matchstatus = data.jsoncontent;
-                        if (matchstatus === 0) {
+                        if (matchstatus === 0) { //未开赛
                             sel_type = [0, 1, 3, 4];
-                            //未开赛
-                        } else if (matchstatus === 1) {
-                            sel_type = [0, 2, 3, 4];
-                            //已开赛
-                        } else if (matchstatus === 2) {
-                            //推迟
+                        } else if (matchstatus === 1) { //已开赛
+                            sel_type = [0, 2, 3];
+                        } else if (matchstatus === 2) {  //推迟
                             sel_type = [0, 1, 3];
                         }
-                        $("#admin_balance_type").empty();
                         for (var i = 0; i < sel_type.length; ++i) {
                             $("#admin_balance_type").append("<option value='" + sel_type[i] + "'>" + arr_type[sel_type[i]] + "</option>");
                         }
@@ -726,6 +749,9 @@ $(function () {
         var matchid = $("#admin_balance_cur_match").val();
         var matchcaption = $("#admin_balance_cur_match").text();
 
+        if(matchid === "-1"){
+            return;
+        }
         var arr_type = ["选择变更类型", "开始", "结算", "取消", "推迟"];
         var sel_type;
 
@@ -739,21 +765,19 @@ $(function () {
                 matchid: matchid,
             },
             success: function (data) {
+                $("#admin_balance_type").empty();
+
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         var matchstatus = data.jsoncontent;
-                        if (matchstatus === 0) {
+                        if (matchstatus === 0) { //未开赛
                             sel_type = [0, 1, 3, 4];
-                            //未开赛
-                        } else if (matchstatus === 1) {
-                            sel_type = [0, 2, 3, 4];
-                            //已开赛
-                        } else if (matchstatus === 2) {
-                            //推迟
+                        } else if (matchstatus === 1) { //已开赛
+                            sel_type = [0, 2, 3];
+                        } else if (matchstatus === 2) { //推迟
                             sel_type = [0, 1, 3];
                         }
-                        $("#admin_balance_type").empty();
                         for (var i = 0; i < sel_type.length; ++i) {
                             $("#admin_balance_type").append("<option value='" + sel_type[i] + "'>" + arr_type[sel_type[i]] + "</option>");
                         }
@@ -782,12 +806,12 @@ $(function () {
             return;
         }
 
-        var html = "<div class='container'>";
+        var html = "<div>";
         if (etickmatchtypeid === '1') {
-            //足球返波胆
+            //足球
             if (balancetype === '2') {
                 //结算
-                html += $.AdminBalanceAddAntiwaveFootballInfo();
+                html += $.AdminBalanceAddFootballInfo();
             }
         } else if (etickmatchtypeid === '2') {
             //英雄联盟
@@ -832,28 +856,28 @@ $(function () {
 
         if (etickmatchtype === '1') {
             if (balancetype === '1') {
-                $.AdminBalanceStartConfirmAntiwaveFootball();
+                $.AdminBalanceStartFootball();
             }else if(balancetype === '2'){
-                $.AdminBalanceConfirmAntiwaveFootball();
+                $.AdminBalanceConfirmFootball();
             }else if(balancetype === '3'){
-                $.AdminBalanceCancelConfirmAntiwaveFootball();
+                $.AdminBalanceCancelFootball();
             }else if(balancetype === '4'){
-                $.AdminBalanceDelayConfirmAntiwaveFootball();
+                $.AdminBalanceDelayFootball();
             }
         } else if (etickmatchtype === '2') {
             if(balancetype === '1'){
-                $.AdminBalanceStartConfirmLol();
+                $.AdminBalanceStartLol();
             }else if(balancetype === '2'){
                 $.AdminBalanceConfirmLol();
             }else if(balancetype === '3'){
-                $.AdminBalanceCancelConfirmLol();
+                $.AdminBalanceCancelLol();
             }else if(balancetype === '4'){
-                $.AdminBalanceDelayConfirmLol();
+                $.AdminBalanceDelayLol();
             }
         }
     }
 
-    $.AdminBalanceStartConfirmAntiwaveFootball = function(){
+    $.AdminBalanceStartFootball = function(){
         //matchid
         var matchid = $("#admin_balance_cur_match").val();
 
@@ -861,7 +885,7 @@ $(function () {
         $.ajax({
             type: "post",
             async: true,
-            url: "/tp5/public/index.php/etick/admin/balanceconfirmstartantiwavefootball",
+            url: "/tp5/public/index.php/etick/admin/balancestartfootball",
             dataType: "json",
             data: {
                 matchid: matchid,
@@ -871,6 +895,9 @@ $(function () {
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         $.ShowMsg(data.msg);
+                        //重置当前赛事类别
+                        $.AdminBalanceCurMatchChange();
+
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -884,7 +911,7 @@ $(function () {
 
     }
 
-    $.AdminBalanceCancelConfirmAntiwaveFootball = function () {
+    $.AdminBalanceCancelFootball = function () {
         //matchid
         var matchid = $("#admin_balance_cur_match").val();
 
@@ -892,7 +919,7 @@ $(function () {
         $.ajax({
             type: "post",
             async: true,
-            url: "/tp5/public/index.php/etick/admin/balanceconfirmcancelantiwavefootball",
+            url: "/tp5/public/index.php/etick/admin/balancecancelfootball",
             dataType: "json",
             data: {
                 matchid: matchid,
@@ -902,6 +929,10 @@ $(function () {
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         $.ShowMsg(data.msg);
+                        //重置当前赛事类别
+
+                        $.AdminBalanceMatchTypeChange();
+
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -914,7 +945,7 @@ $(function () {
         });
 
     }
-    $.AdminBalanceDelayConfirmAntiwaveFootball = function () {
+    $.AdminBalanceDelayFootball = function () {
         //matchid
         var matchid = $("#admin_balance_cur_match").val();
 
@@ -922,7 +953,7 @@ $(function () {
         $.ajax({
             type: "post",
             async: true,
-            url: "/tp5/public/index.php/etick/admin/balanceconfirmdelayantiwavefootball",
+            url: "/tp5/public/index.php/etick/admin/balancedelayfootball",
             dataType: "json",
             data: {
                 matchid: matchid,
@@ -932,6 +963,9 @@ $(function () {
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         $.ShowMsg(data.msg);
+                        //重置当前赛事类别
+                        $.AdminBalanceCurMatchChange();
+
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -943,7 +977,7 @@ $(function () {
             }
         });
     }
-    $.AdminBalanceAddAntiwaveFootballInfo = function(){
+    $.AdminBalanceAddFootballInfo = function(){
         var etickmatchtypeid = $("#admin_balance_etick_match_type").val();
         var matchid = $("#admin_balance_cur_match").val();
         var balancetype = $("#admin_balance_type").val();
@@ -956,7 +990,7 @@ $(function () {
         var html = "";
 
         html +=
-            "<div class='container'>" +
+            "<div>" +
             "<div>" +
             "半场:" +
             "<select id='admin_balance_half' >";
@@ -996,7 +1030,7 @@ $(function () {
 
         return html;
     }
-    $.AdminBalanceConfirmAntiwaveFootball = function () {
+    $.AdminBalanceConfirmFootball = function () {
         //matchid
         var matchid = $("#admin_balance_cur_match").val();
 
@@ -1008,7 +1042,7 @@ $(function () {
         $.ajax({
             type: "post",
             async: true,
-            url: "/tp5/public/index.php/etick/admin/balanceconfirmantiwavefootball",
+            url: "/tp5/public/index.php/etick/admin/balanceconfirmfootball",
             dataType: "json",
             data: {
                 matchid: matchid,
@@ -1021,6 +1055,10 @@ $(function () {
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         $.ShowMsg(data.msg);
+                        //重置当前赛事类别
+
+                        $.AdminBalanceMatchTypeChange();
+
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -1034,14 +1072,14 @@ $(function () {
 
     }
 
-    $.AdminBalanceStartConfirmLol = function(){
+    $.AdminBalanceStartLol = function(){
         var matchid = $("#admin_balance_cur_match").val();
 
 
         $.ajax({
             type: "post",
             async: true,
-            url: "/tp5/public/index.php/etick/admin/balanceconfirmstartlol",
+            url: "/tp5/public/index.php/etick/admin/balancestartlol",
             dataType: "json",
             data: {
                 matchid: matchid,
@@ -1051,6 +1089,8 @@ $(function () {
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         $.ShowMsg(data.msg);
+                        //重置当前赛事
+                        $.AdminBalanceCurMatchChange();
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -1064,14 +1104,14 @@ $(function () {
 
     }
 
-    $.AdminBalanceDelayConfirmLol = function () {
+    $.AdminBalanceDelayLol = function () {
         var matchid = $("#admin_balance_cur_match").val();
 
 
         $.ajax({
             type: "post",
             async: true,
-            url: "/tp5/public/index.php/etick/admin/balanceconfirmdelaylol",
+            url: "/tp5/public/index.php/etick/admin/balancedelaylol",
             dataType: "json",
             data: {
                 matchid: matchid,
@@ -1081,6 +1121,9 @@ $(function () {
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         $.ShowMsg(data.msg);
+                        //重置当前赛事
+                        $.AdminBalanceCurMatchChange();
+
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -1092,14 +1135,14 @@ $(function () {
             }
         });
     }
-    $.AdminBalanceCancelConfirmLol = function () {
+    $.AdminBalanceCancelLol = function () {
         var matchid = $("#admin_balance_cur_match").val();
 
 
         $.ajax({
             type: "post",
             async: true,
-            url: "/tp5/public/index.php/etick/admin/balanceconfirmcancellol",
+            url: "/tp5/public/index.php/etick/admin/balancecancellol",
             dataType: "json",
             data: {
                 matchid: matchid,
@@ -1109,6 +1152,9 @@ $(function () {
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         $.ShowMsg(data.msg);
+                        //重置当前赛事类别
+                        $.AdminBalanceMatchTypeChange();
+
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -1129,7 +1175,7 @@ $(function () {
         var html = "";
 
         html +=
-            "<div class='container'>" +
+            "<div>" +
             "<div>" +
             "比分:" +
             "<select id='admin_balance_score' >";
@@ -1158,7 +1204,7 @@ $(function () {
         $.ajax({
             type: "post",
             async: true,
-            url: "/tp5/public/index.php/etick/admin/balanceconfirmconfirmlol",
+            url: "/tp5/public/index.php/etick/admin/balanceconfirmlol",
             dataType: "json",
             data: {
                 matchid: matchid,
@@ -1169,6 +1215,10 @@ $(function () {
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
                         $.ShowMsg(data.msg);
+                        //重置当前赛事类别
+
+                        $.AdminBalanceMatchTypeChange();
+
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -1180,5 +1230,6 @@ $(function () {
             }
         });
     }
+
 
 });

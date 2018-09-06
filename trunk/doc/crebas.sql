@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/9/3 10:09:58                            */
+/* Created on:     2018/9/6 15:12:33                            */
 /*==============================================================*/
 
 
@@ -19,6 +19,8 @@ drop table if exists etick_antiwave_football_lead_info;
 drop table if exists etick_antiwave_football_match;
 
 drop table if exists etick_antiwave_football_welfare_competition_guessing;
+
+drop table if exists etick_antiwave_lol_competition_guessing;
 
 drop table if exists etick_arbitration;
 
@@ -49,6 +51,10 @@ drop table if exists etick_lol_lead_competition_guessing;
 drop table if exists etick_lol_lead_info;
 
 drop table if exists etick_lol_match;
+
+drop table if exists etick_lol_match_one;
+
+drop table if exists etick_lol_one_competition_guessing;
 
 drop table if exists etick_lol_welfare_competition_guessing;
 
@@ -163,7 +169,8 @@ create table etick_antiwave_football_competition_guessing
    type                 int comment '竞猜类型：
             0 全场
             1 半场
-            2 角球',
+            2 角球
+            3 总进球',
    typeinfo             varchar(30),
    score                varchar(10),
    theodds              float(12,4),
@@ -268,6 +275,10 @@ create table etick_antiwave_football_match
    displaytime          datetime comment '显示给用户时间',
    disappeartime        datetime comment '用户界面，消失时间',
    balancetime          datetime,
+   score                varchar(30),
+   firsthalfscore       varchar(30),
+   angle                varchar(30),
+   total                varchar(30),
    primary key (id)
 )
 type = InnoDB
@@ -309,6 +320,44 @@ auto_increment = 0;
 alter table etick_antiwave_football_welfare_competition_guessing comment '福利单';
 
 /*==============================================================*/
+/* Table: etick_antiwave_lol_competition_guessing               */
+/*==============================================================*/
+create table etick_antiwave_lol_competition_guessing
+(
+   id                   int not null auto_increment,
+   caption              varchar(30),
+   guessingtype         int comment '1 反比分竞猜',
+   guessingtypeinfo     varchar(30),
+   matchid              int,
+   score                varchar(30) comment ' 0:2
+             1:2
+             2:0
+             2:1
+            
+             0:3
+             1:3
+             2:3
+             3:0
+             3:1
+             3:2
+            ',
+   theodds              float(12,4),
+   status               int comment '竞猜状态
+            0 未中奖
+            1 已中奖
+            ',
+   statusinfo           varchar(30),
+   totaleti             float(12,2),
+   frozeneti            float(12,2),
+   remaineti            float(12,2),
+   primary key (id)
+)
+type = InnoDB
+auto_increment = 0;
+
+alter table etick_antiwave_lol_competition_guessing comment 'lol反比分竞猜';
+
+/*==============================================================*/
 /* Table: etick_arbitration                                     */
 /*==============================================================*/
 create table etick_arbitration
@@ -347,11 +396,16 @@ create table etick_betting_record
    id                   int not null auto_increment,
    userid               int,
    ordernumber          varchar(20) comment '订单号',
-   etickmatchtype       int comment '平台比赛 类型
+   bettingmatchtype     int comment '平台比赛 类型
             
-            0 反波胆
-            1 LOL',
-   etickmatchtypeinfo   varchar(30),
+            0 足球反波胆
+            1 足球正波胆
+            2 英雄联盟反波胆
+            3 英雄联盟正积分
+            4 英雄联盟单场
+            ',
+   bettingmatchtypeinfo varchar(30),
+   caption              varhcar(30),
    guessingtype         int comment '竞猜类型
             0 正常
             1 带单
@@ -579,6 +633,9 @@ type = InnoDB
 auto_increment = 0;
 
 alter table etick_etick_match_type comment '赛事类型
+
+1 足球
+2 英雄联盟
 ';
 
 /*==============================================================*/
@@ -710,7 +767,19 @@ create table etick_lol_competition_guessing
    totaleti             float(12,2),
    frozeneti            float(12,2),
    remaineti            float(12,2),
-   score                varchar(30),
+   score                int comment '0 0:2
+            1 1:2
+            2 2:0
+            3 2:1
+            
+            4 0:3
+            5 1:3
+            6 2:3
+            7 3:0
+            8 3:1
+            9 3:2
+            ',
+   scoreinfo            varchar(30),
    primary key (id)
 )
 type = InnoDB
@@ -790,12 +859,96 @@ create table etick_lol_match
    displaytime          datetime comment '在界面显示时间',
    disappeartime        datetime comment '从界面消失时间',
    balancetime          datetime,
+   score                varchar(30),
+   result               int,
+   resultinfo           varchar(30),
+   matchformat          int comment '0 一局
+            1 三局
+            2 五局',
+   matchformatinfo      varchar(30),
    primary key (id)
 )
 type = InnoDB
 auto_increment = 0;
 
 alter table etick_lol_match comment 'lol比赛';
+
+/*==============================================================*/
+/* Table: etick_lol_match_one                                   */
+/*==============================================================*/
+create table etick_lol_match_one
+(
+   id                   int not null auto_increment,
+   matchid              int,
+   caption              varchar(30),
+   matchtypeid          int,
+   matchteamhostid      int,
+   matchteamguestid     int,
+   status               int comment '比赛状态：
+            0 未开赛
+            1 已开赛
+            2 比赛推迟
+            3 比赛取消
+            4 结算成功
+            ',
+   statusinfo           varchar(30),
+   updatetime           timestamp,
+   matchtime            datetime,
+   displaytime          datetime comment '在界面显示时间',
+   disappeartime        datetime comment '从界面消失时间',
+   balancetime          datetime,
+   firstdragon          int comment '一龙是哪 个队的ID',
+   firstblood           int,
+   firsttower           int,
+   victory              int,
+   primary key (id)
+)
+type = InnoDB
+auto_increment = 0;
+
+alter table etick_lol_match_one comment 'lol比赛';
+
+/*==============================================================*/
+/* Table: etick_lol_one_competition_guessing                    */
+/*==============================================================*/
+create table etick_lol_one_competition_guessing
+(
+   id                   int not null auto_increment,
+   caption              varchar(30),
+   guessingtype         int comment '2 按局竞猜',
+   guessingtypeinfo     varchar(30),
+   matchid              int,
+   type                 int comment '竞猜类型：
+            0 输赢竞猜
+            1 一血
+            2 一塔
+            3 一小龙
+            4 峡谷先锋
+            5 一大龙
+            6 总人头数
+            7 比赛时长
+            8 反比分
+            
+            ',
+   typeinfo             varchar(30),
+   theodds              float(12,4),
+   status               int comment '竞猜状态
+            0 未开奖
+            1 未中奖
+            2 中奖
+            3 推迟
+            4 取消',
+   statusinfo           varchar(30),
+   totaleti             float(12,2),
+   frozeneti            float(12,2),
+   remaineti            float(12,2),
+   score                varchar(30),
+   primary key (id)
+)
+type = InnoDB
+auto_increment = 0;
+
+alter table etick_lol_one_competition_guessing comment 'lol竞猜';
 
 /*==============================================================*/
 /* Table: etick_lol_welfare_competition_guessing                */

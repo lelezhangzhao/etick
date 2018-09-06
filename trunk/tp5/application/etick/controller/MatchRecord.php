@@ -44,21 +44,8 @@ class MatchRecord extends Controller{
 
         $userid = Session::get('userid');
 
-        $sql = "select betting_record.*, 
-match_team_host.caption as hostcaption, 
-match_team_guest.caption as guestcaption,
-antiwave_football_match.caption as matchcaption,
-antiwave_football_competition_guessing.caption as guessingcaption,
-antiwave_football_match.status as matchstatus,
-antiwave_football_match.statusinfo as matchstatusinfo
-from (select * from etick_betting_record where userid = '$userid' and etickmatchtype = 0) as betting_record
-                join etick_antiwave_football_match as antiwave_football_match on antiwave_football_match.id = betting_record.matchid
-                join etick_match_team as match_team_host on match_team_host.id = antiwave_football_match.matchteamhostid
-                join etick_match_team as match_team_guest on match_team_guest.id = antiwave_football_match.matchteamguestid
-                join etick_antiwave_football_competition_guessing as antiwave_football_competition_guessing on antiwave_football_competition_guessing.id = betting_record.guessingid";
-
-
-        $antiwaveFootballBettingRecord = Db::query($sql);
+        $sql = "select * from etick_betting_record where userid = '$userid'";
+        $bettingRecord = Db::query($sql);
 
 //        $antiwaveFootballBettingRecord =
 //            Db::view('BettingRecord', ['userid', 'etickmatchtype' => 'bettingrecordetickmatchtype', 'ordernumber', 'bettingeti', 'status', 'statusinfo', 'profit', 'bettingtime', 'balancetime', 'etistatus', 'etistatusinfo', 'matchid', 'guessingid'])
@@ -69,7 +56,7 @@ from (select * from etick_betting_record where userid = '$userid' and etickmatch
 //            ->view('AntiwaveFootballCompetitionGuessing', ['id', 'score', 'theodds'], 'AntiwaveFootballCompetitionGuessing.id = BettingRecord.guessingid')
 //            ->select();
 
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($antiwaveFootballBettingRecord));
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($bettingRecord));
     }
 
     public function GetBettingRecordDetailInfo(Request $request){
@@ -80,6 +67,30 @@ from (select * from etick_betting_record where userid = '$userid' and etickmatch
 
         $orderNumber = $request->param('ordernumber');
 
+        //获取etickmatchtype
+        $bettingrecord = BettingRecordModel::where('ordernumber', $orderNumber)->find();
+        if(empty($bettingrecord)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_PARAMERROR');
+        }
+        $bettingmatchtype = $bettingrecord->bettingmatchtype;
+
+        $bettingDetailRecord = "";
+        if($bettingmatchtype === 0){ //足球反波胆
+            $bettingDetailRecord = self::GetAntiwaveFootballBettingDetailRecord($orderNumber);
+        }else if($bettingmatchtype === 1){ //足球正波胆
+            $bettingDetailRecord = self::GetFootballBettingDetailRecord($orderNumber);
+        }else if($bettingmatchtype === 2){ //英雄联盟反比分
+            $bettingDetailRecord = self::GetAntiwaveLolBettingDetailRecord($orderNumber);
+        }else if($bettingmatchtype === 3){ //英雄联盟正比分
+            $bettingDetailRecord = self::GetLolBettingDetailRecord($orderNumber);
+        }else if($bettingmatchtype === 4){ //英雄联盟单场
+            $bettingDetailRecord = self::GetOneLolBettingDetailRecord($orderNumber);
+        }
+
+        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($bettingDetailRecord));
+    }
+
+    public function GetAntiwaveFootballBettingDetailRecord($orderNumber){
 
         $sql = "select betting_record.*,
 match_team_host.caption as hostcaption,
@@ -101,7 +112,37 @@ match_team_guest.caption as guestcaption,
 
         $bettingRecordDetail = Db::query($sql);
 
-        return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($bettingRecordDetail));
+        return $bettingRecordDetail;
+    }
+    public function GetFootballBettingDetailRecord($orderNumber){
+
+    }
+    public function GetAntiwaveLolBettingDetailRecord($orderNumber){
+        $sql = "select a.*,
+c.caption as hostcaption,
+d.caption as guestcaption,
+ b.caption as matchcaption,
+ b.status as matchstatus,
+ b.matchtime as matchtime,
+ b.score as score,
+ e.theodds as theodds,
+ e.caption as guessingcaption
+   from (select * from etick_betting_record where ordernumber = '$orderNumber') as a
+                join etick_lol_match as b on b.id = a.matchid
+                join etick_match_team as c on c.id = b.matchteamhostid
+                join etick_match_team as d on d.id = b.matchteamguestid
+                join etick_antiwave_lol_competition_guessing as e on e.id = a.guessingid";
+
+        $bettingRecordDetail = Db::query($sql);
+
+        return $bettingRecordDetail;
+
+    }
+    public function GetLolBettingDetailRecord($orderNumber){
+
+    }
+    public function GetOneLolBettingDetailRecord($orderNumber){
+
     }
 
     public function MatchRecordRevert(Request $request){

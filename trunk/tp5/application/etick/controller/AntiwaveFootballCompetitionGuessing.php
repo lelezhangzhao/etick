@@ -102,7 +102,7 @@ class AntiwaveFootballCompetitionGuessing extends Controller{
         DatabaseApi::AddEtiRecord($userid, 1, -$eti, $systemTime);
 
         //插入bettingrecord
-        DatabaseApi::AddBettingRecord($userid, 1, 0, $matchid, $guessingid, $eti, 0);
+        DatabaseApi::AddBettingRecord($userid, 0, 0, $matchid, $guessingid, $eti, 0, $guessing->caption);
         return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '下注成功');
 
     }

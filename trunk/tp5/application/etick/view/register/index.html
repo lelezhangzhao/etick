@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript" src="__LAYUI__/layui.js"></script>
     <link rel="stylesheet" href="__LAYUI__/css/layui.css" media="all" />
-    <link rel="stylesheet" href="__CSS__/style.css?version=2" type="text/css" />
+    <link rel="stylesheet" href="__CSS__/style.css?version=4" type="text/css" />
     <script type="text/javascript" src="__JS__/action.js?version=0"></script>
     <script type="text/javascript" src="__JS__/register.js?version=0"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     <script>
         $(function(){
             $(document).ready(function(){
@@ -24,33 +26,47 @@
     </script>
 </head>
 <body>
-<div class="container">
-    <form action="javascript:;" class="form-horizontal">
-        <div class="form-group">
+<div class="container register_div">
+    <form action="javascript:;" >
+        <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
             <input type="text" class="form-control" id="register_username" placeholder="用户名" />
         </div>
-        <div class="form-group">
+        <br/>
+        <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
             <input type="text" class="form-control" id="register_password" placeholder="密码" />
         </div>
-        <div class="form-group">
+        <br/>
+        <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon"><i class="fa fa-mobile fa-fw"></i></span>
             <input type="text" class="form-control" id="register_tel" placeholder="手机号" />
         </div>
-        <div class="form-group">
+        <br/>
+        <div class="input-group margin-bottom-sm">
             <button type="button" class="btn btn-default" id="register_gettelidentify">获取验证码</button>
         </div>
-        <div class="form-group">
+        <br/>
+        <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon"><i class="fa fa-mobile fa-fw"></i></span>
             <input type="text" class="form-control" id="register_telidentify" placeholder="手机验证码" />
         </div>
-        <div class="form-group">
+        <br/>
+        <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon"><i class="fa fa-file-picture-o fa-fw"></i></span>
             <input type="text" class="form-control" id="register_captcha" placeholder="图片验证码" />
         </div>
-        <div class="form-group">
+        <br/>
+        <div class="input-group margin-bottom-sm div-center">
             <img id="register_captcha_img" src="{:captcha_src()}" onclick="this.src='/tp5/public/index.php/captcha?id='+Math.random()" style="cursor: pointer;position:relative;left:0%;" /><br />
         </div>
-        <div class="form-group">
+        <br/>
+        <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon"><i class="fa fa-group fa-fw"></i></span>
             <input type="text" class="form-control" id="register_rankpre" placeholder="推荐人，没有可以不填" />
         </div>
-        <div class="form-group">
+        <br/>
+        <div class="input-group margin-bottom-sm div-center">
             <button type="submit" class="btn btn-default" id="register_register" >注册</button>
         </div>
     </form>

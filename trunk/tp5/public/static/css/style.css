@@ -101,6 +101,9 @@ body {
     .login_div{
         width:300px;
     }
+    .register_div{
+        width:300px;
+    }
 
     .div-center{
         margin:0 auto;
@@ -110,6 +113,11 @@ body {
         height:100px;
         margin:0 auto;
         border:1px solid #E6E6E6;
+    }
+
+    .div-captcha{
+        border:1px solid #E6E6E6;
+        border-radius:5px;
     }
 
 

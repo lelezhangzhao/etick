@@ -223,9 +223,10 @@ class Score extends Controller{
             return $userstatus;
         }
 
-        $record = EntrustmentPurchaseModel::where('entrustmenttype', 1)
-            ->view('user', 'username', 'user.id = entrustmenttype.userid')
-            ->where('status', 0)
+        $record = Db::view('entrustment_purchase')
+            ->view('user', 'username', 'user.id = entrustment_purchase.userid')
+            ->where('entrustmenttype', 1)
+            ->where('entrustment_purchase.status', 0)
             ->select();
 
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($record));

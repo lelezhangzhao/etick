@@ -67,17 +67,18 @@ $(function () {
 
 
     $.AddMatchRecord = function (record) {
-        var etickmatchtypeinfo = record.etickmatchtypeinfo;
+        var bettingmatchtypeinfo = record.bettingmatchtypeinfo;
         var ordernumber = record.ordernumber;
-        var matchcaption = record.matchcaption;
+        // var matchcaption = record.matchcaption;
+        var bettingcaption = record.caption;
         var bettingeti = record.bettingeti;
         var bettingstatus = record.status;
         var bettingstatusinfo = record.statusinfo;
-        var matchstatus = record.matchstatus;
-        var matchstatusinfo = record.matchstatusinfo;
+        // var matchstatus = record.matchstatus;
+        // var matchstatusinfo = record.matchstatusinfo;
 
 
-        var matchrecordstatus = $.GetMatchRecordStatus(bettingstatus, bettingstatusinfo, matchstatus, matchstatusinfo);
+        // var matchrecordstatus = $.GetMatchRecordStatus(bettingstatus, bettingstatusinfo, matchstatus, matchstatusinfo);
 
         var html =
             "<div class='panel panel-default' >" +
@@ -86,10 +87,10 @@ $(function () {
             "<div class='row' >" +
             "<a data-toggle='collapse' data-parent='#matchrecordcontainer' href='#matchrecordcollapse" + ordernumber + "' style='text-decoration:none;'>" +
             "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 match-div' >" +
-            "<p>" + etickmatchtypeinfo + "</p>" +
+            "<p>" + bettingmatchtypeinfo + "</p>" +
             "</div>" +
             "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 match-div' >" +
-            "<p>" + matchcaption + "</p>" +
+            "<p>" + bettingcaption + "</p>" +
             "</div>" +
             "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10 match-div' >" +
             "<p>下注金额：" + bettingeti + "</p>" +
@@ -98,7 +99,7 @@ $(function () {
             "<span class='glyphicon glyphicon-chevron-down' id='matchrecordglyphicon" + ordernumber + "'></span>" +
             "</div>" +
             "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 match-div' >" +
-            matchrecordstatus +
+            bettingstatusinfo +
             "</div>" +
             "</a>" +
             "</div>" +
@@ -125,15 +126,15 @@ $(function () {
         return html;
     }
 
-    $.GetMatchRecordStatus = function(bettingstatus, bettingstatusinfo, matchstatus, matchstatusinfo){
-        var html = "";
-        if(bettingstatus === 1 || bettingstatus === 2){ //已结算、撤单
-            html = bettingstatusinfo;
-        }else if(bettingstatus === 0){ //未结算
-            html = matchstatusinfo;
-        }
-        return html;
-    }
+    // $.GetMatchRecordStatus = function(bettingstatus, bettingstatusinfo, matchstatus, matchstatusinfo){
+    //     var html = "";
+    //     if(bettingstatus === 1 || bettingstatus === 2){ //已结算、撤单
+    //         html = bettingstatusinfo;
+    //     }else if(bettingstatus === 0){ //未结算
+    //         html = matchstatusinfo;
+    //     }
+    //     return html;
+    // }
 
     $.AddMatchRecordDetailInfo = function (recorddetail) {
         var ordernumber = recorddetail.ordernumber;
@@ -147,6 +148,8 @@ $(function () {
         var theodds = recorddetail.theodds;
         var bettingstatus = recorddetail.status;
         var bettingrevertstatus = recorddetail.revertstatus;
+        var bettingresultinfo = recorddetail.bettingresultinfo;
+        var profit = recorddetail.profit;
 
 
         //是否显示button，及button内容
@@ -199,16 +202,17 @@ $(function () {
          0x10 结算
          */
         var matchrecordtimescontent = "";
+        matchrecordtimescontent = $.AddBettingTimeInfo(0x02, recorddetail);
 
-        if(bettingstatus === 2){ //撤销
-            matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02 | 0x08, recorddetail)
-        }else if(matchstatus === 0 || matchstatus === 1 || matchstatus === 2){ //未开赛，已开赛，推迟
-            matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02, recorddetail)
-        }else if(matchstatus === 3){ //取消
-            matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02 | 0x04, recorddetail)
-        }else if(matchstatus === 4){ //结算
-            matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02 | 0x10, recorddetail)
-        }
+        // if(bettingstatus === 2){ //撤销
+        //     matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02 | 0x08, recorddetail)
+        // }else if(matchstatus === 0 || matchstatus === 1 || matchstatus === 2){ //未开赛，已开赛，推迟
+        //     matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02, recorddetail)
+        // }else if(matchstatus === 3){ //取消
+        //     matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02 | 0x04, recorddetail)
+        // }else if(matchstatus === 4){ //结算
+        //     matchrecordtimescontent = $.AddBettingTimeInfo(0x01 | 0x02 | 0x10, recorddetail)
+        // }
 
 
         // //结算
@@ -220,21 +224,21 @@ $(function () {
         //     matchrecordtimescontent = "<div>比赛时间：" + matchtime + "</div><div>结算时间：" + balancetime + "</div>";
         // }
 
-        var matchrecordresult = "";
+        // var matchrecordresult = "";
 
-        if(matchstatus === 4){ //比赛结束，显示比分
-            matchrecordresult = $.AddMatchRecordResult(recorddetail);
-        }
+        // if(matchstatus === 4){ //比赛结束，显示比分
+        //     matchrecordresult = $.AddMatchRecordResult(recorddetail);
+        // }
 
         var html =
             "<div class='panel-body' >" +
             "<div class='match-info-div'>" +
             "<span>订单号：" + ordernumber + "</span>" +
             "</div>" +
-            "<div class='match-info-div'>" +
-            matchrecordresult +
-            "<span>下注类型：" + guessingcaption + "</span>" +
-            "</div>" +
+            // "<div class='match-info-div'>" +
+            // matchrecordresult +
+            // "<span>下注类型：" + guessingcaption + "</span>" +
+            // "</div>" +
             "<div class='match-info-div'>" +
             "<div class='row'>" +
             "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10'>" +
@@ -243,6 +247,12 @@ $(function () {
             "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2'>" +
             "<button type='button' class='btn btn-default btn-xs' id='matchrecordrevert" + ordernumber + "'>" + displaycontent + "</button>" +
             "</div>" +
+            "</div>" +
+            "<div>" +
+            "<span>结果：" + bettingresultinfo + "</span>" +
+            "</div>" +
+            "<div>" +
+            "<span>收益：" + profit + "</span>" +
             "</div>" +
             "</div>" +
 

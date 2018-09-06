@@ -193,16 +193,16 @@ $(function(){
             "<td><button class='btn btn-default' id='bettingantiwavelolcompeititonguessing" + competitionGuessing.matchid + competitionGuessing.id + "'>下注</button></td>" +
             "</tr>" +
             "<script>" +
-            "$.('#bettingantiwavelolcompeititonguessing" + competitionGuessing.matchid + competitionGuessing.id +"').click(function(){" +
+            "$('#bettingantiwavelolcompeititonguessing" + competitionGuessing.matchid + competitionGuessing.id +"').click(function(){" +
             "$.BettingAntiwaveLolCompetitionGuessing(" + competitionGuessing.matchid + ", " + competitionGuessing.id + ")" +
-            "});"
+            "});" +
         "</script>";
 
         return html;
 
     }
 
-    $.BettingAntiwavelolCompetitionGuessing = function(){
+    $.BettingAntiwaveLolCompetitionGuessing = function(matchid, guessingid){
         //弹出下注框
         var eti = prompt("下注ETI：", ""); //将输入的内容赋给变量 name ，
         //这里需要注意的是，prompt有两个参数，前面是提示的话，后面是当对话框出来后，在对话框里的默认值

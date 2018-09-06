@@ -16,8 +16,8 @@ values
 
 insert into etick_etick_match_type(etickmatchtypeinfo)
 values
-("足球返波胆"),
-("英雄联盟返波胆");
+("足球"),
+("英雄联盟");
 
 
 insert into etick_match_type(caption, zonelogo, etickmatchtypeid)

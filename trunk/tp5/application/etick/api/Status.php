@@ -68,7 +68,7 @@ class Status{
     }
 
     static public function ReturnJsonWithContent($code, $msg, $jsoncontent){
-        $json_arr = ['code' => $code, 'msg' => 'msg', 'jsoncontent' => $jsoncontent];
+        $json_arr = ['code' => $code, 'msg' => $msg, 'jsoncontent' => $jsoncontent];
         return json_encode($json_arr);
     }
 }

@@ -10,12 +10,15 @@ use app\etick\api\Database as DatabaseApi;
 use think\Controller;
 use think\Session;
 use think\Request;
+use think\Db;
 
 use app\etick\model\AntiwaveLolCompetitionGuessing as AntiwaveLolCompetitionGuessingModel;
+use app\etick\model\User as UserModel;
+use app\etick\model\LolMatch as LolMatchModel;
 
 
 class AntiwaveLolCompetitionGuessing extends Controller{
-    public function BettingAntiwaveLolCompetitionGuessing(Request $request){
+    public function BettingCompetitionGuessing(Request $request){
         //用户状态
         $userstatus = UserStatusApi::TestUserLoginAndStatus();
         if(true !== $userstatus){
@@ -36,7 +39,7 @@ class AntiwaveLolCompetitionGuessing extends Controller{
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_USERISNOTEXIST');
         }
 
-        $match = AntiwaveLolMatchModel::get($matchid);
+        $match = LolMatchModel::get($matchid);
         if(empty($match)){
             return StatusApi::ReturnErrorStatus('ERROR_STATUS_NOMATCHMATCH');
         }
@@ -92,7 +95,7 @@ class AntiwaveLolCompetitionGuessing extends Controller{
         DatabaseApi::AddEtiRecord($userid, 1, -$eti, $systemTime);
 
         //插入bettingrecord
-        DatabaseApi::AddBettingRecord($userid, 3, 0, $matchid, $guessingid, $eti, 0);
+        DatabaseApi::AddBettingRecord($userid, 2, 0, $matchid, $guessingid, $eti, 0, $guessing->caption);
         return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '下注成功');
 
     }

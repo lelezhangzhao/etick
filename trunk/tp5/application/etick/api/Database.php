@@ -12,7 +12,7 @@ use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
 use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
 use app\etick\model\LolMatch as LolMatchModel;
 use app\etick\model\LolCompetitionGuessing as LolCompetitionGuessingModel;
-use app\etick\model\AntiwaveLolCompetitionGuessing as AntiwaveLolCmpetititonGuessingModel;
+use app\etick\model\AntiwaveLolCompetitionGuessing as AntiwaveLolCompetitionGuessingModel;
 
 
 use app\etick\api\Util as UtilApi;
@@ -45,34 +45,37 @@ class Database{
         return true;
     }
 
-    static public function AddBettingRecord($userid, $etickmatchtype, $guessingtype, $matchid, $guessingid, $eti, $etistatus){
+    static public function AddBettingRecord($userid, $bettingmatchtype, $guessingtype, $matchid, $guessingid, $eti, $etistatus, $caption){
         $systemtime = TimesApi::GetSystemTime();
 
         $bettingrecord = new BettingRecordModel();
         $bettingrecord->userid = $userid;
 
         $bettingrecord->ordernumber = TimesApi::GetOrderNumber();
-        $bettingrecord->etickmatchtype = $etickmatchtype;
-        $bettingrecord->etickmatchtypeinfo = Database::GetMatchTypeInfo($etickmatchtype);
+        $bettingrecord->bettingmatchtype = $bettingmatchtype;
+        $bettingrecord->bettingmatchtypeinfo = Database::GetBettingMatchTypeInfo($bettingmatchtype);
+        $bettingrecord->caption = $caption;
         $bettingrecord->guessingtype = $guessingtype;
         $bettingrecord->guessingtypeinfo = Database::GetGuessingTypeInfo($guessingtype);
         $bettingrecord->matchid = $matchid;
         $bettingrecord->guessingid = $guessingid;
         $bettingrecord->bettingeti = $eti;
         $bettingrecord->status = 0;
-        $bettingrecord->statusinfo = '未开赛';
+        $bettingrecord->statusinfo = '未结算';
         $bettingrecord->profit = 0;
         $bettingrecord->bettingtime = $systemtime;
         $bettingrecord->etistatue = $etistatus;
         $bettingrecord->etistatusinfo = Database::GetEtiStatusInfo($etistatus);
+        $bettingrecord->bettingresult = 2;
+        $bettingrecord->bettingresultinfo = "--";
 
         $bettingrecord->allowField(true)->save();
     }
 
-    static private function GetMatchTypeInfo($etickmatchtype){
-        $typeinfo = ["", "足球反波胆", "英雄联盟正积分", "英雄联盟反积分", "英雄联单场"];
+    static private function GetBettingMatchTypeInfo($bettingmatchtype){
+        $typeinfo = ["足球反波胆", "足球正波胆", "英雄联盟反比分", "英雄联盟正比分", "英雄联盟单场"];
 
-        return $typeinfo[$etickmatchtype];
+        return $typeinfo[$bettingmatchtype];
     }
 
     static private function GetGuessingTypeInfo($guessingtype){
@@ -240,12 +243,12 @@ class Database{
         $lolmatch->displaytime = $displaytime;
         $lolmatch->disappeartime = $disappeartime;
         $lolmatch->matchformat = $matchformat;
-        $lolmatch->matchformatinfo = GetFormatInofByMatch($matchformat);
+        $lolmatch->matchformatinfo = self::GetFormatInfoByMatch($matchformat);
 
         $lolmatch->allowField(true)->save();
     }
     
-    static private function GetFormatInofByMatch($matchformat){
+    static private function GetFormatInfoByMatch($matchformat){
         $matchformatinfo = ["一局", "三局", "五局"];
         return $matchformatinfo[$matchformat];
     }

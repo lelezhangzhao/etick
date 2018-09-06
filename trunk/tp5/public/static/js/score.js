@@ -57,6 +57,8 @@ $(function () {
                             for (var i = 0; i < scoreRunningRecords.length; ++i) {
                                 html += $.AddScoreRecord(scoreRunningRecords[i], "scorecontainerrunning");
                             }
+                        }else{
+                            html = "没有记录";
                         }
 
                         $("#scorecontainerrunning").html(html);

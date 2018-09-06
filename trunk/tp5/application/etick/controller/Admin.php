@@ -17,7 +17,7 @@ use app\etick\model\MatchTeam as MatchTeamModel;
 use app\etick\model\AntiwaveFootballMatch as AntiwaveFootballMatchModel;
 use app\etick\model\AntiwaveFootballCompetitionGuessing as AntiwaveFootballCompetitionGuessingModel;
 use app\etick\model\LolMatch as LolMatchModel;
-use app\etick\model\LolCompetitionGuessing as LolCompetitionGuessingModel;
+use app\etick\model\AntiwaveLolCompetitionGuessing as AntiwaveLolCompetitionGuessingModel;
 use app\etick\model\BettingRecord as BettingRecordModel;
 use app\etick\model\EtiRecord as EtiRecordModel;
 use app\etick\model\User as UserModel;
@@ -100,7 +100,7 @@ class Admin extends Controller
         return StatusApi::ReturnJsonWithContent('ERROR_STATUS_SUCCESS', '', json_encode($matchteam));
     }
 
-    public function AddAntiwaveFootballMatch(Request $request)
+    public function AddFootballMatch(Request $request)
     {
 //        matchtypeid:matchtypeid,
 //                    hostteamid:hostteamid,
@@ -237,7 +237,7 @@ class Admin extends Controller
         DatabaseApi::AddLolMatch($matchtypeid, $hostteamid, $guestteamid, $matchcaption, $matchtime, $displaytime, $disappeartime, $matchformat);
 
         //找id
-        $sql = 'select * from etick_antiwave_lol_match order by id desc limit 1';
+        $sql = 'select * from etick_lol_match order by id desc limit 1';
         $match = Db::query($sql);
         $matchid = $match[0]['id'];
 
@@ -257,6 +257,8 @@ class Admin extends Controller
                 DatabaseApi::AddAntiwaveLolmatchCompetitionGuessing($matchid, $caption, $score, $theodds, $totaleti, $frozeneti);
             }
         }
+        return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '添加成功');
+
     }
 
     public function AddAntiwaveLolCompetitionGuessing(Request $request){
@@ -287,7 +289,7 @@ class Admin extends Controller
         }
     }
 
-    public function BalanceConfirmStartAntiwaveFootball(Request $request){
+    public function BalanceStartFootball(Request $request){
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
         if (true !== $userstatus) {
             return $userstatus;
@@ -303,7 +305,7 @@ class Admin extends Controller
 
     }
 
-    public function BalanceConfirmDelayAntiwaveFootball(Request $request){
+    public function BalanceDelayFootball(Request $request){
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
         if (true !== $userstatus) {
             return $userstatus;
@@ -318,7 +320,7 @@ class Admin extends Controller
         return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '状态设置成功');
 
     }
-    public function BalanceConfirmCancelAntiwaveFootball(Request $request){
+    public function BalanceCancelFootball(Request $request){
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
         if (true !== $userstatus) {
             return $userstatus;
@@ -334,27 +336,47 @@ class Admin extends Controller
         $match->allowField(true)->save();
 
         //bettingrecord
-        $sql = "update etick_betting_record set status = 2, statusinfo = '比赛取消' where matchid = '$matchid'";
-        $result = Db::execute($sql);
+        $readonlybettingrecords = BettingRecordModel::where('matchid', $matchid)->select();
+        foreach($readonlybettingrecords as $readonlybettingrecord){
+            $bettingrecord = BettingRecordModel::get($readonlybettingrecord->id);
+            $bettingrecord->status = 1;
+            $bettingrecord->statusinfo = '已结算';
+            $bettingrecord->profit = $bettingrecord->bettingeti;
+            $bettingrecord->bettingresult = 2;
+            $bettingrecord->bettingresultinfo = '--';
+            $bettingrecord->save();
 
-        //etirecord
-        $bettingrecords = BettingRecordModel::where('matchid', $matchid)->select();
-        foreach($bettingrecords as $bettingrecord){
-            $bettingrecordid = $bettingrecord->id;
             $userid = $bettingrecord->userid;
             DatabaseApi::AddEtiRecord($userid, 17, $bettingrecord->bettingeti, $systemTime);
 
             //user
             $user = UserModel::get($userid);
-            $user->eti += $bettingrecords->bettingeti;
+            $user->eti += $bettingrecord->bettingeti;
             $user->allowField(true)->save();
+
         }
+        
+//        $sql = "update etick_betting_record set status = 1, statusinfo = '已结算' where matchid = '$matchid'";
+//        $result = Db::execute($sql);
+
+//        //etirecord
+//        $bettingrecords = BettingRecordModel::where('matchid', $matchid)->select();
+//        foreach($bettingrecords as $bettingrecord){
+//            $bettingrecordid = $bettingrecord->id;
+//            $userid = $bettingrecord->userid;
+//            DatabaseApi::AddEtiRecord($userid, 17, $bettingrecord->bettingeti, $systemTime);
+//
+//            //user
+//            $user = UserModel::get($userid);
+//            $user->eti += $bettingrecord->bettingeti;
+//            $user->allowField(true)->save();
+//        }
 
         return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '状态设置成功');
 
 
     }
-    public function BalanceConfirmAntiwaveFootball(Request $request){
+    public function BalanceConfirmFootball(Request $request){
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
         if (true !== $userstatus) {
             return $userstatus;
@@ -484,7 +506,7 @@ class Admin extends Controller
         return 0.1;
     }
 
-    public function BalanceConfirmStartLol(Request $request){
+    public function BalanceStartLol(Request $request){
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
         if (true !== $userstatus) {
             return $userstatus;
@@ -498,8 +520,10 @@ class Admin extends Controller
         $match->statusinfo = '比赛开始';
         $match->allowField(true)->save();
 
+        return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '状态设置成功');
+
     }
-    public function BalanceConfirmCancelLol(Request $request){
+    public function BalanceCancelLol(Request $request){
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
         if (true !== $userstatus) {
             return $userstatus;
@@ -507,30 +531,55 @@ class Admin extends Controller
         $systemTime = TimesApi::GetSystemTime();
 
         $matchid = $request->param('matchid');
-
-
         $match = LolMatchModel::get($matchid);
+        if(empty($match)){
+            return StatusApi::ReturnErrorStatus('ERROR_STATUS_PARAMERROR');
+        }
+
         $match->status = 3;
         $match->statusinfo = '比赛取消';
         $match->allowField(true)->save();
 
         //bettingrecord
-        $sql = "update etick_betting_record set status = 2, statusinfo = '比赛取消' where matchid = '$matchid'";
-        $result = Db::execute($sql);
+        $readonlybettingrecords = BettingRecordModel::where('matchid', $matchid)->select();
+        foreach($readonlybettingrecords as $readonlybettingrecord){
+            $bettingrecord = BettingRecordModel::get($readonlybettingrecord->id);
+            $bettingrecord->status = 1;
+            $bettingrecord->statusinfo = '已结算';
+            $bettingrecord->profit = $bettingrecord->bettingeti;
+            $bettingrecord->bettingresult = 2;
+            $bettingrecord->bettingresultinfo = '--';
+            $bettingrecord->save();
 
-        //etirecord
-        $bettingrecords = BettingRecordModel::where('matchid', $matchid)->select();
-        foreach($bettingrecords as $bettingrecord){
             $userid = $bettingrecord->userid;
             DatabaseApi::AddEtiRecord($userid, 17, $bettingrecord->bettingeti, $systemTime);
 
             //user
             $user = UserModel::get($userid);
-            $user->eti += $bettingrecords->bettingeti;
+            $user->eti += $bettingrecord->bettingeti;
             $user->allowField(true)->save();
+
         }
+
+//        //bettingrecord
+//        $sql = "update etick_betting_record set status = 2, statusinfo = '比赛取消' where matchid = '$matchid'";
+//        $result = Db::execute($sql);
+
+//        //etirecord
+//        $bettingrecords = BettingRecordModel::where('matchid', $matchid)->select();
+//        foreach($bettingrecords as $bettingrecord){
+//            $userid = $bettingrecord->userid;
+//            DatabaseApi::AddEtiRecord($userid, 17, $bettingrecord->bettingeti, $systemTime);
+//
+//            //user
+//            $user = UserModel::get($userid);
+//            $user->eti += $bettingrecords->bettingeti;
+//            $user->allowField(true)->save();
+//        }
+        return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '状态设置成功');
+
     }
-    public function  BalanceConfirmDelayLol(Request $request){
+    public function  BalanceDelayLol(Request $request){
         $userstatus = UserStatusApi::TestUserAdminAndStatus();
         if (true !== $userstatus) {
             return $userstatus;
@@ -542,6 +591,8 @@ class Admin extends Controller
         $match->statusinfo = '比赛推迟';
         $match->allowField(true)->save();
 
+        return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '状态设置成功');
+
     }
 
     public function BalanceConfirmLol(Request $request){
@@ -552,7 +603,7 @@ class Admin extends Controller
         $systemTime = TimesApi::GetSystemTime();
 
         $matchid = $request->param('matchid');
-        $balance_lol_score = $request->param('balance_lol_score');
+        $balance_lol_score = $request->param('score');
 
         //match
         //结算英雄联盟
@@ -565,19 +616,20 @@ class Admin extends Controller
         $isHitGuessing = false;
         $guessingOdds = 0;
 
-        $readonlyguessings = LolCompetitionGuessingModel::where('matchid', $matchid)->select();
+        //结算反比分
+        $readonlyguessings = AntiwaveLolCompetitionGuessingModel::where('matchid', $matchid)->select();
         //compttition guessing
         foreach($readonlyguessings as $readonlyguessing){
-            $guessing = LolCompetitionGuessingModel::get($readonlyguessing->id);
+            $guessing = AntiwaveLolCompetitionGuessingModel::get($readonlyguessing->id);
             $guessingOdds = $guessing->theodds;
 
-            if(($guessing->type === 8 && $guessing->score !== $balance_lol_score)){
+            if($guessing->score !== $balance_lol_score){
                 //赢
                 $guessing->status = 1;
                 $guessing->statusinfo = '竞猜中奖';
 
                 $isHitGuessing = true;
-            }else if(($guessing->type === 8 && $guessing->score === $balance_lol_score)){
+            }else if($guessing->score === $balance_lol_score){
                 //输
                 $guessing->status = 0;
                 $guessing->statusinfo = '竞猜未中奖';
@@ -589,7 +641,7 @@ class Admin extends Controller
 
 
         //betting record
-        $readonlybettingrecords = BettinRecordModel::where('matchid', $matchid)->select();
+        $readonlybettingrecords = BettingRecordModel::where('matchid', $matchid)->select();
         foreach($readonlybettingrecords as $readonlybettingrecord){
             $bettingrecord = BettingRecordModel::get($readonlybettingrecord->id);
 
@@ -637,7 +689,8 @@ class Admin extends Controller
                 $bettingrecord->bettingresultinfo = '亏损';
             }
             $bettingrecord->allowField(true)->save();
-        }
+        }return StatusApi::ReturnJson('ERROR_STATUS_SUCCESS', '结算成功');
+
     }
 
     public function GetAntiwaveFootballMatchStatus(Request $request){

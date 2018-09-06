@@ -134,7 +134,7 @@ $(function () {
             '<div>' +
             '<div class="layui-tab layui-tab-card" lay-filter="matchtab">' +
             '<ul class="layui-tab-title">' +
-            '<li class="layui-this">反波胆</li>' +
+            '<li class="layui-this">足球</li>' +
             '<li>英雄联盟</li>' +
             '</ul>' +
             '<div class="layui-tab-content">' +
@@ -198,15 +198,16 @@ $(function () {
 
     $.AddScoreInfo = function () {
         var html =
-            '<div>' +
+            '<div class="div-center">' +
             '<div class="layui-tab" lay-filter="scoretab" id="scorecontainer">' +
             '<ul class="layui-tab-title">' +
             '<li class="layui-this">已完成</li>' +
             '<li>进行中</li>' +
             '</ul>' +
             '<div>' +
-            '<button type="button" class="btn btn-default" id="scorebuyeti">买积分</button>' +
-            '<button type="button" class="btn btn-default" id="scoresaleeti">卖积分</button>' +
+            '<br/>' +
+            '<button type="button" class="btn-sm btn-default" id="scorebuyeti">买积分</button>' +
+            '<button type="button" class="btn-sm btn-default" id="scoresaleeti">卖积分</button>' +
             '</div>' +
 
             '<div class="layui-tab-content">' +
