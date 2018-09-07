@@ -1,6 +1,8 @@
 //score
 $(function () {
     $.GetScoreFinished = function (beginrecord) {
+        $("#score_entrustment_content").empty();
+        $("#score_record_content").empty();
         $.ajax({
             type: "get",
             url: "/tp5/public/index.php/etick/score/getpurchaserecordfinished",
@@ -23,7 +25,7 @@ $(function () {
                             html = "没有记录";
                         }
 
-                        $("#score_content").html(html);
+                        $("#score_record_content").html(html);
                         // var purchaserecords = JSON.parse(data.jsoncontent);
                         break;
                     default:
@@ -38,6 +40,9 @@ $(function () {
 
     //获取未完成订单
     $.GetScoreRunning = function (beginrecord) {
+        $("#score_entrustment_content").empty();
+        $("#score_record_content").empty();
+
         $.ajax({
             type: "get",
             url: "/tp5/public/index.php/etick/score/getpruchaserecordrunning",
@@ -61,7 +66,7 @@ $(function () {
                             html = "没有记录";
                         }
 
-                        $("#score_content").html(html);
+                        $("#score_record_content").html(html);
                         // var purchaserecords = JSON.parse(data.jsoncontent);
                         break;
                     default:
@@ -85,6 +90,8 @@ $(function () {
         var type = record.type;
 
         var purchaseCaption = $.GetPurchaseCaption(purchaseType, type);
+        var price = type === 0 ? "买入价格" : "卖出价格";
+        var count = type === 0 ? "购买数量" : "卖出数量";
 
         var html =
             "<div class='panel panel-default' >" +
@@ -96,16 +103,16 @@ $(function () {
             "<p>" + purchaseCaption + "</p>" +
             "</div>" +
             "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10' >" +
-            "<p>RMB：ETI " + rmbpereti + " ： 1</p>" +
+            "<p>" + price + " " + rmbpereti + "</p>" +
             "</div>" +
             "<div class='col-xs-10 col-sm-10 col-md-10 col-lg-10' >" +
-            "<p>购买数量：" + eticount + "</p>" +
+            "<p>" + count + " " + eticount + "</p>" +
             "</div>" +
             "<div class='col-xs-2 col-sm-2 col-md-2 col-lg-2' >" +
             "<span class='glyphicon glyphicon-chevron-down' id='scorerecordglyphicon" + orderNumber + "'></span>" +
             "</div>" +
             "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' >" +
-            "<p>挂单状态：" + statusinfo + "</p>" +
+            "<p>挂单状态 " + statusinfo + "</p>" +
             "</div>" +
             "</a>" +
             "</div>" +
@@ -773,21 +780,24 @@ $(function () {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
-                        var html = "<div><div>" +
+                        var html_entrustment_content = "<div class='div-single-line'>" +
                             "<button class='btn btn-default' id='scoreentrustmentbuying'>挂单买入</button>" +
                             "</div>";
+                        $("#score_entrustment_content").html(html_entrustment_content);
 
+
+                        var html_record_content = "<div>";
                         if (data.jsoncontent.length !== 0) {
                             var salingRecord = JSON.parse(data.jsoncontent);
                             for (var i = 0; i < salingRecord.length; ++i) {
-                                html += $.GetSalingRecord(salingRecord[i]);
+                                html_record_content += $.GetSalingRecord(salingRecord[i]);
                             }
                         }
-                        html += "</div><script>" +
+                        html_record_content += "</div><script>" +
                             "$(function(){" +
                             "$('#scoreentrustmentbuying').click(function(){$.ScoreEntrustmentBuying();});});" +
                             "</script>";
-                        $("#score_content").html(html);
+                        $("#score_record_content").html(html_record_content);
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -803,13 +813,57 @@ $(function () {
     //买入积分列表--挂单卖出列表
     $.GetSalingRecord = function (salingRecord) {
         var html =
-            "<div>" +
-            "<a href='#' id='scoresalingrecordentrustmentpurchase" + salingRecord.ordernumber + "'>" +
-            "<div>" +
-            "<p>" + salingRecord.username + "</p>" +
-            "<p>" + salingRecord.rmbpereti + "</p>" +
-            "<p>" + salingRecord.eticount + "</p>" +
-            "<p>" + salingRecord.mineti + "~" + salingRecord.maxeti + "</p>" +
+            "<div class='div-score-border'>" +
+            "<a href='#' id='scoresalingrecordentrustmentpurchase" + salingRecord.ordernumber + "' style='text-decoration:none;'>" +
+            "<div class='panel div-border'>" +
+            "<div class='row'>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "<p>" +
+            salingRecord.username +
+            "</p>" +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "最近30天成交率 " +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "100%" +
+            "</div>" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "卖出单价 " +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            salingRecord.rmbpereti +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "CNY" +
+            "</div>" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "卖出数量 " +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            salingRecord.eticount +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "ETI" +
+            "</div>" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "卖出区间 " +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            salingRecord.mineti + "--" + salingRecord.maxeti +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "ETI" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
             "</div>" +
             "</a>" +
             "</div>" +
@@ -825,6 +879,7 @@ $(function () {
 
     //直接买入
     $.ScoreSalingRecordEntrustmentPurchase = function (ordernumber) {
+        // ShowLayerWindow(600,400,"直接买入","/tp5/public/index.php/etick/register/index");
         var eti = prompt("买入积分：", ""); //将输入的内容赋给变量 name ，
         if (!eti) {
             return false;
@@ -867,7 +922,7 @@ $(function () {
             "买入价格 " +
             "</div>" +
             "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>" +
-            "<input type='text' class='input-text-100-bottom' id='scoreentrustmentbuyingrmbpereti'/>" +
+            "<input type='text' class='input-text-no-margin' id='scoreentrustmentbuyingrmbpereti'/>" +
             "</div>" +
             "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
             "CNY" +
@@ -878,7 +933,7 @@ $(function () {
             "买入数量 " +
             "</div>" +
             "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>" +
-            "<input type='text' class='input-text-100-bottom' id='scoreentrustmentbuyingeticount'/>" +
+            "<input type='text' class='input-text-no-margin' id='scoreentrustmentbuyingeticount'/>" +
             "</div>" +
             "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
             "ETI" +
@@ -889,7 +944,7 @@ $(function () {
             "兑换金额 " +
             "</div>" +
             "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>" +
-            "<input type='text' class='input-text-100-bottom' id='scoreentrustmentbuyingrmbcount'/>" +
+            "<input type='text' class='input-text-no-margin' id='scoreentrustmentbuyingrmbcount'/>" +
             "</div>" +
             "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
             "CNY" +
@@ -900,20 +955,15 @@ $(function () {
             "交易限额 " +
             "</div>" +
             "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>" +
-            "<input type='text' class='input-text-50' id='scoreentrustmentbuyingmineti'/> -- <input type='text' class='input-text-50' id='scoreentrustmentbuyingmaxeti'/>" +
+            "<input type='text' class='input-text-80' id='scoreentrustmentbuyingmineti'/> -- <input type='text' class='input-text-80' id='scoreentrustmentbuyingmaxeti'/>" +
             "</div>" +
             "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
             "ETI" +
             "</div>" +
             "</div>" +
             "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
-            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>" +
             "<button type='button' class='btn btn-default' id='scoreentrustmentbuyingconfirm'>立即买入</button>" +
-            "</div>" +
-            "</div>" +
-            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
-            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
-            "手续费：0.2%" +
             "</div>" +
             "</div>" +
             "</div>" +
@@ -923,7 +973,7 @@ $(function () {
             "$('#scoreentrustmentbuyingconfirm').click(function(){$.ScoreEntrustmentBuyingConfirm();});});" +
             "</script>";
 
-        $("#score_content").html(html);
+        $("#score_entrustment_content").html(html);
 
     }
 
@@ -973,21 +1023,25 @@ $(function () {
                 data = JSON.parse(data);
                 switch (data.code) {
                     case 'ERROR_STATUS_SUCCESS':
-                        var html = "<div><div>" +
+                        var html_entrustment_content = "<div class='div-single-line'>" +
                             "<button class='btn btn-default' id='scoreentrustmentsaling'>挂单卖出</button>" +
                             "</div>";
+                        $("#score_entrustment_content").html(html_entrustment_content);
+
+
+                        var html_record_content = "<div>";
                         if (data.jsoncontent.length !== 0) {
                             var buyingRecord = JSON.parse(data.jsoncontent);
                             for (var i = 0; i < buyingRecord.length; ++i) {
-                                html += $.GetBuyingRecord(buyingRecord[i]);
+                                html_record_content += $.GetBuyingRecord(buyingRecord[i]);
                             }
                         }
-                        html += "</div>" +
+                        html_record_content += "</div>" +
                             "<script>" +
                             "$(function(){" +
                             "$('#scoreentrustmentsaling').click(function(){$.ScoreEntrustmentSaling();});});" +
                             "</script>";
-                        $("#score_content").html(html);
+                        $("#score_record_content").html(html_record_content);
                         break;
                     default:
                         $.ShowMsg(data.msg);
@@ -1003,13 +1057,55 @@ $(function () {
     //卖出积分列表--挂单买入列表
     $.GetBuyingRecord = function (buyingRecord) {
         var html =
-            "<div>" +
+            "<div class='div-score-border'>" +
             "<a href='#' id='scorebuyingrecordentrustmentpurchase" + buyingRecord.ordernumber + "' style='text-decoration:none;'>" +
-            "<div>" +
-            "<p>" + buyingRecord.username + "</p>" +
-            "<p>RMB：ETI " + buyingRecord.rmbpereti + "： 1</p>" +
-            "<p>购买数量：" + buyingRecord.eticount + "</p>" +
-            "<p>购买区间" + buyingRecord.mineti + "~" + buyingRecord.maxeti + "</p>" +
+            "<div class='panel div-border'>" +
+            "<div class='row'>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            buyingRecord.username +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "最近30天成交率 " +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "100%" +
+            "</div>" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "买入单价" +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            buyingRecord.rmbpereti +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "CNY" +
+            "</div>" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "买入数量" +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            buyingRecord.eticount +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "ETI" +
+            "</div>" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "买入区间" +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            buyingRecord.mineti + "--" + buyingRecord.maxeti +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "ETI" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
             "</div>" +
             "</a>" +
             "</div>" +
@@ -1058,18 +1154,57 @@ $(function () {
     //挂单卖出
     $.ScoreEntrustmentSaling = function () {
         var html =
-            "<div>" +
-            "<div>" +
-            "<input type='text' id='scoreentrustmentsalingrmbpereti'/> / ETI" +
+            "<div class='div-score-border'>" +
+            "<div class='row'>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "卖出价格 " +
             "</div>" +
-            "<div>" +
-            "<input type='text' id='scoreentrustmentsalingeticount'/> ETI" +
+            "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>" +
+            "<input type='text' class='input-text-no-margin' id='scoreentrustmentsalingrmbpereti'/>" +
             "</div>" +
-            "<div>" +
-            "<input type='text' id='scoreentrustmentsalingmineti'/> ~ <input type='text' id='scoreentrustmentsalingmaxeti'/>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "CNY" +
             "</div>" +
-            "<div>" +
-            "<button type='button' class='btn btn-default' id='scoreentrustmentsalingconfirm'>确认</button>" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "卖出数量 " +
+            "</div>" +
+            "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>" +
+            "<input type='text' class='input-text-no-margin' id='scoreentrustmentsalingeticount'/>" +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "ETI" +
+            "</div>" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "兑换金额 " +
+            "</div>" +
+            "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>" +
+            "<input type='text' class='input-text-no=margin' id='scoreentrustmentsalingrmbcount' />" +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "CNY" +
+            "</div>" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "交易限额 " +
+            "</div>" +
+            "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>" +
+            "<input type='text' class='input-text-80' id='scoreentrustmentsalingmineti'/> -- <input type='text' class='input-text-80' id='scoreentrustmentsalingmaxeti'/>" +
+            "</div>" +
+            "<div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>" +
+            "ETI" +
+            "</div>" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>" +
+            "<button type='button' class='btn btn-default' id='scoreentrustmentsalingconfirm'>立即卖出</button>" +
+            "</div>" +
+            "</div>" +
             "</div>" +
             "</div>" +
             "<script>" +
@@ -1077,7 +1212,7 @@ $(function () {
             "$('#scoreentrustmentsalingconfirm').click(function(){$.ScoreEntrustmentSalingConfirm();});});" +
             "</script>";
 
-        $("#score_content").html(html);
+        $("#score_entrustment_content").html(html);
     }
 
 

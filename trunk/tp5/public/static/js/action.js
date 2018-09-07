@@ -20,6 +20,34 @@ function doLoop() {
     }
 }
 
+function ShowLayerWindow(width, height, title, contentUrl) {
+    var w = width + "px";
+    var h = height + "px";
+    layui.use("layer", function () {
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: 0.8,
+            area: [w, h],
+            content: contentUrl //iframe的url
+        });
+    });
+}
+
+
+// function ShowLayerWindow(top, left, width, height, title, content){
+//     new MyLayer({
+//         top:top,
+//         left:left,
+//         width:width,
+//         height:height,
+//         title:title,
+//         content:content
+//     }).openLayer();
+//
+// }
+
 Date.prototype.Format = function (fmt) {
     var o = {
         "M+": this.getMonth() + 1,
@@ -192,24 +220,29 @@ $(function () {
         var html = $.AddScoreInfo();
 
         $("#header_content").html(html);
-        $.GetScoreFinished(0);
+        $.BuyEti();
+
+        // $.GetScoreFinished(0);
 
     }
 
     $.AddScoreInfo = function () {
+
         var html =
             '<div class="div-center">' +
             '<div class="layui-tab" lay-filter="scoretab" id="scorecontainer">' +
             '<ul class="layui-tab-title">' +
-            '<li class="layui-this">已完成</li>' +
+            '<li class="layui-this">买积分</li>' +
+            '<li>卖积分</li>' +
+            '<li>已完成</li>' +
             '<li>进行中</li>' +
             '</ul>' +
             '<div>' +
             '<br/>' +
-            '<button type="button" class="btn-sm btn-default" id="scorebuyeti">买积分</button>' +
-            '<button type="button" class="btn-sm btn-default" id="scoresaleeti">卖积分</button>' +
             '</div>' +
-            '<div id="score_content">' +
+            '<div id="score_entrustment_content">' +
+            '</div>' +
+            '<div id="score_record_content">' +
             '</div>' +
 
             // '<div class="layui-tab-content">' +
@@ -234,8 +267,12 @@ $(function () {
             ',element = layui.element;' +
             'element.on("tab(scoretab)", function(elem){' +
             'if(elem.index === 0){' +
-            '$.GetScoreFinished(0);' +
+            '$.BuyEti();' +
             '}else if(elem.index === 1){' +
+            '$.SaleEti();' +
+            '}else if(elem.index === 2){' +
+            '$.GetScoreFinished(0);' +
+            '}else if(elem.index === 3){' +
             '$.GetScoreRunning(0);' +
             '}' +
             '});' +

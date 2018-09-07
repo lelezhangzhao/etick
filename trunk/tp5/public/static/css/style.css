@@ -139,6 +139,10 @@ body {
         width:50px;
     }
 
+    .input-text-80{
+        width:70px;
+    }
+
     .input-text-100-bottom{
         width:100px;
         border-bottom: black 1px solid;
@@ -155,6 +159,17 @@ body {
         border-right-style: none;
         border-left-style: none;
         background-color: transparent;
+    }
+
+    .input-text-no-margin{
+        margin:0;
+    }
+
+    .div-score-border{
+        background-color:rgb(245,245,245);
+        margin:5px;
+        border:1px solid #E6E6E6;
+        border-radius:5px;
     }
 
 
