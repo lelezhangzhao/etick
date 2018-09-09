@@ -2,8 +2,16 @@
 $(function () {
     $.FixPassword = function(){
         html =
-            "<div>" +
-            "<h4>修改密码</h4>" +
+            "<div class='div-border'>" +
+            "<div class='row'>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
+            "修改密码" +
+            "</div>" +
+            "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 div-single-line'>" +
+            "<span class='input-group-addon'><i class='fa fa-lock fa-fw'></i></span>" +
+            "<input type='text' class='input-text-100' placeholder='原密码' id='fixpassword_oldpassword'/>" +
+            "</div>" +
+            "</div>" +
             "<div>" +
             "<input type='text' placeholder='原密码' id='fixpassword_oldpassword'/>" +
             "</div>" +
